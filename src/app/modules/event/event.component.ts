@@ -17,10 +17,10 @@ export class EventComponent implements OnInit {
     this.model.menu.register = { display: true, items: [] };
     this.model.menu.create = { display: true, items: [] };
 
-    this.model.menu.inicio.items.push({ url: '/event/events-home/', name: 'Inicio' });
+    this.model.menu.inicio.items.push({ url: '/event/events/', name: 'Inicio' });
     this.model.menu.login.items.push({ url: '/event/login/', name: 'Iniciar Sesion' });
     this.model.menu.register.items.push({ url: '/event/register/', name: 'Registrarse' });
-    this.model.menu.create.items.push({ url: '/event/create-event/', name: 'Crear Evento' });
+    this.model.menu.create.items.push({ url: '/event/create/', name: 'Crear Evento' });
    }
 
   ngOnInit() {

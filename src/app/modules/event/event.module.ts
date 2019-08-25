@@ -13,7 +13,7 @@ import { LoginComponent } from './modules/login/login.component';
 const routes: Routes = [
   { path: '', component: EventComponent },
   {
-      path: 'events-home',
+      path: 'events',
       component: EventComponent,
       loadChildren: './modules/events-home/events-home.module#EventsHomeModule',
       canActivate: []
@@ -31,7 +31,7 @@ const routes: Routes = [
       canActivate: []
   },
   {
-      path: 'create-event',
+      path: 'create',
       component: EventComponent,
       loadChildren: './modules/create-event/create-event.module#CreateEventModule',
       canActivate: []

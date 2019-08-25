@@ -5,6 +5,18 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 
+.listado-nav{
+	width: 100%;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -webkit-justify-content: space-between!important;
+    -ms-flex-pack: justify!important;
+    justify-content: space-between!important;
+}
 .menu_category {
     background: #101010;
     border: 0 solid;
@@ -17,11 +29,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     width: 100%;
     z-index: 12345;
 }
-html, body{
-	margin:0;
-	font-size: 100%;
-	background: #fff;
-	font-family: 'Open Sans', sans-serif;
+.menu_category .nav-category li{
+	-webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    text-align: center;
+}
+.menu_category .dropdown-menu{
+	border: 0 solid;
+    background: #101010!important;
+    font-size: .8em;
+    width: 100%;
+}
+.nav .open > a{
+	background-color: #2B2B2B !important;
+    color: #fff;
+}
+.navbar-default .navbar-nav>li>a{
+	color: #fff;
 }
 body a {
 	text-decoration:none;

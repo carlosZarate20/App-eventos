@@ -4,7 +4,7 @@ import { EventComponent } from './modules/event/event.component';
 import { EventsHomeComponent } from './modules/event/modules/events-home/events-home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/event', pathMatch: 'full' },
+  { path: '', redirectTo: '/event/events', pathMatch: 'full' },
 
   { path: 'event', 
     loadChildren: './modules/event/event.module#EventModule',

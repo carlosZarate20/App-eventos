@@ -4,7 +4,6 @@ import { EventsHomeComponent } from './events-home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-
 const routes: Routes = [
   { path: '', component: EventsHomeComponent },
 ];
