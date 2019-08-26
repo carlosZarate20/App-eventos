@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EventComponent } from './modules/event/event.component';
 import { EventModule } from './modules/event/event.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { EventModule } from './modules/event/event.module';
     HttpClientModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
-    EventModule
+    EventModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule 
     
   ],
   providers: [],

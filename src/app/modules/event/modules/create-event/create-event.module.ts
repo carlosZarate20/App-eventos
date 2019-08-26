@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateEventComponent } from './create-event.component';
+import {CalendarModule} from 'primeng/calendar';
 
 const routes: Routes = [
   { path: '', component: CreateEventComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
       RouterModule.forChild(routes),
       CommonModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      CalendarModule
     ],
     bootstrap:[CreateEventComponent], 
     exports: [CreateEventComponent]

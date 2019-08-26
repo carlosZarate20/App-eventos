@@ -6,9 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { EventsHomeComponent } from './modules/events-home/events-home.component';
-import { EventsHomeModule } from './modules/events-home/events-home.module';
-import { LoginComponent } from './modules/login/login.component';
 
 const routes: Routes = [
   { path: '', component: EventComponent },
