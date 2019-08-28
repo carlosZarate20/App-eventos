@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterUserService} from '../../services/registerUser.service'
 import { userModel } from '../../Model/User'
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CustomValidators } from '../../Model/CustomValidators';
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -11,7 +13,9 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 export class RegisterComponent implements OnInit {
     public model: any = {};
     userForm: FormGroup;
-    constructor( public registerService: RegisterUserService, private fb: FormBuilder){
+    submitted = false;
+    constructor( public registerService: RegisterUserService, private fb: FormBuilder,
+        private router: Router){
         this.userForm = this.createForm();
     }
     ngOnInit() {
@@ -19,15 +23,16 @@ export class RegisterComponent implements OnInit {
     }
 
     registerUser(form: any){
-        if (form.invalid) {
+        this.submitted = true;
+        if (this.userForm.invalid) {
             return;
         }else{
             this.registerService.register(form).subscribe(
                 res => {
-                    console.log(res)
+                    this.router.navigate(['/event/login']);
                 },
                 (err: any) => {
-                    console.log(err)
+                    console.log('Registro Erroneo')
                 }
             );
         }
@@ -43,13 +48,17 @@ export class RegisterComponent implements OnInit {
     createForm(): FormGroup{
         return this.fb.group({
             id : [null],
-            email: [''],
-            emailConfirm: [''],
-            password: [''],
-            passwordConfirm: [''],
-            name: [''],
-            lastName: [''],
-            phone: ['']
+            email: ['', Validators.compose([Validators.required, Validators.email])],
+            emailConfirm: ['', Validators.compose([Validators.required, Validators.maxLength(40)])],
+            password: ['', Validators.compose([Validators.required,
+                Validators.minLength(8),
+                CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+                CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+                CustomValidators.patternValidator(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })])],
+            passwordConfirm: ['', Validators.compose([Validators.required])],
+            name: ['', Validators.compose([Validators.required,CustomValidators.patternValidator(/^[A-Za-z](?!.*?\s$)[A-Za-z\s]{0,55}$/, { isvalid: true })])],
+            lastName: ['', Validators.compose([Validators.required,CustomValidators.patternValidator(/^[A-Za-z](?!.*?\s$)[A-Za-z\s]{0,55}$/, { isvalid: true })])],
+            phone: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(9), Validators.pattern('[0-9]*')])]
         });
     }
 }
