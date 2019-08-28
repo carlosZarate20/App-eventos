@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
             email: ['', Validators.compose([Validators.required, Validators.email])],
             emailConfirm: ['', Validators.compose([Validators.required, Validators.maxLength(40)])],
             password: ['', Validators.compose([Validators.required,
-                Validators.minLength(8),
+                Validators.minLength(6),
                 CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
                 CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
                 CustomValidators.patternValidator(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })])],
@@ -59,6 +59,6 @@ export class RegisterComponent implements OnInit {
             name: ['', Validators.compose([Validators.required,CustomValidators.patternValidator(/^[A-Za-z](?!.*?\s$)[A-Za-z\s]{0,55}$/, { isvalid: true })])],
             lastName: ['', Validators.compose([Validators.required,CustomValidators.patternValidator(/^[A-Za-z](?!.*?\s$)[A-Za-z\s]{0,55}$/, { isvalid: true })])],
             phone: ['', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(9), Validators.pattern('[0-9]*')])]
-        });
+        }, {validator: [CustomValidators.passwordMatchValidator]});
     }
 }

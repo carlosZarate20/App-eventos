@@ -41,7 +41,7 @@
                                 <div *ngIf="submitted && userForm.controls['email'].errors?.required" class="help-block" style="color: red">
                                     Este campo es obligatorio
                                 </div>
-                                <div *ngIf="submitted && userForm.controls['email'].error?.email" class="help-block" style="color: red">
+                                <div *ngIf="submitted && userForm.controls['email'].errors?.email" class="help-block" style="color: red">
                                     Formato no válido para un campo de email
                                 </div>
                             </div>
@@ -51,21 +51,54 @@
                                 <div *ngIf="submitted && userForm.controls['emailConfirm'].errors?.required" class="help-block" style="color: red">
                                     Este campo es obligatorio
                                 </div>
-                                <div *ngIf="submitted && userForm.controls['emailConfirm'].error?.emailConfirm" class="help-block" style="color: red">
+                                <div *ngIf="submitted && userForm.controls['emailConfirm'].errors?.emailConfirm" class="help-block" style="color: red">
                                     Formato no válido para un campo de email
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Celular</label>
-                                <input type="text" formControlName="phone" placeholder="Celular..." class="form-username form-control" id="form-username">
+                                <input type="text" formControlName="phone" placeholder="Celular..." class="form-username form-control" autocomplete="off">
+                                <div *ngIf="submitted && userForm.controls['phone'].errors?.required" class="help-block" style="color: red">
+                                    Este campo es obligatorio
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['phone'].errors?.minlength" class="help-block" style="color: red">
+                                    Este campo debe contener mínimo 7 caracteres
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['phone'].errors?.maxlength" class="help-block" style="color: red">
+                                    Este campo debe contener máximo 9 caracteres
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['phone'].errors?.pattern" class="help-block" style="color: red">
+                                    Este campo no permite letras
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Contraseña</label>
                                 <input type="password" formControlName="password" placeholder="Contraseña..." class="form-password form-control" id="form-password">
+                                <div *ngIf="submitted && userForm.controls['password'].errors?.required" class="help-block" style="color: red">
+                                    Este campo es obligatorio
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['password'].errors?.minlength" class="help-block" style="color: red">
+                                    Este campo requiere mínimo 6 caracteres
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['password'].hasError('hasCapitalCase')" class="help-block" style="color: red">
+                                    Este campo requiere almenos un caracter en mayúscula
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['password'].hasError('hasSmallCase')" class="help-block" style="color: red">
+                                    Este campo requiere almenos un caracter en minúscula
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['password'].hasError('hasSpecialCharacters')" class="help-block" style="color: red">
+                                    Este campo requiere almenos un caracter no alfanumérico
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Confirmar contraseña</label>
-                                <input type="password" formControlName="passwordConfirm" placeholder="Confirmar contraseña..." class="form-password form-control" id="form-password">
+                                <input type="password" formControlName="passwordConfirm" placeholder="Confirmar contraseña..." class="form-password form-control" autocomplete="off">
+                                <div *ngIf="submitted && userForm.controls['passwordConfirm'].errors?.required" class="help-block" style="color: red">
+                                    Este campo es obligatorio
+                                </div>
+                                <div *ngIf="submitted && userForm.controls['passwordConfirm'].hasError('NoPassswordMatch')" class="help-block" style="color: red">
+                                    Contraseña no coincide
+                                </div>
                             </div>
                             <button  type="submit" class="btn">Ingresar!</button>
                         </form>

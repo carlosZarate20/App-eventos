@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+    submitted = false;
     constructor(public loginService: LoginService, private fb: FormBuilder,
         private router: Router){
         this.loginForm = this.loginValidateForm();
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     }
 
     loginUser(form: any){
-        if (form.invalid) {
+        this.submitted = true;
+        if (this.loginForm.invalid) {
             return;
         }else{
             this.loginService.login(form).subscribe(
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/event/events']);
                 },
                 (err: any) => {
-                    console.log('Login Erroneo')
+                    console.log('Login Erroneo');
                 }
             );
         }
