@@ -12,20 +12,22 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
-    constructor(public loginService: LoginService, private fb: FormBuilder,
-        private router: Router){
+    constructor(public loginService: LoginService, private fb: FormBuilder, private router: Router) {
         this.loginForm = this.loginValidateForm();
     }
     ngOnInit() {
     }
 
-    loginUser(form: any){
+    loginUser(form: any) {
         this.submitted = true;
         if (this.loginForm.invalid) {
             return;
-        }else{
+        } else {
             this.loginService.login(form).subscribe(
                 res => {
+                    localStorage.setItem('usuario', 'usuarioTest');
+                    const user = localStorage.getItem('usuario');
+                    console.log(user);
                     this.router.navigate(['/event/events']);
                 },
                 (err: any) => {
@@ -34,8 +36,8 @@ export class LoginComponent implements OnInit {
             );
         }
     }
-    
-    loginValidateForm(): FormGroup{
+
+    loginValidateForm(): FormGroup {
         return this.fb.group({
             id : [null],
             userName: ['', Validators.compose([Validators.required])],

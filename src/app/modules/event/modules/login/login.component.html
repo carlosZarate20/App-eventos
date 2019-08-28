@@ -16,7 +16,7 @@
                         <form [formGroup]="loginForm" class="login-form" (ngSubmit)="loginUser(loginForm.value)">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Correo</label>
-                                <input type="text" formControlName="userName" placeholder="Correo..." class="form-username form-control">
+                                <input type="text" formControlName="userName" name="userName" placeholder="Correo..." class="form-username form-control">
                                 <div *ngIf="submitted && loginForm.controls['userName'].errors?.required" class="help-block" style="color: red">
                                     Este campo es obligatorio
                                 </div>

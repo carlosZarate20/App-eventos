@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 export class EventComponent implements OnInit {
 
   public model: any = {};
+  public usuario: any = [];
 
   constructor( private activatedRoute: ActivatedRoute, private router: Router) {
     this.model.menu = {};
@@ -24,6 +25,7 @@ export class EventComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.usuario = localStorage.getItem('usuario');
   }
 
 }

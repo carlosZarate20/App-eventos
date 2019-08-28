@@ -22,18 +22,21 @@
 		</div>
 		<div class="pull-right">
 			<ul class="nav navbar-nav" >
-				<li *ngFor="let menuItem of model.menu.inicio.items" [routerLinkActive]="['active']">
-					<a routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
+				<!-- <li *ngFor="let menuItem of model.menu.inicio.items" [routerLinkActive]="['active']">
+					<a routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li> -->
+				
 				<li *ngFor="let menuItem of model.menu.login.items" [routerLinkActive]="['active']">
-						<a routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
+					<a *ngIf="usuario == null" routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
 				<li *ngFor="let menuItem of model.menu.register.items" [routerLinkActive]="['active']">
-						<a routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
+					<a *ngIf="usuario == null" routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
 				<li *ngFor="let menuItem of model.menu.create.items" [routerLinkActive]="['active']">
-					<a routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
+					<a *ngIf="usuario != null" routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
+				<li *ngIf="usuario != null">
+					<a>{{usuario}}</a></li>
 			</ul>
 		</div>
 		
 	</div>
 </div>
 
-<div><router-outlet  #o="outlet"></router-outlet></div>
+<div><router-outlet #o="outlet"></router-outlet></div>
