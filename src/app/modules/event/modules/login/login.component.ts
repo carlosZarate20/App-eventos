@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
             return;
         } else {
             this.loginService.login(form).subscribe(
-                (res:any) => {
+                (res: any) => {
                     localStorage.setItem('usuario', res.name);
                     const user = localStorage.getItem('usuario');
                     this.router.navigate(['/event/events']);

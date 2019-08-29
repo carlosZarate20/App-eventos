@@ -28,4 +28,11 @@ export class EventComponent implements OnInit {
     this.usuario = localStorage.getItem('usuario');
   }
 
+  logout() {
+    localStorage.removeItem(this.usuario);
+    localStorage.clear();
+    console.log('Fin de sesion');
+    this.router.navigate(['/event/events']);
+  }
+
 }
