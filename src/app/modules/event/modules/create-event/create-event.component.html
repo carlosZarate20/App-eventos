@@ -24,6 +24,11 @@
                         <div class="col-xs-6 col-sm-6">
                             <div class="form-element form-element-small-errors unpad-b">
                                 <label for="businessName"><span>Nombre del Evento*</span></label>
+                                <input type="file" (change)="selectFile($event)" accept="file_extension|.jpg"/>
+                                <button type="button" (click)="uploadImage()">Subir Imagen</button>
+                            </div>
+                            <div class="form-element form-element-small-errors unpad-b">
+                                <label for="businessName"><span>Nombre del Evento*</span></label>
                                 <input type="text" name=" title" class="form-control" id="businessName" value="">
                             </div>
                             <div class="form-element-information">
@@ -143,11 +148,8 @@
                             <div class="form-element">
                                 <label>
                                     <span>Ciudad *</span>
-                                    <select name="city" class="form-control">
-                                        <option value="lima" selected="selected">Lima</option>
-                                        <option value="arequipa">Arequipa</option>
-                                        <option value="moquegua">Moquegua</option>
-                                        <option value="huancayo">Huancayo</option>
+                                    <select  name="city" class="form-control">
+                                        <option *ngFor="let city of model.list" value="lima">{{city.name}}</option>
                                     </select>
                                 </label>
                             </div>
