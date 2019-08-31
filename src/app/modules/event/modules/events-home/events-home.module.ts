@@ -4,6 +4,7 @@ import { EventsHomeComponent } from './events-home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeEventService } from '../../services/homeEvent.service';
 const routes: Routes = [
   { path: '', component: EventsHomeComponent },
 ];
@@ -18,6 +19,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule
   ],
+  providers: [HomeEventService],
   exports: [EventsHomeComponent]
 })
 export class EventsHomeModule { }

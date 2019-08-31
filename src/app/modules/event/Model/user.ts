@@ -9,7 +9,7 @@ export class userModel {
 }
 export class ticketModel {
     nameTicket: string;
-    quantityAvailable : number;
-    price : number;
-    currencyType: number;
+    quantityAvailable : string;
+    price : string;
+    currencyType: string;
 }

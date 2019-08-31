@@ -68,7 +68,7 @@ export class CreateEventComponent implements OnInit {
         // let startDateHour = form.startDate + ' ' + form.startHour;
         // let endDateHour = form.endDate + ' ' + form.endHour;
         let ticketModelClass = new ticketModel();
-        var datePipe = new DatePipe("en-US");
+        var datePipe = new DatePipe("en-PE");
         let startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
         let endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
 
@@ -89,7 +89,13 @@ export class CreateEventComponent implements OnInit {
         fd.append('reference', form.reference);
         fd.append('eventCategoryId', form.eventCategoryId);
         fd.append('cityId', form.cityId);
-        fd.append('ticketList ', JSON.stringify(this.listTiket));
+        for( var i=0; i< this.listTiket.length; i++){
+            fd.append(`TicketList[${i}].NameTicket`, this.listTiket[i].nameTicket);
+            fd.append(`TicketList[${i}].QuantityAvailable`, this.listTiket[i].quantityAvailable);
+            fd.append(`TicketList[${i}].Price`, this.listTiket[i].price);
+            fd.append(`TicketList[${i}].CurrencyType`, this.listTiket[i].currencyType);
+        }
+        
 
         this.createService.registerEvent(fd).subscribe(
             res=>{
