@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { HttpClient } from 'selenium-webdriver/http';
+import { userModel, ticketModel } from '../../Model/User';
 import { CreateEventService } from '../../services/createEvent.service';
+import { FormGroup, FormControl, Validators, FormBuilder, Form } from '@angular/forms';
+
 
 @Component({
     selector: 'app-create-event',
@@ -12,10 +15,13 @@ import { CreateEventService } from '../../services/createEvent.service';
 export class CreateEventComponent implements OnInit {
     en: any;
     selectedFiles = null;
+    eventForm: FormGroup;
+    public listTiket: Array<ticketModel> = [];
     public model: any = {};
-    constructor(public createService: CreateEventService){
+    constructor(public createService: CreateEventService, private fbr: FormBuilder){
         this.model.listCity = [];
         this.model.listCategory = [];
+        this.eventForm = this.eventModelFrom();
         
     }
     ngOnInit() {
@@ -57,8 +63,38 @@ export class CreateEventComponent implements OnInit {
         );
     }
 
-    registerEvent(){
+    registerEvent(form: any){
+        const startDateHour = form.startDate + ' ' + form.startHour;
+        const endDateHour = form.endDate + ' ' + form.endHour;
+        let ticketModelClass = new ticketModel();
+        ticketModelClass.nameTicket = form.nameTicket;
+        ticketModelClass.quantityAvailable = form.quantityAvailable;
+        ticketModelClass.price = form.price;
+        ticketModelClass.currencyType = form.currencyType;
+
+        this.listTiket.push(ticketModelClass);
         const fd = new FormData();
+        fd.append('file', this.selectedFiles, this.selectedFiles.name);
+        fd.append('name', form.name);
+        fd.append('description', form.description);
+        fd.append('aditionalInformation', form.aditionalInformation);
+        fd.append('startDate', startDateHour);
+        fd.append('endtDate', endDateHour);
+        fd.append('adress', form.adress);
+        fd.append('reference', form.reference);
+        fd.append('eventCategoryId', form.eventCategoryId);
+        fd.append('cityId', form.cityId);
+        fd.append('ticketList ', JSON.stringify(this.listTiket));
+
+        this.createService.registerEvent(fd).subscribe(
+            res=>{
+                console.log('Registro del Evento Correctamente')
+            },
+            err => {
+                console.log('Error el en servidor del registro')
+            }
+        )
+
     }
     uploadImage(){
         const fd = new FormData();
@@ -74,6 +110,28 @@ export class CreateEventComponent implements OnInit {
                 console.log('Error en el servidor');
             }
         );
+    }
+
+    eventModelFrom(): FormGroup {
+        return this.fbr.group({
+            id : [null],
+            name : [''],
+            description: [''],
+            aditionalInformation: [''],
+            startDate: [''],
+            startHour: [''],
+            endDate: [''],
+            endHour: [''],
+            adress: [''], 
+            reference: [''],
+            nameTicket: [''],
+            quantityAvailable: [0], 
+            price: [''],
+            currencyType: [0] ,
+            eventCategoryId: [0],
+            cityId: [0] 
+
+        });
     }
 
 

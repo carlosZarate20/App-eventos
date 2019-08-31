@@ -7,3 +7,9 @@ export class userModel {
     lastName: string;
     phone: string;
 }
+export class ticketModel {
+    nameTicket: string;
+    quantityAvailable : number;
+    price : number;
+    currencyType: number
+}
