@@ -11,5 +11,5 @@ export class ticketModel {
     nameTicket: string;
     quantityAvailable : number;
     price : number;
-    currencyType: number
+    currencyType: number;
 }

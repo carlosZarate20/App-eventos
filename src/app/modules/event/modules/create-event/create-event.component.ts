@@ -4,6 +4,7 @@ import { HttpClient } from 'selenium-webdriver/http';
 import { userModel, ticketModel } from '../../Model/User';
 import { CreateEventService } from '../../services/createEvent.service';
 import { FormGroup, FormControl, Validators, FormBuilder, Form } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -64,9 +65,13 @@ export class CreateEventComponent implements OnInit {
     }
 
     registerEvent(form: any){
-        const startDateHour = form.startDate + ' ' + form.startHour;
-        const endDateHour = form.endDate + ' ' + form.endHour;
+        // let startDateHour = form.startDate + ' ' + form.startHour;
+        // let endDateHour = form.endDate + ' ' + form.endHour;
         let ticketModelClass = new ticketModel();
+        var datePipe = new DatePipe("en-US");
+        let startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
+        let endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
+
         ticketModelClass.nameTicket = form.nameTicket;
         ticketModelClass.quantityAvailable = form.quantityAvailable;
         ticketModelClass.price = form.price;
@@ -79,7 +84,7 @@ export class CreateEventComponent implements OnInit {
         fd.append('description', form.description);
         fd.append('aditionalInformation', form.aditionalInformation);
         fd.append('startDate', startDateHour);
-        fd.append('endtDate', endDateHour);
+        fd.append('endDate', endDateHour);
         fd.append('adress', form.adress);
         fd.append('reference', form.reference);
         fd.append('eventCategoryId', form.eventCategoryId);
