@@ -14,10 +14,23 @@ export class CreateEventService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
+
+    registerEvent(eventos: any): Observable<Response>{
+        return this.http
+        .post('http://edumoreno27-001-site6.etempurl.com/guarda_evento', eventos)
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
     
     getCities(){
         return this.http
         .get('http://edumoreno27-001-site6.etempurl.com/obtener_ciudades')
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    getCategory(){
+        return this.http
+        .get('http://edumoreno27-001-site6.etempurl.com/obtener_categorias')
         .map((res: Response) => res)
         .catch(this.handleError);
     }

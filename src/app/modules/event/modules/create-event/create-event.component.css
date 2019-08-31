@@ -174,5 +174,17 @@
     width: 100%;
 }
 .banner{
-    padding-top: 60px !important;
+    padding-top: 0px !important;
+}
+
+.upload-button {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    z-index: 130;
+    overflow: hidden;
+    display: inline-block;
+}
+input[type=file] {
+    display: block;
 }

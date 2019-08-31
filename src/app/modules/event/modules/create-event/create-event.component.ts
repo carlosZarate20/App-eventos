@@ -14,7 +14,8 @@ export class CreateEventComponent implements OnInit {
     selectedFiles = null;
     public model: any = {};
     constructor(public createService: CreateEventService){
-        this.model.list = [];
+        this.model.listCity = [];
+        this.model.listCategory = [];
         
     }
     ngOnInit() {
@@ -33,6 +34,7 @@ export class CreateEventComponent implements OnInit {
         };
 
         this.getCities();
+        this.getCategory();
     }
     selectFile(event){
         this.selectedFiles = event.target.files[0];
@@ -41,21 +43,35 @@ export class CreateEventComponent implements OnInit {
     getCities(){
         this.createService.getCities().subscribe(
             res => {
-                this.model.list = res;
+                this.model.listCity = res;
                 console.log(res);
             }
         );
+    }
+    getCategory(){
+        this.createService.getCategory().subscribe(
+            res => {
+                this.model.listCategory = res;
+                console.log(res);
+            }
+        );
+    }
+
+    registerEvent(){
+        const fd = new FormData();
     }
     uploadImage(){
         const fd = new FormData();
         fd.append('file', this.selectedFiles, this.selectedFiles.name);
 
         this.createService.register(fd).subscribe(
-            (res:any) => {
-                console.log(res.name);
+            res => {
+                // console.log(res);
+                console.log('Subida Imagen');
             },
             (err: any) => {
-                console.log('Error Imagen');
+                // console.log(err);
+                console.log('Error en el servidor');
             }
         );
     }
