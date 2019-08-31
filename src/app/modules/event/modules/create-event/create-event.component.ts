@@ -5,6 +5,7 @@ import { userModel, ticketModel } from '../../Model/User';
 import { CreateEventService } from '../../services/createEvent.service';
 import { FormGroup, FormControl, Validators, FormBuilder, Form } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class CreateEventComponent implements OnInit {
     eventForm: FormGroup;
     public listTiket: Array<ticketModel> = [];
     public model: any = {};
-    constructor(public createService: CreateEventService, private fbr: FormBuilder){
+    constructor(public createService: CreateEventService, private fbr: FormBuilder, private router: Router){
         this.model.listCity = [];
         this.model.listCategory = [];
         this.eventForm = this.eventModelFrom();
@@ -99,6 +100,7 @@ export class CreateEventComponent implements OnInit {
 
         this.createService.registerEvent(fd).subscribe(
             res=>{
+                this.router.navigate(['/event/events']);
                 console.log('Registro del Evento Correctamente')
             },
             err => {
