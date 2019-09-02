@@ -11,6 +11,8 @@ export class EventComponent implements OnInit {
   public model: any = {};
   public usuario: any = [];
 
+  public modalSearch: Boolean = false;
+
   constructor( private activatedRoute: ActivatedRoute, private router: Router) {
     this.model.menu = {};
     this.model.menu.inicio = { display: true, items: [] };
@@ -26,6 +28,7 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
     this.usuario = localStorage.getItem('usuario');
+    
   }
 
   logout() {
@@ -33,6 +36,16 @@ export class EventComponent implements OnInit {
     localStorage.clear();
     console.log('Fin de sesion');
     this.router.navigate(['/event/events']);
+  }
+
+  activateSearch(){
+    this.modalSearch = true;
+    console.log('abrio modal');
+  }
+
+  desactivateSearch(){
+    this.modalSearch = false;
+    console.log('cerro modal');
   }
 
 }

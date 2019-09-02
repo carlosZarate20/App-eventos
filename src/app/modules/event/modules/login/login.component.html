@@ -1,3 +1,14 @@
+<p-dialog [(visible)]="displayDialogAlert" styleClass="top_alert" modal="modal" [responsive]="true" [minWidth]="500" [draggable]="false">
+    <p-header><i class="fa fa-exclamation-triangle"></i>
+        Alerta
+    </p-header>
+    <p style="white-space:pre-wrap;">Los datos ingresados son incorrectos</p>
+    <p-footer>
+    <button type="button" (click)="displayDialogAlert=false" class="btn btn-default">
+            <i class="fa fa-check"></i>Aceptar</button>
+    </p-footer>
+</p-dialog>
+
 <div class="body2">
     <div class="top-content"> 
         <div class="inner-bg" >

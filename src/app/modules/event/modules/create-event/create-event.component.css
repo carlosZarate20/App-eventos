@@ -177,7 +177,7 @@
     padding-top: 0px !important;
 }
 
-.upload-button {
+.image-picker .upload-button {
     position: absolute;
     right: 5px;
     bottom: 5px;
@@ -187,4 +187,39 @@
 }
 input[type=file] {
     display: block;
+}
+
+
+.fileContainer [type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.image-picker .upload-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+}
+
+.image-picker .upload-button {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    z-index: 130;
+   
+    display: inline-block;
 }

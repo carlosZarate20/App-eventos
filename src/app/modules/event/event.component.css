@@ -8,4 +8,36 @@
 .navbar-default .navbar-nav > li > a {
     /* color: #777; */
     color: #fff !important;
-  }
+}
+#app-search.open {
+    opacity: 1;
+}
+#app-search {
+    overflow: auto;
+    font-family: Open Sans,sans-serif;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    background: #fff;
+    font-family: open_sansregular;
+}
+#app-search .close {
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 30px;
+    opacity: .6;
+    border: none;
+    font-weight: 300;
+    padding: 0;
+    line-height: 40px;
+    cursor: pointer;
+    outline: none;
+    background: none;
+}
+/* .logo{
+    padding: 15px 15px 15px 0;
+} */

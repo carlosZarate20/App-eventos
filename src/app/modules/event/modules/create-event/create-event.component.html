@@ -1,5 +1,3 @@
-
-
 <div class="container banner">
     <div class="col-sm-12 text-center">
             <form role="form" action="" method="post" class="f1">
@@ -81,15 +79,17 @@
                                         <div class="form-element">
                                             <label>Image * (700 x 438px)</label>
                                             <div id="imageUrl" class="image-picker" style="height: 218px;">
-                                                <div class="overlay"></div>
-                                            </div>
-                                            <span class="btn btn-default upload-button">
-                                                <span class="glyphicon glyphicon-plus">
-
+                                                <div class="overlay">
+                                                    <img [src]="url" height="200">
+                                                </div>
+                                                <span class="btn btn-default upload-button">
+                                                    <span class="glyphicon glyphicon-plus">
+                                                        <span>Cargar</span>
+                                                        <input name="imageUrlFile" type="file" (change)="selectFile($event)" accept="file_extension|.jpg"/>
+                                                    </span>      
                                                 </span>
-                                                <span>Cargar</span>
-                                                <input type="file" (change)="selectFile($event)" accept="file_extension|.jpg"/>
-                                            </span>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

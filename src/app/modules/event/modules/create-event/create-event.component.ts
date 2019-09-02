@@ -18,6 +18,9 @@ export class CreateEventComponent implements OnInit {
     en: any;
     selectedFiles = null;
     eventForm: FormGroup;
+    url: any;
+    public imagePath: any;
+    public message: string;
     public listTiket: Array<ticketModel> = [];
     public model: any = {};
     constructor(public createService: CreateEventService, private fbr: FormBuilder, private router: Router){
@@ -43,10 +46,20 @@ export class CreateEventComponent implements OnInit {
 
         this.getCities();
         this.getCategory();
+        this.url = '';
     }
+
     selectFile(event){
         this.selectedFiles = event.target.files[0];
-
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+  
+            reader.onload = (event:any) => {
+                this.url = event.target.result;
+            }
+  
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
     getCities(){
         this.createService.getCities().subscribe(

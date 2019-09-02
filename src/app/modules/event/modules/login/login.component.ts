@@ -7,12 +7,14 @@ import { Router } from '@angular/router';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
+    providers: [LoginService]
 })
 
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
-    constructor(public loginService: LoginService, private fb: FormBuilder, private router: Router) {
+    public displayDialogAlert: Boolean = false;
+    constructor(private loginService: LoginService, private fb: FormBuilder, private router: Router) {
         this.loginForm = this.loginValidateForm();
     }
     ngOnInit() {
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
                 },
                 (err: any) => {
                     console.log('Login Erroneo');
+                    this.displayDialogAlert = true;
                 }
             );
         }
