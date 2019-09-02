@@ -1,4 +1,14 @@
-
+.menubar .custom-search-form {
+    padding: 10px 0;
+}
+#search {
+    padding: 4px 7px;
+    vertical-align: middle;
+}
+.menubar {
+    vertical-align: middle;
+    z-index: 123456;
+}
 .navbar {
     position: relative;
     min-height: 50px;

@@ -27,10 +27,10 @@ export class CreateEventComponent implements OnInit {
         this.model.listCity = [];
         this.model.listCategory = [];
         this.eventForm = this.eventModelFrom();
-        
+
     }
     ngOnInit() {
-        
+
         this.en = {
             firstDayOfWeek: 0,
             dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -52,12 +52,12 @@ export class CreateEventComponent implements OnInit {
     selectFile(event){
         this.selectedFiles = event.target.files[0];
         if (event.target.files && event.target.files[0]) {
-            var reader = new FileReader();
-  
-            reader.onload = (event:any) => {
+            const reader = new FileReader();
+
+            reader.onload = (event: any) => {
                 this.url = event.target.result;
             }
-  
+
             reader.readAsDataURL(event.target.files[0]);
         }
     }
@@ -81,10 +81,10 @@ export class CreateEventComponent implements OnInit {
     registerEvent(form: any){
         // let startDateHour = form.startDate + ' ' + form.startHour;
         // let endDateHour = form.endDate + ' ' + form.endHour;
-        let ticketModelClass = new ticketModel();
-        var datePipe = new DatePipe("en-PE");
-        let startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
-        let endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
+        const ticketModelClass = new ticketModel();
+        const datePipe = new DatePipe('en-PE');
+        const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
+        const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
 
         ticketModelClass.nameTicket = form.nameTicket;
         ticketModelClass.quantityAvailable = form.quantityAvailable;
@@ -103,16 +103,16 @@ export class CreateEventComponent implements OnInit {
         fd.append('reference', form.reference);
         fd.append('eventCategoryId', form.eventCategoryId);
         fd.append('cityId', form.cityId);
-        for( var i=0; i< this.listTiket.length; i++){
+        for ( var i = 0 ; i < this.listTiket.length; i++){
             fd.append(`TicketList[${i}].NameTicket`, this.listTiket[i].nameTicket);
             fd.append(`TicketList[${i}].QuantityAvailable`, this.listTiket[i].quantityAvailable);
             fd.append(`TicketList[${i}].Price`, this.listTiket[i].price);
             fd.append(`TicketList[${i}].CurrencyType`, this.listTiket[i].currencyType);
         }
-        
+
 
         this.createService.registerEvent(fd).subscribe(
-            res=>{
+            res => {
                 this.router.navigate(['/event/events']);
                 console.log('Registro del Evento Correctamente')
             },
@@ -151,12 +151,11 @@ export class CreateEventComponent implements OnInit {
             adress: [''], 
             reference: [''],
             nameTicket: [''],
-            quantityAvailable: [0], 
+            quantityAvailable: [0],
             price: [''],
             currencyType: [0] ,
             eventCategoryId: [0],
-            cityId: [0] 
-
+            cityId: [0]
         });
     }
 

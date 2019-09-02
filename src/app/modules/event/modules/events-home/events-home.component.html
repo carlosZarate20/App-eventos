@@ -99,54 +99,58 @@
 				</a>
 			</div> 
 		</div>
-	</div>		
-</div>
-<nav class="menu_category navbar navbar-default">
-	<div class="container">	
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="nav-category collapse navbar-collapse">
-			<ul class="nav navbar-nav listado-nav">
-				<li ><a href="#">Destacados</a></li>
-				<li ><a href="#">Todos</a></li>
-				<li ><a href="#">Nuevos</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Conciertos</a></li>
-						<li><a href="#">Deportes</a></li>
-						<li><a href="#">Teatro</a></li>
-						<li><a href="#">Entretenimiento</a></li>
-						<li><a href="#">Seminarios</a></li>
+	</div>	
+	<div class="row">
+		<nav class="menu_category navbar navbar-default hidden-xs" role="navigation">
+			<div class="container">	
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="nav-category collapse navbar-collapse">
+					<ul class="nav navbar-nav listado-nav">
+						<li ><a href="#">Destacados</a></li>
+						<li ><a href="#">Todos</a></li>
+						<li ><a href="#">Nuevos</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Conciertos</a></li>
+								<li><a href="#">Deportes</a></li>
+								<li><a href="#">Teatro</a></li>
+								<li><a href="#">Entretenimiento</a></li>
+								<li><a href="#">Seminarios</a></li>
+							</ul>
+						</li>
 					</ul>
-				</li>
-			</ul>
-		</div><!-- /.navbar-collapse -->
-	</div><!-- /.container-fluid -->
-</nav>
-<div class="new_arrivals_agile_w3ls_info">
-	<div class="container">
-		<div class="resp-tabs-container">
-			<div class="tab1">
-				<div class="col-md-3 product-men" *ngFor="let items of model.listEvent">
-					<div class="men-pro-item simpleCart_shelfItem">
-						<div class="men-thumb-item">
-							<img  src="{{items.image}}" style="width: 250px; height: 200px;">
-							<div class="men-cart-pro">
-								<div class="inner-men-cart-pro">
-									<a class="link-product-add-cart">{{items.name}}</a>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</div>	
+	
+	<div class="new_arrivals_agile_w3ls_info">
+		<div class="container">
+			<div class="resp-tabs-container">
+				<div class="tab1">
+					<div class="col-md-3 product-men" *ngFor="let items of model.listEvent">
+						<div class="men-pro-item simpleCart_shelfItem">
+							<div class="men-thumb-item">
+								<img  src="{{items.image}}" style="width: 250px; height: 200px;">
+								<div class="men-cart-pro">
+									<div class="inner-men-cart-pro">
+										<a class="link-product-add-cart">{{items.name}}</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- <div class="row">
+				<div class="col-md-12">
+					
+				</div>
+			</div> -->
 		</div>
-		<!-- <div class="row">
-			<div class="col-md-12">
-				
-			</div>
-		</div> -->
 	</div>
+	
 </div>
 
 
