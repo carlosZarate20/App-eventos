@@ -46,6 +46,7 @@ const routes: Routes = [
       CommonModule
     ],
   providers: [],
-  bootstrap: [EventComponent]
+  bootstrap: [EventComponent],
+  exports: [EventComponent]
 })
 export class EventModule {}

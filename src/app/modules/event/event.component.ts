@@ -35,7 +35,7 @@ export class EventComponent implements OnInit {
     localStorage.removeItem(this.usuario);
     localStorage.clear();
     console.log('Fin de sesion');
-    this.router.navigate(['/event/events']);
+    this.router.navigate(['/']);
   }
 
   activateSearch(){
