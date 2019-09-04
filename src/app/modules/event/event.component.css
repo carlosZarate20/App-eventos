@@ -101,3 +101,32 @@
     visibility: hidden;
     transition: all .5s;
 }
+#app-search .filters .content-filters .filter__content__heading {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#app-search .input-search {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+#app-search .input-search span {
+    font-size: 35px;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    opacity: .4;
+}
+#app-search input[type=search] {
+    width: 100%;
+    border: 0;
+    height: 54px;
+    outline: none;
+    font-size: 30px;
+    font-weight: 700;
+    border-bottom: 1px solid #000;
+    padding-left: 50px;
+}
