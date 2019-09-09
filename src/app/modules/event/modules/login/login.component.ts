@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -27,8 +28,8 @@ export class LoginComponent implements OnInit {
         } else {
             this.loginService.login(form).subscribe(
                 (res: any) => {
-                    localStorage.setItem('usuario', res.name);
-                    const user = localStorage.getItem('usuario');
+                    localStorage.setItem('token', res.token);
+                    localStorage.setItem('tokenExpiration', res.expiration);          
                     this.router.navigate(['/event/events']);
                 },
                 (err: any) => {
@@ -46,4 +47,5 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.compose([Validators.required])],
         });
     }
+    
 }

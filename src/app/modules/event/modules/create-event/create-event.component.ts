@@ -6,6 +6,7 @@ import { CreateEventService } from '../../services/createEvent.service';
 import { FormGroup, FormControl, Validators, FormBuilder, Form } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({
@@ -23,7 +24,13 @@ export class CreateEventComponent implements OnInit {
     public message: string;
     public listTiket: Array<ticketModel> = [];
     public model: any = {};
-    constructor(public createService: CreateEventService, private fbr: FormBuilder, private router: Router){
+
+    public boolDetails: Boolean;
+    public boolUbication: Boolean;
+    public boolTickets: Boolean;
+    public boolBillingInformation: Boolean;
+    public boolSendEvent: Boolean;
+    constructor(public createService: CreateEventService, private fbr: FormBuilder, private router: Router, private loginService: LoginService){
         this.model.listCity = [];
         this.model.listCategory = [];
         this.eventForm = this.eventModelFrom();
@@ -32,14 +39,20 @@ export class CreateEventComponent implements OnInit {
     ngOnInit() {
 
         this.en = {
-            firstDayOfWeek: 0,
-            dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-            dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-            monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-            monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-            today: 'Today',
-            clear: 'Clear',
+            firstDayOfWeek: 1,
+            dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+            dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+            dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+            monthNames: [
+                'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+                'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+            ],
+            monthNamesShort: [
+                'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+                'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+            ],
+            today: 'Hoy',
+            clear: 'Borrar',
             dateFormat: 'mm/dd/yy',
             weekHeader: 'Wk'
         };
@@ -47,6 +60,11 @@ export class CreateEventComponent implements OnInit {
         this.getCities();
         this.getCategory();
         this.url = '';
+        this.boolDetails = true;
+        this.boolUbication = false;
+        this.boolTickets = false;
+        this.boolBillingInformation = false;
+        this.boolSendEvent = false;
     }
 
     selectFile(event){
@@ -83,8 +101,11 @@ export class CreateEventComponent implements OnInit {
         // let endDateHour = form.endDate + ' ' + form.endHour;
         const ticketModelClass = new ticketModel();
         const datePipe = new DatePipe('en-PE');
-        const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
-        const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
+        // const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
+        // const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
+
+        const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm a');
+        const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm a');
 
         ticketModelClass.nameTicket = form.nameTicket;
         ticketModelClass.quantityAvailable = form.quantityAvailable;
@@ -103,6 +124,10 @@ export class CreateEventComponent implements OnInit {
         fd.append('reference', form.reference);
         fd.append('eventCategoryId', form.eventCategoryId);
         fd.append('cityId', form.cityId);
+
+        let tokenAcces = this.loginService.getDecodedAccessToken(); 
+        fd.append('UserId', tokenAcces.Id);
+
         for ( var i = 0 ; i < this.listTiket.length; i++){
             fd.append(`TicketList[${i}].NameTicket`, this.listTiket[i].nameTicket);
             fd.append(`TicketList[${i}].QuantityAvailable`, this.listTiket[i].quantityAvailable);
@@ -145,9 +170,7 @@ export class CreateEventComponent implements OnInit {
             description: [''],
             aditionalInformation: [''],
             startDate: [''],
-            startHour: [''],
             endDate: [''],
-            endHour: [''],
             adress: [''], 
             reference: [''],
             nameTicket: [''],
@@ -157,6 +180,44 @@ export class CreateEventComponent implements OnInit {
             eventCategoryId: [0],
             cityId: [0]
         });
+    }
+    viewCreateEvents(){
+        this.boolDetails = true;
+        this.boolUbication = false;
+        this.boolTickets = false;
+        this.boolBillingInformation = false;
+        this.boolSendEvent = false;
+    }
+    viewUbication(){
+        this.boolDetails = false;
+        this.boolUbication = true;
+        this.boolTickets = false;
+        this.boolBillingInformation = false;
+        this.boolSendEvent = false;
+    }
+    viewTicket(){
+        this.boolDetails = false;
+        this.boolUbication = false;
+        this.boolTickets = true;
+        this.boolBillingInformation = false;
+        this.boolSendEvent = false;
+    }
+    viewBillingInformation(){
+        this.boolDetails = false;
+        this.boolUbication = false;
+        this.boolTickets = false;
+        this.boolBillingInformation = true;
+        this.boolSendEvent = false;
+    }
+    validateCreateEvent(){
+        this.boolDetails = false;
+        this.boolUbication = false;
+        this.boolTickets = false;
+        this.boolBillingInformation = false;
+        this.boolSendEvent = true;
+    }
+    sendCreateEvent(){
+
     }
 
 

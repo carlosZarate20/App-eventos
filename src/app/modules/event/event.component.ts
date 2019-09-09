@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-event',
@@ -13,7 +14,7 @@ export class EventComponent implements OnInit {
 
   public modalSearch: Boolean = false;
 
-  constructor( private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService) {
     this.model.menu = {};
     this.model.menu.inicio = { display: true, items: [] };
     this.model.menu.login = { display: true, items: [] };
@@ -27,15 +28,19 @@ export class EventComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.usuario = localStorage.getItem('usuario');
-    
+    let values = this.loginService.getDecodedAccessToken();
+    if(values!= null || values!= undefined)
+    {
+      this.usuario = values.Name;
+    }else {
+      this.usuario = null;
+    }
+   
+   
   }
 
   logout() {
-    localStorage.removeItem(this.usuario);
-    localStorage.clear();
-    console.log('Fin de sesion');
-    this.router.navigate(['/']);
+    this.loginService.logout();
   }
 
   activateSearch(){

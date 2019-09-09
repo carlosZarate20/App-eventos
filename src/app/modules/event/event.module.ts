@@ -1,11 +1,14 @@
-// imports
 import { NgModule } from '@angular/core';
 import { EventComponent } from './event.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthGuardService } from 'src/app/Helpers/auth-guard.service';
+import { LoginService } from './services/login.service';
+import { JwtInterceptor } from 'src/app/Helpers/jwt.interceptor';
+import { ConstantHelper } from 'src/app/Helpers/ConstantsHelpers';
 
 const routes: Routes = [
   { path: '', component: EventComponent },
@@ -31,7 +34,7 @@ const routes: Routes = [
       path: 'create',
       component: EventComponent,
       loadChildren: './modules/create-event/create-event.module#CreateEventModule',
-      canActivate: []
+      canActivate: [AuthGuardService]
   }
 ];
 
@@ -45,7 +48,16 @@ const routes: Routes = [
       FormsModule,
       CommonModule
     ],
-  providers: [],
+  providers: [
+    AuthGuardService,
+    LoginService,
+    ConstantHelper,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [EventComponent],
   exports: [EventComponent]
 })

@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EventComponent } from './modules/event/event.component';
 import { EventModule } from './modules/event/event.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JwtInterceptor } from './Helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule 
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

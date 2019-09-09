@@ -3,34 +3,49 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { environment } from '../../../../environments/environment';
+import { ConstantHelper } from 'src/app/Helpers/ConstantsHelpers';
 
 @Injectable()
 export class CreateEventService {
-    constructor(private http: HttpClient) { }
+    public headerCustomize : HttpHeaders;
+    constructor(private http: HttpClient, private constant:ConstantHelper) {
+        this.headerCustomize = this.constant.getHeaders();
+     }      
 
     register(form: any): Observable<Response> {
+        var headers = this.constant.getHeaders();            
         return this.http
-        .post('http://edumoreno27-001-site6.etempurl.com/guarda_imagen', form)
+        .post(`${environment.apiUrl}/guarda_imagen`, form, { 
+            headers: this.headerCustomize             
+            })
         .map((res: Response) => res)
         .catch(this.handleError);
     }
 
     registerEvent(eventos: any): Observable<Response>{
         return this.http
-        .post('http://edumoreno27-001-site6.etempurl.com/guarda_evento', eventos)
+        .post(`${environment.apiUrl}/guarda_evento`, eventos,{ 
+            headers: this.headerCustomize             
+            })
         .map((res: Response) => res)
         .catch(this.handleError);
     }
     
     getCities(){
         return this.http
-        .get('http://edumoreno27-001-site6.etempurl.com/obtener_ciudades')
+        .get(`${environment.apiUrl}/obtener_ciudades`, { 
+            headers: this.headerCustomize             
+            })
         .map((res: Response) => res)
         .catch(this.handleError);
     }
     getCategory(){
+        var headers = this.constant.getHeaders();       
         return this.http
-        .get('http://edumoreno27-001-site6.etempurl.com/obtener_categorias')
+        .get(`${environment.apiUrl}/obtener_categorias`, { 
+            headers: this.headerCustomize             
+            })
         .map((res: Response) => res)
         .catch(this.handleError);
     }
