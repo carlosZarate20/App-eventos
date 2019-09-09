@@ -13,8 +13,7 @@ export class CreateEventService {
         this.headerCustomize = this.constant.getHeaders();
      }      
 
-    register(form: any): Observable<Response> {
-        var headers = this.constant.getHeaders();            
+    register(form: any): Observable<Response> {                   
         return this.http
         .post(`${environment.apiUrl}/guarda_imagen`, form, { 
             headers: this.headerCustomize             
@@ -24,9 +23,10 @@ export class CreateEventService {
     }
 
     registerEvent(eventos: any): Observable<Response>{
+        var test = this.constant.getHeaders(true); 
         return this.http
         .post(`${environment.apiUrl}/guarda_evento`, eventos,{ 
-            headers: this.headerCustomize             
+            headers: test,                        
             })
         .map((res: Response) => res)
         .catch(this.handleError);

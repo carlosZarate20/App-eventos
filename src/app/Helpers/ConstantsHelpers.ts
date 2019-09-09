@@ -6,11 +6,21 @@ export class ConstantHelper  {
     
   constructor( public loginService: LoginService) {}
     
-  getHeaders(): HttpHeaders {
+  getHeaders(isFormData: boolean = false): HttpHeaders {
     let token = this.loginService.getToken();
-    return new HttpHeaders({
-        'Content-Type': 'application/json',
+    if(isFormData == true){
+      return new HttpHeaders({
+        'Accept': 'multipart/form-data',
         'Authorization': `bearer ${token}`
       });    
+
+    } else 
+    {
+      return new HttpHeaders({
+        'Content-Type': 'application/json',        
+        'Authorization': `bearer ${token}`
+      });  
+
+    }   
   }
 }
