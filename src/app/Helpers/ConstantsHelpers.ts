@@ -1,6 +1,7 @@
 import { LoginService } from '../modules/event/services/login.service';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+
 @Injectable()
 export class ConstantHelper  {
     
@@ -10,7 +11,7 @@ export class ConstantHelper  {
     let token = this.loginService.getToken();
     if(isFormData == true){
       return new HttpHeaders({
-        'Accept': 'multipart/form-data',
+        'Accept': '/',
         'Authorization': `bearer ${token}`
       });    
 
