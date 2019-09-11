@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { LoginService } from './services/login.service';
+import { Constants } from './modules/shared/util/constants';
 
 @Component({
   selector: 'app-event',
@@ -11,8 +12,12 @@ export class EventComponent implements OnInit {
 
   public model: any = {};
   public usuario: any = [];
+  public role: any = [];
 
   public modalSearch: Boolean = false;
+  public roleAdmin: Boolean = false;
+  public roleClient: Boolean = false;
+  public roleThirdUser: Boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService) {
     this.model.menu = {};
@@ -28,15 +33,22 @@ export class EventComponent implements OnInit {
    }
 
   ngOnInit() {
-    let values = this.loginService.getDecodedAccessToken();
-    if(values!= null || values!= undefined)
-    {
+    const values = this.loginService.getDecodedAccessToken();
+    if (values != null || values != undefined) {
+      console.log(values);
       this.usuario = values.Name;
-    }else {
+      this.role = values.Role;
+      if (this.role === Constants.ROLE_ADMIN ) {
+        this.roleAdmin = true;
+        console.log('El rol ingresado es administrador');
+      } else {
+        this.roleAdmin = false;
+        console.log('El rol ingresado no es administrador');
+      }
+    } else {
       this.usuario = null;
+      this.role = null;
     }
-   
-   
   }
 
   logout() {
@@ -51,6 +63,10 @@ export class EventComponent implements OnInit {
   desactivateSearch(){
     this.modalSearch = false;
     console.log('cerro modal');
+  }
+
+  validateRoleLogged() {
+
   }
 
 }

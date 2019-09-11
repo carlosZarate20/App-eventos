@@ -8,7 +8,7 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(private loginService: LoginService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
+
         let token = this.loginService.getToken();
         request = request.clone({
             setHeaders: { Authorization: "bearer " + token }

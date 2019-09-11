@@ -270,3 +270,20 @@ input[type=file] {
 .steps-form-2 .steps-row-2 .steps-step-2 .btn-circle-2 .fa {
     font-size: 1.7rem; 
 }
+
+.ui-calendar.ui-calendar-w-btn .ui-inputtext {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: 0 none !important;
+    width: 270px !important;
+}
+
+.calendar-control input {
+    border: 1px solid black;
+    background: #eeeeee;
+    width: 270px !important;
+  }
+
+  body .ui-inputtext{
+    width: 200px !important;
+  }
