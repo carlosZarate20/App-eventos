@@ -48,7 +48,7 @@
                     <div class="box-content boxStep">
                         <div class="row pad-t ticketRow" style="margin-left:0px;margin-right:0px;">
 
-                            <div class="col-xs-6 col-sm-6">
+                            <div class="col-xs-12 col-sm-12">
                                 <!-- <div class="form-element form-element-small-errors unpad-b">
                                     <label for="businessName"><span>Nombre del Evento*</span></label>
                                     <input type="file" (change)="selectFile($event)" accept="file_extension|.jpg"/>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-element form-element-small-errors unpad-b">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label>
                                                 <span>Fecha de inicio del evento</span>
                                             </label>
@@ -68,100 +68,93 @@
                                                 <p-calendar formControlName="startDate" dateFormat="dd/mm/yy"  [locale]="en" [showIcon]="true" showTime="true" hourFormat="12"></p-calendar>
                                             </div>
                                         </div>
-
-                                        <!-- <div class="col-md-6">
-                                            <label>
-                                                <span>Hora del evento</span>
-                                            </label>
-                                            <div class="input-group form-group">
-                                                <p-calendar formControlName="startHour" [showIcon]="true" [timeOnly]="true" [defaultDate]="yourTimeValueHere"  icon="fa fa-clock-o"></p-calendar>
-                                            </div>
-                                        </div> -->
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label>
                                                 <span>Fecha fin del evento</span>
                                             </label>
                                             <div class="input-group form-group">
                                                 <p-calendar formControlName="endDate" dateFormat="dd/mm/yy" [locale]="en" [showIcon]="true" [showIcon]="true" showTime="true" hourFormat="12"></p-calendar>
                                             </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="currencyBank">
+                                                Elige una Categoria
+                                            </label>
+                                            <select formControlName="eventCategoryId" name="currencyBank" data-city-currency="1" class="form-control input-sm">
+                                                <option  *ngFor="let category of model.listCategory" [value]="category.id">{{category.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
 
                                 </div>
+                               
                                 <div class="form-element form-element-small-errors unpad-b">
-                                    <!-- <div class="row">
+                                    <div class="row"> 
                                         <div class="col-md-6">
-                                            <label>
-                                                <span>Fecha fin del evento</span>
-                                            </label>
-                                            <div class="input-group form-group">
-                                                <p-calendar formControlName="endDate" dateFormat="dd/mm/yy" [locale]="en" [showIcon]="true" [showIcon]="true" showTime="true" hourFormat="12"></p-calendar>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label>
-                                                <span>Hora del evento</span>
-                                            </label>
-                                            <div class="input-group form-group">
-                                                <p-calendar formControlName="endHour" [showIcon]="true" [timeOnly]="true" [defaultDate]="yourTimeValueHere"  icon="fa fa-clock-o"></p-calendar>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                </div>
-
-                                <div class="form-element form-element-small-errors unpad-b">
-                                    <div style="max-width:352px;">
-                                        <div class="form-element">
-                                            <label>Image * (700 x 438px)</label>
-                                            <div id="imageUrl" class="image-picker" style="height: 218px;">
-                                                <div class="overlay">
-                                                    <img [src]="url" height="200">
+                                            <div style="max-width:352px;">
+                                                <div class="form-element">
+                                                    <label>Image * (700 x 438px)</label>
+                                                    <div id="imageUrl" class="image-picker" style="height: 218px;">
+                                                        <div class="overlay">
+                                                            <img [src]="url" height="200">
+                                                        </div>
+                                                        <span class="btn btn-default upload-button">
+                                                            <span class="glyphicon glyphicon-plus">
+                                                                <span>Cargar</span>
+                                                                <input name="imageUrlFile" type="file" (change)="selectFile($event)" accept="file_extension|.jpg"/>
+                                                            </span>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <span class="btn btn-default upload-button">
-                                                    <span class="glyphicon glyphicon-plus">
-                                                        <span>Cargar</span>
-                                                        <input name="imageUrlFile" type="file" (change)="selectFile($event)" accept="file_extension|.jpg"/>
-                                                    </span>
-                                                </span>
                                             </div>
-
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div style="max-width:352px;">
+                                                <div class="form-element">
+                                                    <label>Image * (700 x 438px)</label>
+                                                    <div id="imageUrl" class="image-picker" style="height: 218px;">
+                                                        <div class="overlay">
+                                                            <img [src]="url" height="200">
+                                                        </div>
+                                                        <span class="btn btn-default upload-button">
+                                                            <span class="glyphicon glyphicon-plus">
+                                                                <span>Cargar</span>
+                                                                <input name="imageUrlFile" type="file" (change)="selectFile($event)" accept="file_extension|.jpg"/>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+        
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                     
                                 </div>
-
-                            </div>
-
-                            <div class="col-sm-6">
                                 <div class="form-element form-element-small-errors unpad-b">
-                                    <label for="currencyBank">
-                                        Elige una Categoria
-                                    </label>
-                                    <select formControlName="eventCategoryId" name="currencyBank" data-city-currency="1" class="form-control input-sm">
-                                        <option  *ngFor="let category of model.listCategory" [value]="category.id">{{category.name}}</option>
-                                    </select>
+                                    <label for="businessName"><span>Link del Video*</span></label>
+                                    <input type="text" formControlName="name" name=" title" class="form-control" id="businessName" value="">
                                 </div>
                                 <div class="form-element-information">
-                                    <label>
-                                        <span> Descripción del Evento *</span>
-                                    </label>
-                                    <textarea formControlName="description" name="information" class="form-control" rows="6"  maxlength="65535" placeholder="Escribe un párrafo corto pero potente que describa tu evento"></textarea>
-
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>
+                                                <span> Descripción del Evento *</span>
+                                            </label>
+                                            <textarea formControlName="description" name="information" class="form-control" rows="6"  maxlength="65535" placeholder="Escribe un párrafo corto pero potente que describa tu evento"></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>
+                                                <span>Información adicional</span>
+                                            </label>
+                                            <textarea formControlName="aditionalInformation" name="information" class="form-control" rows="6" maxlength="65535" placeholder="Dale a los usuarios más información: detalles del evento, panelistas, links relacionados, cronograma del evento, etc."></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-element-information" style="margin-top: 15px">
-                                    <label>
-                                        <span>Información adicional</span>
-                                    </label>
-                                    <textarea formControlName="aditionalInformation" name="information" class="form-control" rows="6" maxlength="65535" placeholder="Dale a los usuarios más información: detalles del evento, panelistas, links relacionados, cronograma del evento, etc."></textarea>
-                                </div>
+                               
                             </div>
+
                             <div class="clearfix"></div>
-                            <!-- <div class="col-sm-3">
-                                <div class="">
-                                    <button type="button" name="submit" (click)="viewUbication()" title="Si todos los datos fueron llenados correctamente publica tu evento ya!" data-toggle="tooltip" style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="">Siguiente
-                                    </button>
-                                </div>
-                            </div> -->
+                            <br/>
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3 col-xs-3">
                                 <div class=" col-submit">
@@ -170,27 +163,6 @@
                                     </button>
                                 </div>
                             </div>
-
-
-                            <!-- <div class="col-sm-5">
-                                <div class="form-element unpad-b">
-                                    <fieldset>
-                                        <legend>Visibilidad *</legend>
-                                        <label>
-                                            <input type="radio" name="isPublic" onclick="$('.form-element-anyoneinvite').css('display', ($(this).val() == '0') ? 'block' : 'none');" value="1">Público (Se publicará este evento en Joinnus)</label><label><input type="radio" name="isPublic" onclick="$('.form-element-anyoneinvite').css('display', ($(this).val() == '0') ? 'block' : 'none');" value="0">Privado (No se mostrará este evento públicamente)</label></fieldset></div>
-                                <div class="form-element-anyoneinvite" style="display:none;">
-                                    <div class="form-element for-checkbox">
-                                        <label>
-                                            <span>La gente que invites también podrá invitar a sus amigos.</span>
-                                            <input type="hidden" name="anyoneCanInvite" value="0">
-                                            <input type="checkbox" name="anyoneCanInvite" value="1" checked="checked">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="form-element"><fieldset><legend>Restricción *</legend><label><input type="radio" name="restriction" value="1">Apto para público en general.</label><label><input type="radio" name="restriction" value="2">Apto para menores de 18 años en compañía de un adulto.</label><label><input type="radio" name="restriction" value="3">Apto solo para mayores de 18 años.</label></fieldset></div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
