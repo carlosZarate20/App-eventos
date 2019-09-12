@@ -287,3 +287,6 @@ input[type=file] {
   body .ui-inputtext{
     width: 200px !important;
   }
+  .term {
+    display: inline;
+  }
