@@ -18,8 +18,10 @@ import { LoginService } from '../../services/login.service';
 export class CreateEventComponent implements OnInit {
     en: any;
     selectedFiles = null;
+    selectedFiles2 = null;
     eventForm: FormGroup;
     url: any;
+    url2: any;
     public imagePath: any;
     public message: string;
     public listTiket: Array<ticketModel> = [];
@@ -30,11 +32,11 @@ export class CreateEventComponent implements OnInit {
     public boolTickets: Boolean;
     public boolBillingInformation: Boolean;
     public boolSendEvent: Boolean;
-    constructor(public createService: CreateEventService, private fbr: FormBuilder, private router: Router, private loginService: LoginService){
+    constructor(public createService: CreateEventService, private fbr: FormBuilder,
+                private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
         this.eventForm = this.eventModelFrom();
-
     }
     ngOnInit() {
 
@@ -60,6 +62,7 @@ export class CreateEventComponent implements OnInit {
         this.getCities();
         this.getCategory();
         this.url = '';
+        this.url2 = '';
         this.boolDetails = true;
         this.boolUbication = false;
         this.boolTickets = false;
@@ -67,13 +70,25 @@ export class CreateEventComponent implements OnInit {
         this.boolSendEvent = false;
     }
 
-    selectFile(event){
+    selectFile(event) {
         this.selectedFiles = event.target.files[0];
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
             reader.onload = (event: any) => {
                 this.url = event.target.result;
+            }
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+    selectFile2(event) {
+        this.selectedFiles2 = event.target.files[0];
+        if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = (event: any) => {
+                this.url2 = event.target.result;
             }
 
             reader.readAsDataURL(event.target.files[0]);
@@ -209,14 +224,14 @@ export class CreateEventComponent implements OnInit {
         this.boolBillingInformation = true;
         this.boolSendEvent = false;
     }
-    validateCreateEvent(){
+    validateCreateEvent() {
         this.boolDetails = false;
         this.boolUbication = false;
         this.boolTickets = false;
         this.boolBillingInformation = false;
         this.boolSendEvent = true;
     }
-    sendCreateEvent(){
+    sendCreateEvent() {
 
     }
 
