@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
             this.loginService.login(form).subscribe(
                 (res: any) => {
                     localStorage.setItem('token', res.token);
-                    localStorage.setItem('tokenExpiration', res.expiration);          
+                    localStorage.setItem('tokenExpiration', res.expiration);
                     this.router.navigate(['/event/events']);
                 },
                 (err: any) => {
@@ -47,5 +47,5 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.compose([Validators.required])],
         });
     }
-    
+
 }

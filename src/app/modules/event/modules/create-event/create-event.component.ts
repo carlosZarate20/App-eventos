@@ -150,10 +150,10 @@ export class CreateEventComponent implements OnInit {
         fd.append('phoneContact ', form.phoneContact);
         fd.append('emailContact ', form.emailContact);
 
-        let tokenAcces = this.loginService.getDecodedAccessToken(); 
+        const tokenAcces = this.loginService.getDecodedAccessToken(); 
         fd.append('UserId', tokenAcces.Id);
 
-        for ( var i = 0 ; i < this.listTiket.length; i++){
+        for ( let i = 0 ; i < this.listTiket.length; i++) {
             fd.append(`TicketList[${i}].NameTicket`, this.listTiket[i].nameTicket);
             fd.append(`TicketList[${i}].QuantityAvailable`, this.listTiket[i].quantityAvailable);
             fd.append(`TicketList[${i}].Price`, this.listTiket[i].price);
@@ -169,10 +169,10 @@ export class CreateEventComponent implements OnInit {
             err => {
                 console.log('Error el en servidor del registro')
             }
-        )
+        );
 
     }
-    uploadImage(){
+    uploadImage() {
         const fd = new FormData();
         fd.append('file', this.selectedFiles, this.selectedFiles.name);
 
@@ -191,52 +191,52 @@ export class CreateEventComponent implements OnInit {
     eventModelFrom(): FormGroup {
         return this.fbr.group({
             id : [null],
-            name : [''],
-            description: [''],
+            name : ['', Validators.compose([Validators.required])],
+            description: ['', Validators.compose([Validators.required])],
             aditionalInformation: [''],
-            startDate: [''],
-            endDate: [''],
-            adress: [''], 
+            startDate: ['', Validators.compose([Validators.required])],
+            endDate: ['', Validators.compose([Validators.required])],
+            adress: [''],
             reference: [''],
-            nameTicket: [''],
-            quantityAvailable: [0],
-            price: [''],
-            currencyType: [0] ,
+            nameTicket: ['', Validators.compose([Validators.required])],
+            quantityAvailable: [0, Validators.compose([Validators.required])],
+            price: ['', Validators.compose([Validators.required])],
+            currencyType: [0],
             eventCategoryId: [0],
-            cityId: [0],
-            urlVideo: [''],
-            document: [''],
-            socialReason: [''],
-            bankNumber: [''],
-            bank: [''],
-            bankCurrencyTipe: [0],
-            personalContact: [''],
-            phoneContact: [''],
-            emailContact: ['']
+            cityId: [0, Validators.compose([Validators.required])],
+            urlVideo: ['', Validators.compose([Validators.required])],
+            document: ['', Validators.compose([Validators.required])],
+            socialReason: ['', Validators.compose([Validators.required])],
+            bankNumber: ['', Validators.compose([Validators.required])],
+            bank: ['', Validators.compose([Validators.required])],
+            bankCurrencyTipe: [0, Validators.compose([Validators.required])],
+            personalContact: ['', Validators.compose([Validators.required])],
+            phoneContact: ['', Validators.compose([Validators.required])],
+            emailContact: ['', Validators.compose([Validators.required])]
         });
     }
-    viewCreateEvents(){
+    viewCreateEvents() {
         this.boolDetails = true;
         this.boolUbication = false;
         this.boolTickets = false;
         this.boolBillingInformation = false;
         this.boolSendEvent = false;
     }
-    viewUbication(){
+    viewUbication() {
         this.boolDetails = false;
         this.boolUbication = true;
         this.boolTickets = false;
         this.boolBillingInformation = false;
         this.boolSendEvent = false;
     }
-    viewTicket(){
+    viewTicket() {
         this.boolDetails = false;
         this.boolUbication = false;
         this.boolTickets = true;
         this.boolBillingInformation = false;
         this.boolSendEvent = false;
     }
-    viewBillingInformation(){
+    viewBillingInformation() {
         this.boolDetails = false;
         this.boolUbication = false;
         this.boolTickets = false;
@@ -250,9 +250,4 @@ export class CreateEventComponent implements OnInit {
         this.boolBillingInformation = false;
         this.boolSendEvent = true;
     }
-    sendCreateEvent() {
-
-    }
-
-
 }
