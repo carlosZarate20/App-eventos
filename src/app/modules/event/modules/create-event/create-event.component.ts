@@ -130,6 +130,7 @@ export class CreateEventComponent implements OnInit {
         this.listTiket.push(ticketModelClass);
         const fd = new FormData();
         fd.append('file', this.selectedFiles, this.selectedFiles.name);
+        fd.append('fileImageLocalization ', this.selectedFiles2, this.selectedFiles2.name);
         fd.append('name', form.name);
         fd.append('description', form.description);
         fd.append('aditionalInformation', form.aditionalInformation);
@@ -139,6 +140,15 @@ export class CreateEventComponent implements OnInit {
         fd.append('reference', form.reference);
         fd.append('eventCategoryId', form.eventCategoryId);
         fd.append('cityId', form.cityId);
+        fd.append('urlVideo ', form.urlVideo);
+        fd.append('document ', form.document);
+        fd.append('socialReason ', form.socialReason);
+        fd.append('bankNumber ', form.bankNumber);
+        fd.append('bank ', form.bank);
+        fd.append('bankCurrencyTipe ', form.bankCurrencyTipe);
+        fd.append('personalContact ', form.personalContact);
+        fd.append('phoneContact ', form.phoneContact);
+        fd.append('emailContact ', form.emailContact);
 
         let tokenAcces = this.loginService.getDecodedAccessToken(); 
         fd.append('UserId', tokenAcces.Id);
@@ -193,7 +203,16 @@ export class CreateEventComponent implements OnInit {
             price: [''],
             currencyType: [0] ,
             eventCategoryId: [0],
-            cityId: [0]
+            cityId: [0],
+            urlVideo: [''],
+            document: [''],
+            socialReason: [''],
+            bankNumber: [''],
+            bank: [''],
+            bankCurrencyTipe: [0],
+            personalContact: [''],
+            phoneContact: [''],
+            emailContact: ['']
         });
     }
     viewCreateEvents(){
