@@ -1,3 +1,78 @@
+.containter .top-section ul li button.active {
+    color: #c10213;
+}
+.containter .top-section ul li button {
+    position: relative;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    z-index: 2;
+    color: #bcbcbc;
+    border: none;
+    background: none;
+}
+.containter .top-section ul {
+    display: table;
+    width: 100%;
+    text-align: left;
+}
+.containter .top-section ul li {
+    float: right;
+    width: 20%;
+    text-align: center;
+}
+
+.containter .top-section ul li button {
+    position: relative;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    z-index: 2;
+    color: #bcbcbc;
+}
+.containter .top-section ul li button.active > span {
+    color: #b5121c;
+}
+.containter .top-section ul li button span {
+    color: #bcbcbc;
+    font-size: 14px;
+}
+
+.containter .top-section ul li {
+    float: right;
+    width: 20%;
+    text-align: center;
+}
+.container .top-section ul li button i {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.icon-circle{
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+    *margin-right: .3em;
+}
+.icon-circle {
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    margin-top: 0;
+    
+}
+
+
+
+
 
 .f1-progress { position: absolute; top: 24px; left: 0; width: 100%; height: 1px; background: #ddd; }
 .f1-progress-line { position: absolute; top: 0; left: 0; height: 1px; background: #981e32; }

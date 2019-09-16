@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { Constants } from './modules/shared/util/constants';
@@ -8,7 +8,8 @@ import { Constants } from './modules/shared/util/constants';
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css']
 })
-export class EventComponent implements OnInit {
+export class EventComponent implements OnInit, AfterViewInit {
+ 
 
   public model: any = {};
   public usuario: any = [];
@@ -49,6 +50,8 @@ export class EventComponent implements OnInit {
       this.usuario = null;
       this.role = null;
     }
+  }
+  ngAfterViewInit() {
   }
 
   logout() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { HttpClient } from 'selenium-webdriver/http';
 import { userModel, ticketModel } from '../../Model/User';
@@ -15,7 +15,8 @@ import { LoginService } from '../../services/login.service';
     styleUrls: ['./create-event.component.css']
 })
 
-export class CreateEventComponent implements OnInit {
+export class CreateEventComponent implements OnInit, AfterViewInit {
+    
     en: any;
     selectedFiles = null;
     selectedFiles2 = null;
@@ -32,6 +33,8 @@ export class CreateEventComponent implements OnInit {
     public boolTickets: Boolean;
     public boolBillingInformation: Boolean;
     public boolSendEvent: Boolean;
+    public wizardSteps: Array<Object>;
+    public step: any;
     constructor(public createService: CreateEventService, private fbr: FormBuilder,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
@@ -39,7 +42,7 @@ export class CreateEventComponent implements OnInit {
         this.eventForm = this.eventModelFrom();
     }
     ngOnInit() {
-
+        this.step = '1'
         this.en = {
             firstDayOfWeek: 1,
             dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
@@ -59,6 +62,25 @@ export class CreateEventComponent implements OnInit {
             weekHeader: 'Wk'
         };
 
+        this.wizardSteps = [
+            {
+              header: 'Evento'
+            },
+            {
+              header: 'Ubicación'
+            },
+            {
+              header: 'Entradas'
+            },
+            {
+              header: 'Facturación'
+            },
+            {
+              header: 'Confirmación'
+            }
+            
+          ];
+
         this.getCities();
         this.getCategory();
         this.url = '';
@@ -70,6 +92,9 @@ export class CreateEventComponent implements OnInit {
         this.boolSendEvent = false;
     }
 
+    ngAfterViewInit() {
+
+    }
     selectFile(event) {
         this.selectedFiles = event.target.files[0];
         if (event.target.files && event.target.files[0]) {
@@ -196,13 +221,13 @@ export class CreateEventComponent implements OnInit {
             aditionalInformation: [''],
             startDate: ['', Validators.compose([Validators.required])],
             endDate: ['', Validators.compose([Validators.required])],
-            adress: [''],
-            reference: [''],
+            adress: ['', Validators.compose([Validators.required])],
+            reference: ['', Validators.compose([Validators.required])],
             nameTicket: ['', Validators.compose([Validators.required])],
             quantityAvailable: [0, Validators.compose([Validators.required])],
             price: ['', Validators.compose([Validators.required])],
-            currencyType: [0],
-            eventCategoryId: [0],
+            currencyType: [0, Validators.compose([Validators.required])],
+            eventCategoryId: [0, Validators.compose([Validators.required])],
             cityId: [0, Validators.compose([Validators.required])],
             urlVideo: ['', Validators.compose([Validators.required])],
             document: ['', Validators.compose([Validators.required])],

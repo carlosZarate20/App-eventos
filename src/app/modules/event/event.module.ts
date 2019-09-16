@@ -16,25 +16,29 @@ const routes: Routes = [
       path: 'events',
       component: EventComponent,
       loadChildren: './modules/events-home/events-home.module#EventsHomeModule',
-      canActivate: []
+      canActivate: [],
+      runGuardsAndResolvers: 'always',
   },
   {
       path: 'login',
       component: EventComponent,
       loadChildren: './modules/login/login.module#LoginModule',
-      canActivate: []
+      canActivate: [],
+      runGuardsAndResolvers: 'always',
   },
   {
       path: 'register',
       component: EventComponent,
       loadChildren: './modules/register/register.module#RegisterModule',
-      canActivate: []
+      canActivate: [],
+      runGuardsAndResolvers: 'always',
   },
   {
       path: 'create',
       component: EventComponent,
       loadChildren: './modules/create-event/create-event.module#CreateEventModule',
-      canActivate: [AuthGuardService]
+      canActivate: [AuthGuardService],
+      runGuardsAndResolvers: 'always',
   }
 ];
 
