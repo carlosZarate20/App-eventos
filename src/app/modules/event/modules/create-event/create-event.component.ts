@@ -218,7 +218,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             id : [null],
             name : ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
-            aditionalInformation: [''],
+            aditionalInformation: ['', Validators.compose([Validators.required])],
             startDate: ['', Validators.compose([Validators.required])],
             endDate: ['', Validators.compose([Validators.required])],
             adress: ['', Validators.compose([Validators.required])],

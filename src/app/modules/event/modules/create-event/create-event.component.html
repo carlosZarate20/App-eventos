@@ -146,6 +146,7 @@
                                                             Elige una Categoria
                                                         </label>
                                                         <select formControlName="eventCategoryId" name="currencyBank" data-city-currency="1" class="form-control input-sm">
+                                                            <option  [value]="init" disabled> -- Seleccione -- </option>
                                                             <option *ngFor="let category of model.listCategory" [value]="category.id">{{category.name}}</option>
                                                         </select>
                                                     </div>
@@ -221,7 +222,7 @@
                                         <div class="col-sm-9"></div>
                                         <div class="col-sm-3 col-xs-3">
                                             <div class=" col-submit">
-                                                <button type="button" name="submit" (click)="viewUbication()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="eventForm.controls['name' && 'startDate' && 'endDate'].invalid">Siguiente
+                                                <button type="button" name="submit" (click)="viewUbication()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="eventForm.controls['name' && 'startDate' && 'endDate' && 'urlVideo' && 'description' && 'aditionalInformation'].invalid">Siguiente
                                                     <i class="fa fa-angle-right"></i>  
                                                 </button>
                                             </div>
@@ -292,7 +293,7 @@
                                         <div class="col-sm-6"></div>
                                         <div class="col-sm-3 col-xs-3"> 
                                             <div class="col-submit">
-                                                <button type="button" name="submit" (click)="viewTicket()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="eventForm.controls['reference' || 'adress'].invalid">Siguiente
+                                                <button type="button" name="submit" (click)="viewTicket()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="eventForm.controls['reference' && 'adress'].invalid">Siguiente
                                                     <i class="fa fa-angle-right"></i>  
                                                 </button>
                                             </div>
@@ -378,7 +379,7 @@
                                             <div class="col-sm-6 col-xs-6"></div>
                                             <div class="col-sm-3 col-xs-3">
                                                 <div class="col-submit">
-                                                    <button type="button" name="submit" (click)="viewBillingInformation()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="eventForm.controls['price' || 'currencyType'].invalid">Siguiente
+                                                    <button type="button" name="submit" (click)="viewBillingInformation()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="eventForm.controls['price' && 'quantityAvailable' && 'nameTicket'].invalid">Siguiente
                                                         <i class="fa fa-angle-right"></i>  
                                                     </button>
                                                 </div>
@@ -588,7 +589,8 @@
                                                 <div class="col-sm-6 col-xs-6"></div>
                                                 <div class="col-sm-3 col-xs-3">
                                                     <div class="col-submit">
-                                                        <button type="button" name="submit" (click)="validateCreateEvent()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="eventForm.controls['document' || 'contactEmail'].invalid">Siguiente
+                                                        <button type="button" name="submit" (click)="validateCreateEvent()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" 
+                                                        value="" awNextStep [disabled]="eventForm.controls['document' && 'socialReason' && 'contactEmail' && 'bankNumber' && 'bank' && 'personalContact' && 'phoneContact'].invalid">Siguiente
                                                             <i class="fa fa-angle-right"></i>  
                                                         </button>
                                                     </div>
