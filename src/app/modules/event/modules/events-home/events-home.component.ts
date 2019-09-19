@@ -9,6 +9,7 @@ import { HomeEventService } from '../../services/homeEvent.service';
 export class EventsHomeComponent implements OnInit {
   items: Array<any> = [];
   public model: any = {};
+  image: any;
   constructor(public eventService: HomeEventService) { 
     this.model.listEvent = [];
   }
@@ -20,6 +21,7 @@ export class EventsHomeComponent implements OnInit {
       {image3: 'assest/images/banner3.jpg'},
       {image4: 'assest/images/banner4.jpg'}
     ]
+    this.image = '../../../../../assets/images/banner1.jpg';
     this.getListEvent();
   }
 

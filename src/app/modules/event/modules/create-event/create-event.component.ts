@@ -39,6 +39,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
+        this.model.listTiket = [];
         this.eventForm = this.eventModelFrom();
     }
     ngOnInit() {
@@ -61,25 +62,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             dateFormat: 'mm/dd/yy',
             weekHeader: 'Wk'
         };
-
-        this.wizardSteps = [
-            {
-              header: 'Evento'
-            },
-            {
-              header: 'Ubicación'
-            },
-            {
-              header: 'Entradas'
-            },
-            {
-              header: 'Facturación'
-            },
-            {
-              header: 'Confirmación'
-            }
-            
-          ];
 
         this.getCities();
         this.getCategory();
