@@ -5551,4 +5551,10 @@ p.w3ls_para {
       left: 68% !important;
     }
 }
+
+.carousel-inner > .item > img {
+	display:  block;
+	max-width: 100%;
+    height: auto;
+  }
 /*-- //responsive media queries --*/

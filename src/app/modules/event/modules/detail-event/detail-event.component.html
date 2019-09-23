@@ -1,0 +1,52 @@
+<div class="interna container">
+    <div class="title_interna">
+        <div class="col-xs-12 p_lr" >
+            <h1>{{eventModel.name}}</h1>
+            <h2 style="margin-top: 0px !important;">
+                <span>{{eventModel.adress}} - {{eventModel.cityName}}</span>
+                <span>{{eventModel.startDate}}</span>
+                <span>
+                    <a class="naranjo" href="https://teleticket.com.pe/teatro">{{eventModel.eventCategoryName}}
+                    </a>
+                </span>
+            </h2>
+        </div>
+    </div >
+    <div class="description_event">
+        <div class="col-sm-9 col-xs-12 p_lr pull-right">
+            <div class="resumen">
+                <span><p style="text-align: justify;">
+                    {{eventModel.description}}
+                    <br>
+                    <br>
+                    {{eventModel.aditionalInformation}}
+                    <br>
+                    <br>
+                    </p>
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-12 img_artist">
+            <img src="{{eventModel.image}}" class="img-responsive img_artist_thumb hidden-xs">
+        </div>  
+        <div class="col-md-12">
+            <br>
+        </div>
+        <div class="col-sm-3 col-xs-12 img_artist">
+            <img src="{{eventModel.imageLocalization}}" class="img-responsive img_artist_thumb hidden-xs">
+        </div>
+        <!-- <div class="col-sm-9 col-xs-12 p_lr pull-right">
+            <div class="resumen">
+                <span><p style="text-align: justify;">
+                    {{eventModel.description}}
+                    <br>
+                    <br>
+                    {{eventModel.aditionalInformation}}
+                    <br>
+                    <br>
+                    </p>
+                </span>
+            </div>
+        </div> -->
+    </div>
+</div>

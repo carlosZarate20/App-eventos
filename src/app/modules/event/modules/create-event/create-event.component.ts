@@ -137,7 +137,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.listTiket.push(ticketModelClass);
         const fd = new FormData();
         fd.append('file', this.selectedFiles, this.selectedFiles.name);
-        fd.append('fileImageLocalization ', this.selectedFiles2, this.selectedFiles2.name);
+        fd.append('fileImageLocalization', this.selectedFiles2, this.selectedFiles2.name);
         fd.append('name', form.name);
         fd.append('description', form.description);
         fd.append('aditionalInformation', form.aditionalInformation);
@@ -147,15 +147,15 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         fd.append('reference', form.reference);
         fd.append('eventCategoryId', form.eventCategoryId);
         fd.append('cityId', form.cityId);
-        fd.append('urlVideo ', form.urlVideo);
-        fd.append('document ', form.document);
-        fd.append('socialReason ', form.socialReason);
-        fd.append('bankNumber ', form.bankNumber);
-        fd.append('bank ', form.bank);
-        fd.append('bankCurrencyTipe ', form.bankCurrencyTipe);
-        fd.append('personalContact ', form.personalContact);
-        fd.append('phoneContact ', form.phoneContact);
-        fd.append('emailContact ', form.emailContact);
+        fd.append('urlVideo', form.urlVideo);
+        fd.append('document', form.document);
+        fd.append('socialReason', form.socialReason);
+        fd.append('bankNumber', form.bankNumber);
+        fd.append('bank', form.bank);
+        fd.append('bankCurrencyTipe', form.bankCurrencyTipe);
+        fd.append('personContact', form.personalContact);
+        fd.append('phoneContact', form.phoneContact);
+        fd.append('emailContact', form.emailContact);
 
         const tokenAcces = this.loginService.getDecodedAccessToken(); 
         fd.append('UserId', tokenAcces.Id);

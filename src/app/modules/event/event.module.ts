@@ -39,6 +39,13 @@ const routes: Routes = [
       loadChildren: './modules/create-event/create-event.module#CreateEventModule',
       canActivate: [AuthGuardService],
       runGuardsAndResolvers: 'always',
+  },
+  {
+      path: 'detail/:id',
+      component: EventComponent,
+      loadChildren: './modules/detail-event/detail-event.module#DetailEventModule',
+      canActivate: [],
+      runGuardsAndResolvers: 'always',
   }
 ];
 

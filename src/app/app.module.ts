@@ -9,6 +9,7 @@ import { EventComponent } from './modules/event/event.component';
 import { EventModule } from './modules/event/event.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './Helpers/jwt.interceptor';
+import { DetailEventModule } from './modules/event/modules/detail-event/detail-event.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { JwtInterceptor } from './Helpers/jwt.interceptor';
     RouterModule.forRoot([]),
     EventModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    DetailEventModule
     
   ],
   providers: [

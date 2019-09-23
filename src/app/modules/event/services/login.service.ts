@@ -15,8 +15,7 @@ export class LoginService {
     login(form: any): Observable<Response> {
         return this.http
         .post(`${environment.apiUrl}/login`, form)
-        .map((res: Response) => res)
-        .catch(this.handleError);      
+        .map((res: Response) => res)   
     }
 
     getToken(): string  {

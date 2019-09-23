@@ -1,0 +1,27 @@
+
+.interna .title_interna {
+    padding: 5px 0 0;
+    display: inline-block;
+    width: 100%;
+    /* font-family: titilliumlight,Helvetica,Arial,sans-serif; */
+}
+.p_lr {
+    padding-left: 0;
+    padding-right: 0;
+}
+.h1 {
+    font-size: 0px;
+}
+.interna .description_event .resumen {
+    padding-bottom: 15px;
+}
+.description_event img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+.interna .title_interna h2 span {
+    display: block;
+    font-size: .65em;
+}

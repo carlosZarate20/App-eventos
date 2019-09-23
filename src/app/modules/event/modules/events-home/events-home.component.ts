@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeEventService } from '../../services/homeEvent.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events-home',
@@ -10,7 +11,7 @@ export class EventsHomeComponent implements OnInit {
   items: Array<any> = [];
   public model: any = {};
   image: any;
-  constructor(public eventService: HomeEventService) { 
+  constructor(public eventService: HomeEventService, public router: Router) { 
     this.model.listEvent = [];
   }
 
@@ -35,6 +36,10 @@ export class EventsHomeComponent implements OnInit {
           }
           console.log(res);
       }
-  );
+    );
+  }
+
+  passDetailsView(id: any){
+    this.router.navigate(['/event/detail' , id])
   }
 }

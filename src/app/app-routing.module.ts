@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EventComponent } from './modules/event/event.component';
 import { EventsHomeComponent } from './modules/event/modules/events-home/events-home.component';
+import { DetailEventComponent } from './modules/event/modules/detail-event/detail-event.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/event/events', pathMatch: 'full' },
@@ -10,6 +11,7 @@ const routes: Routes = [
     loadChildren: './modules/event/event.module#EventModule',
     canActivate: []
   }
+  
   
   // { 
   //   path: 'event', 

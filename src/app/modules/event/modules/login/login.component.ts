@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
     public displayDialogAlert: Boolean = false;
+    public message: any = "";
     constructor(private loginService: LoginService, private fb: FormBuilder, private router: Router) {
         this.loginForm = this.loginValidateForm();
     }
@@ -33,6 +34,8 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/event/events']);
                 },
                 (err: any) => {
+                    this.message = err.error;
+                    console.log(err.error);
                     console.log('Login Erroneo');
                     this.displayDialogAlert = true;
                 }

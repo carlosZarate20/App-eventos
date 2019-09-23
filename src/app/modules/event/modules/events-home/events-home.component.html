@@ -11,8 +11,8 @@
 					<li data-target="#myCarousel" data-slide-to="4" class=""></li> 
 				</ol> -->
 				<div class="carousel-inner" role="listbox" style="width: 100%;max-height: 350px;">
-					<div class="item active"> 
-							<img src="../../../../../assets/images/banner1.jpg" style="width: 100%">
+					<div class="item active" > 
+							<img src="{{image}}" style="width: 100%">
 						<div class="container" >
 							
 							<div class="carousel-caption" style="position: absolute;">
@@ -21,7 +21,16 @@
 							</div>
 						</div>
 					</div>
-					<div class="item item2"> 
+					<div class="item item2" *ngFor="let items of model.listEvent"> 
+						<img src="{{items.image}}" style="width: 100%">
+						<div class="container">
+							<div class="carousel-caption" style="position: absolute;">
+								<h3>Summer <span>Collection</span></h3>
+								<p>New Arrivals On Sale</p>
+							</div>
+						</div>
+					</div>	
+					<!-- <div class="item item2"> 
 						<img src="{{image}}" style="width: 100%">
 						<div class="container">
 							<div class="carousel-caption" style="position: absolute;">
@@ -59,39 +68,7 @@
 								<p>New Arrivals On Sale</p>
 							</div>
 						</div>
-					</div>
-					<!-- <div class="item item2"> 
-						<div class="container">
-							<div class="carousel-caption">
-								<h3>Summer <span>Collection</span></h3>
-								<p>New Arrivals On Sale</p>
-							</div>
-						</div>
-					</div>
-					<div class="item item3"> 
-						<div class="container">
-							<div class="carousel-caption">
-								<h3>The Biggest <span>Sale</span></h3>
-								<p>Special for today</p>
-							</div>
-						</div>
-					</div>
-					<div class="item item4"> 
-						<div class="container">
-							<div class="carousel-caption">
-								<h3>Summer <span>Collection</span></h3>
-								<p>New Arrivals On Sale</p>
-							</div>
-						</div>
-					</div>
-					<div class="item item5"> 
-						<div class="container">
-							<div class="carousel-caption">
-								<h3>The Biggest <span>Sale</span></h3>
-								<p>Special for today</p>
-							</div>
-						</div>
-					</div>  -->
+					</div> -->
 				</div>
 				<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -135,7 +112,7 @@
 				<div class="tab1">
 					<div class="col-md-3 product-men" *ngFor="let items of model.listEvent">
 						<div class="men-pro-item simpleCart_shelfItem">
-							<div class="men-thumb-item">
+							<div class="men-thumb-item" (click)="passDetailsView(items.id)">
 								<img  src="{{items.image}}" style="width: 250px; height: 200px;">
 								<div class="men-cart-pro">
 									<div class="inner-men-cart-pro">
