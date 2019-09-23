@@ -11,7 +11,7 @@
 		</div>	
 		<div class="collapse navbar-collapse navbar-ex1-collapse"> 
 			<div class="col-md-4 col-sm-4 col-xs-12">
-				<a class="navbar-brand" rel="home" href="/" style="padding-right: 100px">Logo</a>
+				<a class="navbar-brand" rel="home" routerLink="/event/events" style="padding-right: 100px">Logo</a>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-12 custom-search-form">
 				<div class="input-group">
@@ -42,9 +42,6 @@
 						</ul>
 					</li>
 				</ul>
-				<!-- <div class="collapse navbar-collapse ">
-					
-				</div> -->
 			</div>
 	
 		</div>
@@ -85,9 +82,8 @@
 				<span class="input-search__search">
 					<i class="fa fa-search"></i>
 				</span>
-				<input type="search">
+				<input type="search" [(ngModel)]="model.valueSearch" (blur)="findEvent()">
 			</div>
-			
 		</div>
 	</div>
 </header>

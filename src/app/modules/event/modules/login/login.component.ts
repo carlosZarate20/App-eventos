@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
     public displayDialogAlert: Boolean = false;
-    public message: any = "";
+    public titularAlerta: string = '';
+    public message: any = '';
     constructor(private loginService: LoginService, private fb: FormBuilder, private router: Router) {
         this.loginForm = this.loginValidateForm();
     }
@@ -35,9 +37,10 @@ export class LoginComponent implements OnInit {
                 },
                 (err: any) => {
                     this.message = err.error;
+                    Swal.fire('Oops...', this.message, 'error');
                     console.log(err.error);
                     console.log('Login Erroneo');
-                    this.displayDialogAlert = true;
+                    // this.displayDialogAlert = true;
                 }
             );
         }

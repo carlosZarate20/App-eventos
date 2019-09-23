@@ -25,3 +25,24 @@
     display: block;
     font-size: .65em;
 }
+.interna .description_event .img_artist {
+    padding-left: 0;
+}
+.interna .title_interna h1 {
+    color: #999;
+    font-size: 2em;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+.interna .title_interna h2 {
+    color: #999;
+    font-size: 2em;
+    margin-top: 25px;
+}
+.interna .title_interna h2 span {
+    display: block;
+    font-size: .65em;
+}
+.naranjo {
+    color: #da251d;
+}

@@ -9,16 +9,13 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class SearchEventService {
-    public headerCustomize : HttpHeaders;
-    
-    constructor(private http: HttpClient, private constant:ConstantHelper) { 
+    public headerCustomize: HttpHeaders;
+
+    constructor(private http: HttpClient, private constant: ConstantHelper) {
         this.headerCustomize = this.constant.getHeaders();
     }
-    
-    getDetailsEvent(id: any){
-        let body = id.toString();
-        const params = new HttpParams()
-        .set('id', id);
+
+    findEventSearch(id: any) {
 
         return this.http
         .get(`${environment.apiUrl}/detalle_evento/` + id)

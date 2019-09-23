@@ -9,7 +9,6 @@ import { Constants } from './modules/shared/util/constants';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit, AfterViewInit {
- 
 
   public model: any = {};
   public usuario: any = [];
@@ -19,6 +18,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   public roleAdmin: Boolean = false;
   public roleClient: Boolean = false;
   public roleThirdUser: Boolean = false;
+  public validateFilter: Boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService) {
     this.model.menu = {};
@@ -26,6 +26,7 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.model.menu.login = { display: true, items: [] };
     this.model.menu.register = { display: true, items: [] };
     this.model.menu.create = { display: true, items: [] };
+    this.model.valueSearch = '';
 
     this.model.menu.inicio.items.push({ url: '/event/events/', name: 'Inicio' });
     this.model.menu.login.items.push({ url: '/event/login/', name: 'Iniciar Sesion' });
@@ -70,6 +71,10 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   validateRoleLogged() {
 
+  }
+
+  findEvent() {
+    console.log(this.model.valueSearch);
   }
 
 }

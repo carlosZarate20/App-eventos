@@ -18,7 +18,7 @@ export class DetailEventComponent implements OnInit {
     public model: any = {};
     public name: any;
     public eventModel: EventModel = new EventModel();
-    constructor(public route: ActivatedRoute, public detailEventService: DetailsEventService){
+    constructor(public route: ActivatedRoute, public detailEventService: DetailsEventService) {
         this.model.listEvent = [];
     }
     ngOnInit() {
@@ -27,9 +27,9 @@ export class DetailEventComponent implements OnInit {
         this.getDetailsEvents(this.value);
     }
 
-    getDetailsEvents(id: string){
+    getDetailsEvents(id: string) {
         this.detailEventService.getDetailsEvent(id).subscribe(
-            (res : any) => {
+            (res: any) => {
                 this.eventModel.name = res.name;
                 this.eventModel.description = res.description;
                 this.eventModel.aditionalInformation = res.aditionalInformation;
@@ -44,6 +44,6 @@ export class DetailEventComponent implements OnInit {
             err => {
 
             }
-        )
+        );
     }
 }
