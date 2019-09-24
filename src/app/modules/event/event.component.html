@@ -78,11 +78,41 @@
 					</div>
 				</div>
 			</div>
+			<form [formGroup]="eventForm">
 			<div class="input-search">
 				<span class="input-search__search">
 					<i class="fa fa-search"></i>
 				</span>
-				<input type="search" [(ngModel)]="model.valueSearch" (blur)="findEvent()">
+				
+					<input type="search" formControlName="name" (blur)="findEvent(eventForm.value)">
+				
+				
+			</div>
+			</form>
+			<div class="new_arrivals_agile_w3ls_info">
+				<div class="container">
+					<div class="resp-tabs-container">
+						<div class="tab1">
+							<div class="col-md-3 product-men" *ngFor="let items of model.listEvent">
+								<div class="men-pro-item simpleCart_shelfItem">
+									<div class="men-thumb-item" (click)="passDetailsView(items.id)">
+										<img  src="{{items.image}}" style="width: 250px; height: 200px;">
+										<div class="men-cart-pro">
+											<div class="inner-men-cart-pro">
+												<a class="link-product-add-cart">{{items.name}}</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="row">
+						<div class="col-md-12">
+							
+						</div>
+					</div> -->
+				</div>
 			</div>
 		</div>
 	</div>

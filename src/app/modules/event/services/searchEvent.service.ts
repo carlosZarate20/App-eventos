@@ -15,10 +15,10 @@ export class SearchEventService {
         this.headerCustomize = this.constant.getHeaders();
     }
 
-    findEventSearch(id: any) {
-
+    findEventSearch(form: any): Observable<Response>{
+        var test = this.constant.getHeaders(true); 
         return this.http
-        .get(`${environment.apiUrl}/detalle_evento/` + id)
+        .post('http://edumoreno27-001-site6.etempurl.com/buscar', form)
         .map((res: Response) => res)
         .catch(this.handleError);
     }

@@ -3,12 +3,13 @@ import { EventComponent } from './event.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthGuardService } from 'src/app/Helpers/auth-guard.service';
 import { LoginService } from './services/login.service';
 import { JwtInterceptor } from 'src/app/Helpers/jwt.interceptor';
 import { ConstantHelper } from 'src/app/Helpers/ConstantsHelpers';
+import { SearchEventService } from './services/searchEvent.service';
 
 const routes: Routes = [
   { path: '', component: EventComponent },
@@ -57,11 +58,13 @@ const routes: Routes = [
       RouterModule.forChild(routes),
       HttpClientModule,
       FormsModule,
-      CommonModule
+      CommonModule,
+      ReactiveFormsModule
     ],
   providers: [
     AuthGuardService,
     LoginService,
+    SearchEventService,
     ConstantHelper,
     {
       provide: HTTP_INTERCEPTORS,

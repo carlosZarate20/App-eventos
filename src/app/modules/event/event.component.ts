@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { Constants } from './modules/shared/util/constants';
+import { SearchEventService } from './services/searchEvent.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-event',
@@ -9,7 +11,7 @@ import { Constants } from './modules/shared/util/constants';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit, AfterViewInit {
-
+  eventForm: FormGroup;
   public model: any = {};
   public usuario: any = [];
   public role: any = [];
@@ -20,7 +22,8 @@ export class EventComponent implements OnInit, AfterViewInit {
   public roleThirdUser: Boolean = false;
   public validateFilter: Boolean = false;
 
-  constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService) {
+  constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService, 
+               public searchService: SearchEventService, private fb: FormBuilder) {
     this.model.menu = {};
     this.model.menu.inicio = { display: true, items: [] };
     this.model.menu.login = { display: true, items: [] };
@@ -32,6 +35,8 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.model.menu.login.items.push({ url: '/event/login/', name: 'Iniciar Sesion' });
     this.model.menu.register.items.push({ url: '/event/register/', name: 'Registrarse' });
     this.model.menu.create.items.push({ url: '/event/create/', name: 'Crear Evento' });
+    this.eventForm = this.loginValidateForm();
+    this.model.listEvent = [];
    }
 
   ngOnInit() {
@@ -69,12 +74,30 @@ export class EventComponent implements OnInit, AfterViewInit {
     console.log('cerro modal');
   }
 
-  validateRoleLogged() {
-
+  findEvent(form: any) {
+    if(form.name != ''){
+      console.log(form.name);
+      this.searchService.findEventSearch(form).subscribe(
+        (res: any) => {
+          this.model.listEvent = res;
+          for(var i = 0; i< this.model.listEvent.length; i++ ){
+            this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image
+          }
+        },
+        err => {
+  
+        }
+      );
+    } else{
+      this.model.listEvent = [];
+    }
+    
   }
 
-  findEvent() {
-    console.log(this.model.valueSearch);
-  }
+  loginValidateForm(): FormGroup {
+    return this.fb.group({
+        name: ['']
+    });
+}
 
 }
