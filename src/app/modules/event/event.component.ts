@@ -64,7 +64,7 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.loginService.logout();
   }
 
-  activateSearch(){
+  activateSearch() {
     this.modalSearch = true;
     console.log('abrio modal');
   }
@@ -74,30 +74,28 @@ export class EventComponent implements OnInit, AfterViewInit {
     console.log('cerro modal');
   }
 
-  findEvent(form: any) {
-    if(form.name != ''){
+  findEvent(event, form: any) {
+    if (form.name != '') {
       console.log(form.name);
       this.searchService.findEventSearch(form).subscribe(
         (res: any) => {
           this.model.listEvent = res;
-          for(var i = 0; i< this.model.listEvent.length; i++ ){
-            this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image
+          for(let i = 0; i < this.model.listEvent.length; i++) {
+            this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image;
           }
         },
         err => {
-  
         }
       );
     } else{
       this.model.listEvent = [];
     }
-    
   }
 
   loginValidateForm(): FormGroup {
     return this.fb.group({
         name: ['']
     });
-}
+  }
 
 }

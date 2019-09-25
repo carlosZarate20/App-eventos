@@ -83,10 +83,7 @@
 				<span class="input-search__search">
 					<i class="fa fa-search"></i>
 				</span>
-				
-					<input type="search" formControlName="name" (blur)="findEvent(eventForm.value)">
-				
-				
+				<input type="search" formControlName="name" (keyup)="findEvent($event,eventForm.value)">
 			</div>
 			</form>
 			<div class="new_arrivals_agile_w3ls_info">
