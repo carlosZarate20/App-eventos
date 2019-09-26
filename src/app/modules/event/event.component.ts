@@ -75,18 +75,26 @@ export class EventComponent implements OnInit, AfterViewInit {
   }
 
   findEvent(event, form: any) {
+    let wordSearch = form.name; 
     if (form.name != '') {
-      console.log(form.name);
-      this.searchService.findEventSearch(form).subscribe(
-        (res: any) => {
-          this.model.listEvent = res;
-          for(let i = 0; i < this.model.listEvent.length; i++) {
-            this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image;
-          }
-        },
-        err => {
+      setTimeout(() => {
+        if(wordSearch == form.name){
+          console.log(wordSearch);
+          this.searchService.findEventSearch(form).subscribe(
+            (res: any) => {
+              this.model.listEvent = res;
+              for(let i = 0; i < this.model.listEvent.length; i++) {
+                this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image;
+              }
+            },
+            err => {
+            }
+          );
         }
-      );
+        
+        
+      }, 500);
+      
     } else{
       this.model.listEvent = [];
     }
