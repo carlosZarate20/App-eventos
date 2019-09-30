@@ -35,11 +35,13 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public boolSendEvent: Boolean;
     public wizardSteps: Array<Object>;
     public step: any;
+    public contador: number = 0;
     constructor(public createService: CreateEventService, private fbr: FormBuilder,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
         this.model.listTiket = [];
+        this.model.listTiket2 = [];
         this.eventForm = this.eventModelFrom();
     }
     ngOnInit() {
@@ -72,6 +74,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolTickets = false;
         this.boolBillingInformation = false;
         this.boolSendEvent = false;
+        this.contador = 0;
     }
 
     ngAfterViewInit() {
@@ -256,5 +259,23 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolTickets = false;
         this.boolBillingInformation = false;
         this.boolSendEvent = true;
+    }
+
+    addTikects(){
+        
+        this.contador++;
+        if(this.contador <=10 ) {
+            this.model.listTiket2.push(this.contador);
+            console.log(this.model.listTiket2);
+            console.log(this.contador);
+        }
+        
+    }
+
+    deleteTickets(){
+        this.contador--;
+        this.model.listTiket2.splice(this.contador);
+        console.log(this.model.listTiket2);
+        console.log(this.contador);
     }
 }
