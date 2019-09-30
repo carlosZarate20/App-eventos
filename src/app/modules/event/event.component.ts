@@ -13,14 +13,17 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class EventComponent implements OnInit, AfterViewInit {
   eventForm: FormGroup;
   public model: any = {};
+  public keyword: any = {};
   public usuario: any = [];
   public role: any = [];
+  public eventSearch: any = [];
 
   public modalSearch: Boolean = false;
   public roleAdmin: Boolean = false;
   public roleClient: Boolean = false;
   public roleThirdUser: Boolean = false;
   public validateFilter: Boolean = false;
+  public loading: Boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService, 
                public searchService: SearchEventService, private fb: FormBuilder) {
@@ -29,13 +32,12 @@ export class EventComponent implements OnInit, AfterViewInit {
     this.model.menu.login = { display: true, items: [] };
     this.model.menu.register = { display: true, items: [] };
     this.model.menu.create = { display: true, items: [] };
-    this.model.valueSearch = '';
+    this.keyword = [];
 
     this.model.menu.inicio.items.push({ url: '/event/events/', name: 'Inicio' });
     this.model.menu.login.items.push({ url: '/event/login/', name: 'Iniciar Sesion' });
     this.model.menu.register.items.push({ url: '/event/register/', name: 'Registrarse' });
     this.model.menu.create.items.push({ url: '/event/create/', name: 'Crear Evento' });
-    this.eventForm = this.loginValidateForm();
     this.model.listEvent = [];
    }
 
@@ -74,36 +76,38 @@ export class EventComponent implements OnInit, AfterViewInit {
     console.log('cerro modal');
   }
 
-  findEvent(event, form: any) {
-    let wordSearch = form.name; 
-    if (form.name != '') {
-      setTimeout(() => {
-        if(wordSearch == form.name){
-          console.log(wordSearch);
-          this.searchService.findEventSearch(form).subscribe(
-            (res: any) => {
-              this.model.listEvent = res;
-              for(let i = 0; i < this.model.listEvent.length; i++) {
-                this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image;
-              }
-            },
-            err => {
+  findEvent() {
+    let wordSearch = this.keyword;
+    this.model.listEvent = [];
+    setTimeout(() => {
+      this.loading = true;
+      if(wordSearch != '' ) {
+        if (wordSearch == this.keyword) {
+          if (this.keyword) {
+            const events = {
+              name: this.keyword
             }
-          );
-        }
+            console.log(events);
+            this.searchService.findEventSearch(events).subscribe(
+              (res: any) => {
+                this.loading = false;
+                this.model.listEvent = res;
+                for (let i = 0; i < this.model.listEvent.length; i++) {
+                  this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image;
+                }
+              },
+              err => {
+              }
+            );
+          }else{
+          }
+        } 
+      } else{
+        this.model.listEvent = [];
+        this.loading = false;
+      }
         
-        
-      }, 500);
-      
-    } else{
-      this.model.listEvent = [];
-    }
-  }
-
-  loginValidateForm(): FormGroup {
-    return this.fb.group({
-        name: ['']
-    });
+    }, 1000);
   }
 
 }
