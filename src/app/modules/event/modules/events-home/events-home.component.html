@@ -13,22 +13,22 @@
 				<div class="carousel-inner" role="listbox" style="width: 100%;max-height: 350px;">
 					<div class="item active" > 
 							<img src="{{image}}" style="width: 100%; height: auto;">
-						<div class="container" >
+						<!-- <div class="container" >
 							
 							<div class="carousel-caption" style="position: absolute;">
 								<h3>The Biggest <span>Sale</span></h3>
 								<p>Special for today</p>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="item item2" *ngFor="let items of model.listEvent" > 
-						<img src="{{items.image}}" style="width: 100%; height: 100%;">
-						<div class="container">
+						<img src="{{items.image}}" style="width:100%;height:360px" (click)="passDetailsView(items.id)" >
+						<!-- <div class="container">
 							<div class="carousel-caption" style="position: absolute;">
 								<h3>Summer <span>Collection</span></h3>
 								<p>New Arrivals On Sale</p>
 							</div>
-						</div>
+						</div> -->
 					</div>	
 					<!-- <div class="item item2"> 
 						<img src="{{image}}" style="width: 100%">
