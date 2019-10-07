@@ -113,8 +113,16 @@
 					<div class="col-md-4 product-men" *ngFor="let items of model.listEvent">
 						<div class="men-pro-item simpleCart_shelfItem">
 							<div class="men-thumb-item" (click)="passDetailsView(items.id)">
-								<img  src="{{items.image}}" class="pro-image-front" style="width: 100%; height: auto;">
-								<img  src="{{items.image}}" class="pro-image-back" style="width: 100%; height: auto;">
+								<!-- <img  src="{{items.image}}" class="pro-image-front" style="width: 100%; height: auto;">
+								<img  src="{{items.image}}" class="pro-image-back" style="width: 100%; height: auto;"> -->
+								<img  src="{{items.image}}" class="pro-image-front" style="width: 350px;
+								height: 200px;
+								max-width: 100%;
+								max-height: 100%;">
+								<img  src="{{items.image}}" class="pro-image-back" style="width: 350px;
+								height: 200px;
+								max-width: 100%;
+								max-height: 100%;">
 								<div class="men-cart-pro">
 									<div class="inner-men-cart-pro">
 										<a class="link-product-add-cart">{{items.name}}</a>

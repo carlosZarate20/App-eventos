@@ -8,6 +8,7 @@ export class userModel {
     phone: string;
 }
 export class ticketModel {
+    codeTmp: string;
     nameTicket: string;
     quantityAvailable : string;
     price : string;

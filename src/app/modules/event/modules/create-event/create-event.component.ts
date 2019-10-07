@@ -7,6 +7,8 @@ import { FormGroup, FormControl, Validators, FormBuilder, Form } from '@angular/
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { EventModel } from '../../Model/event';
+import { UUID } from 'angular2-uuid';
 
 
 @Component({
@@ -36,6 +38,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public wizardSteps: Array<Object>;
     public step: any;
     public contador: number = 0;
+    public eventModel: EventModel = new EventModel();
     constructor(public createService: CreateEventService, private fbr: FormBuilder,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
@@ -75,6 +78,31 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolBillingInformation = false;
         this.boolSendEvent = false;
         this.contador = 0;
+        this.model.name = '';
+        this.model.description = '';
+        this.model.aditionalInformation = '';
+        this.model.eventCategoryName = '';
+        this.model.urlVideo = '';
+        this.model.startDate = '';
+        this.model.endDate = '';
+        this.model.adress = '';
+        this.model.cityName = '';
+        this.model.reference = '';
+        this.model.eventCategoryId = 0;
+        this.model.cityId = 0;
+        this.model.document = '';
+        this.model.socialReason = '';
+        this.model.bankNumber = '';
+        this.model.bank = '';
+        this.model.bankCurrencyTipe = '';
+        this.model.personContact = '';
+        this.model.phoneContact = '';
+        this.model.emailContact = '';
+        this.model.nameTicket = '';
+        this.model.quantityAvailable = '';
+        this.model.price = '';
+        this.model.currencyType = '';
+        this.model.listTiket2.push(1);
     }
 
     ngAfterViewInit() {
@@ -121,44 +149,44 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         );
     }
 
-    registerEvent(form: any){
+    registerEvent(){
         // let startDateHour = form.startDate + ' ' + form.startHour;
         // let endDateHour = form.endDate + ' ' + form.endHour;
-        const ticketModelClass = new ticketModel();
+        // const ticketModelClass = new ticketModel();
         const datePipe = new DatePipe('en-PE');
         // const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
         // const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
 
-        const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm a');
-        const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm a');
+        const startDateHour = datePipe.transform(this.model.startDate, 'dd/MM/yyyy h:mm a');
+        const endDateHour = datePipe.transform(this.model.endDate, 'dd/MM/yyyy h:mm a');
 
-        ticketModelClass.nameTicket = form.nameTicket;
-        ticketModelClass.quantityAvailable = form.quantityAvailable;
-        ticketModelClass.price = form.price;
-        ticketModelClass.currencyType = form.currencyType;
+        // ticketModelClass.nameTicket = this.model.nameTicket;
+        // ticketModelClass.quantityAvailable = this.model.quantityAvailable;
+        // ticketModelClass.price = this.model.price;
+        // ticketModelClass.currencyType = this.model.currencyType;
 
-        this.listTiket.push(ticketModelClass);
+        // this.listTiket.push(ticketModelClass);
         const fd = new FormData();
         fd.append('file', this.selectedFiles, this.selectedFiles.name);
         fd.append('fileImageLocalization', this.selectedFiles2, this.selectedFiles2.name);
-        fd.append('name', form.name);
-        fd.append('description', form.description);
-        fd.append('aditionalInformation', form.aditionalInformation);
+        fd.append('name', this.model.name);
+        fd.append('description', this.model.description);
+        fd.append('aditionalInformation', this.model.aditionalInformation);
         fd.append('startDate', startDateHour);
         fd.append('endDate', endDateHour);
-        fd.append('adress', form.adress);
-        fd.append('reference', form.reference);
-        fd.append('eventCategoryId', form.eventCategoryId);
-        fd.append('cityId', form.cityId);
-        fd.append('urlVideo', form.urlVideo);
-        fd.append('document', form.document);
-        fd.append('socialReason', form.socialReason);
-        fd.append('bankNumber', form.bankNumber);
-        fd.append('bank', form.bank);
-        fd.append('bankCurrencyTipe', form.bankCurrencyTipe);
-        fd.append('personContact', form.personalContact);
-        fd.append('phoneContact', form.phoneContact);
-        fd.append('emailContact', form.emailContact);
+        fd.append('adress', this.model.adress);
+        fd.append('reference', this.model.reference);
+        fd.append('eventCategoryId', this.model.eventCategoryId);
+        fd.append('cityId', this.model.cityId);
+        fd.append('urlVideo', this.model.urlVideo);
+        fd.append('document', this.model.document);
+        fd.append('socialReason', this.model.socialReason);
+        fd.append('bankNumber', this.model.bankNumber);
+        fd.append('bank', this.model.bank);
+        fd.append('bankCurrencyTipe', this.model.bankCurrencyTipe);
+        fd.append('personContact', this.model.personalContact);
+        fd.append('phoneContact', this.model.phoneContact);
+        fd.append('emailContact', this.model.emailContact);
 
         const tokenAcces = this.loginService.getDecodedAccessToken(); 
         fd.append('UserId', tokenAcces.Id);
@@ -262,12 +290,27 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     addTikects(){
+        if( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
+            const key = UUID.UUID();
+            let tikect = new ticketModel();
+            tikect.price = this.model.price;
+            tikect.currencyType = this.model.currencyType;
+            tikect.nameTicket = this.model.nameTicket;
+            tikect.quantityAvailable = this.model.quantityAvailable;
+            tikect.codeTmp = key;
+            this.listTiket.push(tikect);
+            console.log(this.listTiket);
+            this.model.price = '';
+            this.model.quantityAvailable = '';
+            this.model.nameTicket = '';
+        }
         
         this.contador++;
         if(this.contador <=10 ) {
             this.model.listTiket2.push(this.contador);
             console.log(this.model.listTiket2);
             console.log(this.contador);
+            
         }
         
     }

@@ -33,12 +33,12 @@ export class DetailEventComponent implements OnInit {
                 this.eventModel.name = res.name;
                 this.eventModel.description = res.description;
                 this.eventModel.aditionalInformation = res.aditionalInformation;
-                this.eventModel.image = 'http://edumoreno27-001-site6.etempurl.com' + res.image;
+                this.eventModel.file = 'http://edumoreno27-001-site6.etempurl.com' + res.image;
                 this.eventModel.startDate = res.startDate;
                 this.eventModel.adress = res.adress;
                 this.eventModel.cityName = res.cityName;
                 this.eventModel.eventCategoryName = res.eventCategoryName;
-                this.eventModel.imageLocalization = 'http://edumoreno27-001-site6.etempurl.com' + res.imageLocalization;
+                this.eventModel.fileImageLocalization = 'http://edumoreno27-001-site6.etempurl.com' + res.imageLocalization;
                 console.log(res);
             },
             err => {
