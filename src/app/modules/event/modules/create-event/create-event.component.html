@@ -73,7 +73,7 @@
                                                 <div class="col-md-6">
                                                     <div style="max-width:3000px;">
                                                         <div class="form-element">
-                                                            <label>Imagen del Lugar*</label>
+                                                            <label>Mapa del evento*</label>
                                                             <div id="imageUrl" class="image-picker" style="height: 218px;">
                                                                 <div class="overlay">
                                                                     <img [src]="url2" height="200">
@@ -231,11 +231,12 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div *ngFor="let items of this.model.listTiket2" class="col-xs-12 col-sm-12">
+                                    <div></div>
+                                    <div *ngFor="let items of model.listTiket" class="col-xs-12 col-sm-12">
                                         <div class="col-md-3">     
                                             <div class="form-element form-element-small-errors unpad-b no-label">
                                                 <label><span>Tipo Entrada *</span></label>
-                                                <input [(ngModel)]="model.nameTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
+                                                <input [(ngModel)]="items.nameTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
                                             </div>       
                                         </div>
                                         <div class="col-md-3">
@@ -243,7 +244,7 @@
                                                 <label>
                                                     <span>Cantidad Disponible *</span>
                                                 </label>
-                                                <input [(ngModel)]="model.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
+                                                <input [(ngModel)]="items.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -251,7 +252,7 @@
                                                 <label>
                                                     <span>Precio *</span>
                                                 </label>
-                                                <input [(ngModel)]="model.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
+                                                <input [(ngModel)]="items.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
                                             </div>                                  
                                         </div>
                                         <div class="col-xs-2 col-sm-1">
@@ -268,7 +269,7 @@
                                             <div class="form-element form-element-small-errors unpad-b no-label">
                                                 <label><span></span></label>
                                                 <label><span></span></label>
-                                                <button type="button" (click)="deleteTickets()" class="btn btn-gainsboro btn-block unpad-l unpad-r" >
+                                                <button type="button" (click)="deleteTickets(items.codeTmp)" class="btn btn-gainsboro btn-block unpad-l unpad-r" >
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                 </button>
                                             </div>

@@ -18,8 +18,9 @@
 .description_event img {
     display: inline-block;
     max-width: 100%;
-    height: auto;
-    width: auto;
+    max-height: 100%;
+    height: 200px;
+    width: 350px;
 }
 .interna .title_interna h2 span {
     display: block;

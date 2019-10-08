@@ -27,7 +27,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     url2: any;
     public imagePath: any;
     public message: string;
-    public listTiket: Array<ticketModel> = [];
     public model: any = {};
 
     public boolDetails: Boolean;
@@ -43,8 +42,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
-        this.model.listTiket = [];
-        this.model.listTiket2 = [];
         this.eventForm = this.eventModelFrom();
     }
     ngOnInit() {
@@ -102,7 +99,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.model.quantityAvailable = '';
         this.model.price = '';
         this.model.currencyType = '';
-        this.model.listTiket2.push(1);
+        const tikects: ticketModel[]= [];
+        this.model.listTiket = tikects;
     }
 
     ngAfterViewInit() {
@@ -159,13 +157,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
         const startDateHour = datePipe.transform(this.model.startDate, 'dd/MM/yyyy h:mm a');
         const endDateHour = datePipe.transform(this.model.endDate, 'dd/MM/yyyy h:mm a');
-
-        // ticketModelClass.nameTicket = this.model.nameTicket;
-        // ticketModelClass.quantityAvailable = this.model.quantityAvailable;
-        // ticketModelClass.price = this.model.price;
-        // ticketModelClass.currencyType = this.model.currencyType;
-
-        // this.listTiket.push(ticketModelClass);
         const fd = new FormData();
         fd.append('file', this.selectedFiles, this.selectedFiles.name);
         fd.append('fileImageLocalization', this.selectedFiles2, this.selectedFiles2.name);
@@ -191,11 +182,11 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         const tokenAcces = this.loginService.getDecodedAccessToken(); 
         fd.append('UserId', tokenAcces.Id);
 
-        for ( let i = 0 ; i < this.listTiket.length; i++) {
-            fd.append(`TicketList[${i}].NameTicket`, this.listTiket[i].nameTicket);
-            fd.append(`TicketList[${i}].QuantityAvailable`, this.listTiket[i].quantityAvailable);
-            fd.append(`TicketList[${i}].Price`, this.listTiket[i].price);
-            fd.append(`TicketList[${i}].CurrencyType`, this.listTiket[i].currencyType);
+        for ( let i = 0 ; i < this.model.listTiket.length; i++) {
+            fd.append(`TicketList[${i}].NameTicket`, this.model.listTiket[i].nameTicket);
+            fd.append(`TicketList[${i}].QuantityAvailable`, this.model.listTiket[i].quantityAvailable);
+            fd.append(`TicketList[${i}].Price`, this.model.listTiket[i].price);
+            fd.append(`TicketList[${i}].CurrencyType`, this.model.listTiket[i].currencyType);
         }
 
 
@@ -290,7 +281,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     addTikects(){
-        if( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
+        // if( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
             const key = UUID.UUID();
             let tikect = new ticketModel();
             tikect.price = this.model.price;
@@ -298,27 +289,19 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             tikect.nameTicket = this.model.nameTicket;
             tikect.quantityAvailable = this.model.quantityAvailable;
             tikect.codeTmp = key;
-            this.listTiket.push(tikect);
-            console.log(this.listTiket);
+            this.model.listTiket.push(tikect);
+            console.log(this.model.listTiket);
             this.model.price = '';
             this.model.quantityAvailable = '';
             this.model.nameTicket = '';
-        }
+        // }
         
-        this.contador++;
-        if(this.contador <=10 ) {
-            this.model.listTiket2.push(this.contador);
-            console.log(this.model.listTiket2);
-            console.log(this.contador);
-            
-        }
         
     }
 
-    deleteTickets(){
-        this.contador--;
-        this.model.listTiket2.splice(this.contador);
-        console.log(this.model.listTiket2);
-        console.log(this.contador);
+    deleteTickets(tikectValue: string){
+        let indice = this.model.listTiket.findIndex(x => { return x.codeTmp == tikectValue});
+        this.model.listTiket.splice(indice, 1);
+        console.log(this.model.listTiket);
     }
 }
