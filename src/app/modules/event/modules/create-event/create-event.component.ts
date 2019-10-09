@@ -19,7 +19,6 @@ import Swal from 'sweetalert2';
 })
 
 export class CreateEventComponent implements OnInit, AfterViewInit {
-    
     en: any;
     selectedFiles = null;
     selectedFiles2 = null;
@@ -46,7 +45,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.eventForm = this.eventModelFrom();
     }
     ngOnInit() {
-        this.step = '1'
+        this.step = '1';
         this.en = {
             firstDayOfWeek: 1,
             dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
@@ -100,7 +99,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.model.quantityAvailable = '';
         this.model.price = '';
         this.model.currencyType = '';
-        const tikects: ticketModel[]= [];
+        const tikects: ticketModel[] = [];
         this.model.listTiket = tikects;
         this.model.contador = 0;
     }
@@ -115,8 +114,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
             reader.onload = (event: any) => {
                 this.url = event.target.result;
-            }
-
+            };
             reader.readAsDataURL(event.target.files[0]);
         }
     }
@@ -132,7 +130,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             reader.readAsDataURL(event.target.files[0]);
         }
     }
-    getCities(){
+    getCities() {
         this.createService.getCities().subscribe(
             res => {
                 this.model.listCity = res;
@@ -140,7 +138,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             }
         );
     }
-    getCategory(){
+    getCategory() {
         this.createService.getCategory().subscribe(
             res => {
                 this.model.listCategory = res;
@@ -149,7 +147,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         );
     }
 
-    registerEvent(){
+    registerEvent() {
         // let startDateHour = form.startDate + ' ' + form.startHour;
         // let endDateHour = form.endDate + ' ' + form.endHour;
         // const ticketModelClass = new ticketModel();
@@ -181,7 +179,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         fd.append('phoneContact', this.model.phoneContact);
         fd.append('emailContact', this.model.emailContact);
 
-        const tokenAcces = this.loginService.getDecodedAccessToken(); 
+        const tokenAcces = this.loginService.getDecodedAccessToken();
         fd.append('UserId', tokenAcces.Id);
 
         for ( let i = 0 ; i < this.model.listTiket.length; i++) {
@@ -195,10 +193,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.createService.registerEvent(fd).subscribe(
             res => {
                 this.router.navigate(['/event/events']);
-                console.log('Registro del Evento Correctamente')
+                console.log('Registro del Evento Correctamente');
             },
             err => {
-                console.log('Error el en servidor del registro')
+                console.log('Error el en servidor del registro');
             }
         );
 
@@ -282,11 +280,11 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolSendEvent = true;
     }
 
-    addTikects(){
-        if( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
-            if( this.model.listTiket.length < 10) {
+    addTikects() {
+        if ( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
+            if ( this.model.listTiket.length < 10) {
                 const key = UUID.UUID();
-                let tikect = new ticketModel();
+                const tikect = new ticketModel();
                 tikect.price = this.model.price;
                 tikect.currencyType = this.model.currencyType;
                 tikect.nameTicket = this.model.nameTicket;
@@ -298,22 +296,18 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                 this.model.quantityAvailable = '';
                 this.model.nameTicket = '';
                 this.model.contador++;
-            } else{
-                Swal.fire('Oops... Solo se pueden agregar como máximo 10 entradas', this.message, 'error');
+            } else {
+                Swal.fire('Solo se pueden agregar como máximo 10 entradas', this.message, 'info');
             }
-            
-        }else{
-            Swal.fire('Oops... Los campos no pueden estar vacíos', this.message, 'error');
+        } else {
+            Swal.fire('Los campos no pueden estar vacíos', this.message, 'info');
         }
-        
-        
     }
 
-    deleteTickets(tikectValue: string){
-                
+    deleteTickets(tikectValue: string) {
         Swal.fire({
             title: '¿Estas Seguro?',
-            text: "No se podra revertir esto!",
+            text: 'No se podra revertir esto!',
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -321,9 +315,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             confirmButtonText: 'Si',
             cancelButtonText: 'No'
         }).then((result) => {
-            
             if (result.value) {
-                let indice = this.model.listTiket.findIndex(x => { return x.codeTmp == tikectValue});
+                const indice = this.model.listTiket.findIndex(x => {
+                        return x.codeTmp == tikectValue;
+                    });
                 this.model.listTiket.splice(indice, 1);
                 console.log(this.model.listTiket);
                 this.model.contador--;
@@ -331,9 +326,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     'Eliminado!',
                     'La entrada ha sido eliminada.',
                     'success'
-                )
+                );
             }
-        })
-        
+        });
     }
 }

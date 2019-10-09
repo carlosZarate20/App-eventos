@@ -17,14 +17,14 @@
         
                                     <div class="col-xs-12 col-sm-12">
                                         <div class="form-element form-element-small-errors unpad-b">
-                                            <label for="businessName"><span>Nombre del Evento*</span></label>
+                                            <label for="businessName"><span>Nombre del Evento *</span></label>
                                             <input type="text" [(ngModel)]="model.name" name="title" class="form-control" id="businessName" value="">
                                         </div>
                                         <div class="form-element form-element-small-errors unpad-b">
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>
-                                                        <span>Fecha de inicio del evento</span>
+                                                        <span>Fecha de inicio del evento *</span>
                                                     </label>
                                                     <div class="input-group form-group">
                                                         <p-calendar [(ngModel)]="model.startDate" dateFormat="dd/mm/yy"  [locale]="en" [showIcon]="true" showTime="true" hourFormat="12"></p-calendar>
@@ -32,7 +32,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>
-                                                        <span>Fecha fin del evento</span>
+                                                        <span>Fecha fin del evento *</span>
                                                     </label>
                                                     <div class="input-group form-group">
                                                         <p-calendar [(ngModel)]="model.endDate" dateFormat="dd/mm/yy" [locale]="en" [showIcon]="true" [showIcon]="true" showTime="true" hourFormat="12"></p-calendar>
@@ -40,7 +40,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="currencyBank">
-                                                        Elige una Categoria
+                                                        Elige una Categoria *
                                                     </label>
                                                     <select [(ngModel)]="model.eventCategoryId" name="currencyBank" data-city-currency="1" class="form-control input-sm">
                                                         <option  [value]="init" disabled> -- Seleccione -- </option>
@@ -73,7 +73,7 @@
                                                 <div class="col-md-6">
                                                     <div style="max-width:3000px;">
                                                         <div class="form-element">
-                                                            <label>Mapa del evento*</label>
+                                                            <label>Mapa del evento *</label>
                                                             <div id="imageUrl" class="image-picker" style="height: 218px;">
                                                                 <div class="overlay">
                                                                     <img [src]="url2" height="200">
@@ -92,7 +92,7 @@
                                             </div>  
                                         </div>
                                         <div class="form-element form-element-small-errors unpad-b">
-                                            <label for="businessName"><span>URL del Video*</span></label>
+                                            <label for="businessName"><span>URL del Video *</span></label>
                                             <input type="text" [(ngModel)]="model.urlVideo" name=" video" class="form-control" id="businessName" value="">
                                         </div>
                                         <div class="form-element-information">
@@ -304,7 +304,7 @@
                                                 </table> 
                                                 <div class="col-xs-12 col-sm-12">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
-                                                        <span>Cantidad: {{this.model.contador}}</span>
+                                                        <span>Cantidad de entradas agregadas: {{this.model.contador}}</span>
                                                     </div>
                                                     
                                                 </div>
