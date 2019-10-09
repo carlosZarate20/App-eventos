@@ -119,7 +119,7 @@
                                     <div class="col-sm-9"></div>
                                     <div class="col-sm-3 col-xs-3">
                                         <div class=" col-submit">
-                                            <button type="button" name="submit" (click)="viewUbication()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep>Siguiente
+                                            <button type="button" name="submit" (click)="viewUbication()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled]="model.name == '' ">Siguiente
                                                 <i class="fa fa-angle-right"></i>  
                                             </button>
                                         </div>
@@ -211,201 +211,175 @@
                             </div>
                             <div class="box-content boxStep">
                                 <div class="row pad-t ticketRow" style="margin-left:0px;margin-right:0px;">
-                                    <div class="col-xs-12 col-sm-12"> 
-                                        <div class="col-xs-8 col-sm-4">
-                                            <div class="form-element form-element-small-errors unpad-b no-label">
-                                                <label><span>Tipo de Moneda *</span></label>
-                                                <select [(ngModel)]="model.currencyType" name="currency" data-city-currency="1" class="form-control input-sm">
-                                                    <option value="1">Soles</option>
-                                                    <option value="2">Dólares</option>
-                                                </select>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12"> 
+                                            <div class="col-xs-8 col-sm-4">
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label><span>Tipo de Moneda *</span></label>
+                                                    <select [(ngModel)]="model.currencyType" name="currency" data-city-currency="1" class="form-control input-sm">
+                                                        <option value="1">Soles</option>
+                                                        <option value="2">Dólares</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-4 col-sm-4 col-sm-push-4 text-right">
-                                            <label><span></span></label>
-                                            <label><span></span></label>
-                                            <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
-                                            type="button" class="btn btn-gray btn-sm btn-block has-tooltip" (click)="addTikects()">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                                Agregar entrada
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div></div>
-                                    <div *ngFor="let items of model.listTiket" class="col-xs-12 col-sm-12">
-                                        <div class="col-md-3">     
-                                            <div class="form-element form-element-small-errors unpad-b no-label">
-                                                <label><span>Tipo Entrada *</span></label>
-                                                <input [(ngModel)]="items.nameTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
-                                            </div>       
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-element form-element-small-errors unpad-b no-label"> 
-                                                <label>
-                                                    <span>Cantidad Disponible *</span>
-                                                </label>
-                                                <input [(ngModel)]="items.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-element form-element-small-errors unpad-b no-label">
-                                                <label>
-                                                    <span>Precio *</span>
-                                                </label>
-                                                <input [(ngModel)]="items.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
-                                            </div>                                  
-                                        </div>
-                                        <div class="col-xs-2 col-sm-1">
-                                            <div class="form-element form-element-small-errors unpad-b no-label">
+                                            <div class="col-xs-4 col-sm-4 col-sm-push-4 text-right">
                                                 <label><span></span></label>
                                                 <label><span></span></label>
-                                                <button type="button" class="btn btn-gainsboro btn-block unpad-l unpad-r" >
-                                                    <span class="caret"></span>
+                                                <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
+                                                type="button" class="btn btn-gray btn-sm btn-block has-tooltip" (click)="addTikects()">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                    Agregar entrada
                                                 </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12">
+                                            <div class="col-md-4">     
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label><span>Tipo Entrada *</span></label>
+                                                    <input [(ngModel)]="model.nameTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
+                                                </div>       
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-element form-element-small-errors unpad-b no-label"> 
+                                                    <label>
+                                                        <span>Cantidad Disponible *</span>
+                                                    </label>
+                                                    <input [(ngModel)]="model.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label>
+                                                        <span>Precio *</span>
+                                                    </label>
+                                                    <input [(ngModel)]="model.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
+                                                </div>                                  
                                             </div>
                                             
                                         </div>
-                                        <div class="col-xs-2 col-sm-1">
-                                            <div class="form-element form-element-small-errors unpad-b no-label">
-                                                <label><span></span></label>
-                                                <label><span></span></label>
-                                                <button type="button" (click)="deleteTickets(items.codeTmp)" class="btn btn-gainsboro btn-block unpad-l unpad-r" >
-                                                    <span class="glyphicon glyphicon-remove"></span>
-                                                </button>
+                                        <div class="col-xs-12 col-sm-12">
+                                            <div class="col-md-4">
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label>
+                                                        <span>Nombre Fila *</span>
+                                                    </label>
+                                                    <input [(ngModel)]="model.nameTicket" class="form-control text-right input-price"  placeholder="" name="ticketTypes[0][price]" type="text" value="">
+                                                </div>                                  
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label>
+                                                        <span>Cantidad Disponible *</span>
+                                                    </label>
+                                                    <input [(ngModel)]="model.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
+                                                </div>                                  
+                                            </div>
+                                        </div>
+                                        <div *ngIf="model.listTiket.length > 0" class="col-md-12">
+                                            <fieldset>
+                                                <legend>Lista de Entradas </legend>
+                                                <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Tipo Entrada</th>
+                                                            <th>Cantidad Entradas</th>
+                                                            <th>Precio</th>
+                                                            <th>Fila</th>
+                                                            <th>Cantidad Filas</th>
+                                                            <th class="text-center">Acciones</th>
+                        
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let items of model.listTiket">
+                                                            <td style="word-wrap: break-word;">{{items.nameTicket}}</td>
+                                                            <td style="word-wrap: break-word;">{{items.quantityAvailable}}</td>
+                                                            <td style="word-wrap: break-word;">{{items.price}}</td>
+                                                            <td style="word-wrap: break-word;"></td>
+                                                            <td style="word-wrap: break-word;"></td>
+                                                            <td class="text-center"> <a class="ico-grid" title="Eliminar"><i class="fa fa-trash" (click)="deleteTickets(items.codeTmp)"></i>
+                                                            </a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                                <div class="col-xs-12 col-sm-12">
+                                                    <div class="form-element form-element-small-errors unpad-b no-label">
+                                                        <span>Cantidad: {{this.model.contador}}</span>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                            </fieldset>
+                                            
                                             
                                         </div>
-                                    </div>   
-                                    <div class="col-xs-12 col-sm-12">
-                                        <div class="col-sm-3 col-xs-3">
-                                            <div class=" col-submit">
-                                                <button type="button" name="submit" (click)="viewUbication()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awPreviousStep>
-                                                    <i class="fa fa-angle-left"></i> Anterior
-                                                </button>
+                                        
+                                        <!-- <div *ngFor="let items of model.listTiket" class="col-xs-12 col-sm-12">
+                                            <div class="col-md-3">     
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label><span>Tipo Entrada *</span></label>
+                                                    <input [(ngModel)]="items.nameTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
+                                                </div>       
                                             </div>
+                                            <div class="col-md-3">
+                                                <div class="form-element form-element-small-errors unpad-b no-label"> 
+                                                    <label>
+                                                        <span>Cantidad Disponible *</span>
+                                                    </label>
+                                                    <input [(ngModel)]="model.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label>
+                                                        <span>Precio *</span>
+                                                    </label>
+                                                    <input [(ngModel)]="items.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
+                                                </div>                                  
+                                            </div>
+                                            <div class="col-xs-2 col-sm-1">
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label><span></span></label>
+                                                    <label><span></span></label>
+                                                    <button type="button" class="btn btn-gainsboro btn-block unpad-l unpad-r" >
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-xs-2 col-sm-1">
+                                                <div class="form-element form-element-small-errors unpad-b no-label">
+                                                    <label><span></span></label>
+                                                    <label><span></span></label>
+                                                    <button type="button" (click)="deleteTickets(items.codeTmp)" class="btn btn-gainsboro btn-block unpad-l unpad-r" >
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>    -->
+                                        <div class="col-xs-12 col-sm-12">
+                                            <div class="col-sm-3 col-xs-3">
+                                                <div class=" col-submit">
+                                                    <button type="button" name="submit" (click)="viewUbication()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awPreviousStep>
+                                                        <i class="fa fa-angle-left"></i> Anterior
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6"></div>
+                                            <div class="col-sm-3 col-xs-3">
+                                                <div class="col-submit">
+                                                    <button type="button" name="submit" (click)="viewBillingInformation()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep >Siguiente
+                                                        <i class="fa fa-angle-right"></i>  
+                                                    </button>
+                                                </div>
+                                            </div>  
                                         </div>
-                                        <div class="col-sm-6 col-xs-6"></div>
-                                        <div class="col-sm-3 col-xs-3">
-                                            <div class="col-submit">
-                                                <button type="button" name="submit" (click)="viewBillingInformation()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep >Siguiente
-                                                    <i class="fa fa-angle-right"></i>  
-                                                </button>
-                                            </div>
-                                        </div>  
-                                    </div>
-                                                        
+                                    </div>                                   
                                 </div>
-                                
-                                <!-- <div class="row">
-                                    <div class="col-xs-12" id="ticketRowsContainer">
-                                        <input type="hidden" class="valChange" value="0">
-                                        <div class="row bor bor-gray-15 pad-t ticketRow" style="margin-left:0px;margin-right:0px;">
-                                            <div class="col-xs-12 col-sm-5">
-                                                <div class="form-element form-element-small-errors unpad-b">
-                                                <label>
-                                                    <label for="businessName">Tipo Entrada *</label>
-                                                    <input type="text" name="businessName" class="form-control" id="businessName" value="">
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3">
-                                                <div class="form-element form-element-small-errors unpad-b">
-                                                    <label>
-                                                        <span>Cantidad Disponible</span>
-                                                        <input class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-3 txtprice">
-                                                <div class="form-element form-element-small-errors unpad-b">
-                                                    <label>
-                                                        <span>Precio</span>
-                                                        <input class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-1 text-right unpad-l pad-b"><br><button type="button" class="btn btn-gainsboro btn-block unpad-l unpad-r" ><span class="caret"></span></button></div>
-                                            <div class="col-xs-12 moreinfo pad-t bg-gray-10 pad-b" style="display:none;">
-                                                <div class="row">
-                                                <div class="col-xs-12 col-sm-4">
-                                                    <div class="form-element form-element-small-errors unpad-b">
-                                                        <label>
-                                                            <span>Min cantidad por orden</span>
-                                                            <select name="ticketTypes[0][minQuantityPerOrder]" class="form-control input-sm has-tooltip" title="Con esta opción podrás generar ofertas por la compra mínima de un número determinado de entradas." data-toggle="tooltip">
-                                                                <option value="1" selected="selected">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8</option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10</option>
-                                                            </select>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-4 selectMaxOrden">
-                                                    <div class="form-element form-element-small-errors unpad-b">
-                                                        <label>
-                                                            <span>Max cantidad por orden</span>
-                                                            <select name="ticketTypes[0][maxQuantityPerOrder]" class="form-control input-sm has-tooltip" title="Cada usuario puede comprar máximo esta cantidad de entradas" data-toggle="tooltip">
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8</option>
-                                                                <option value="9">9</option>
-                                                                <option value="10" selected="selected">10</option>
-                                                            </select>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-4 selectMaxUser">
-                                                    <div class="form-element form-element-small-errors unpad-b">
-                                                        <label><span>Max cant. por usuario</span>
-                                                            <select name="ticketTypes[0][maxQuantityPerUser]" class="form-control input-sm">
-                                                                <option value="0">0</option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4" selected="selected">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8</option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10</option>
-                                                            </select>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-8 pad-t">
-                                                    <div class="form-element form-element-small-errors unpad-b">
-                                                        <label>
-                                                            <span>Descripción</span>
-                                                            <textarea class="form-control" maxlength="255" rows="2" placeholder="Añade información adicional sobre este tipo de entrada. Ejm: se pedirá DNI en la puerta." name="ticketTypes[0][description]"></textarea>
-                                                        </label>
-                                                    </div>
-                                                </div><div class="col-xs-12 col-sm-4 pad-t"><br><div class="form-element form-element-small-errors unpad-b"><label><span>Activado</span><input type="hidden" name="ticketTypes[0][enabled]" value="0"><input type="checkbox" name="ticketTypes[0][enabled]" class="ticket-type-enabled-field" title="Oculta este tipo de entrada según la disponibilidad o durante un periodo de tiempo determinado" data-toggle="tooltip" value="1" checked="checked"></label></div>
-                                                </div><div class="col-xs-12 col-sm-4" style="display: none"><div class="form-element form-element-small-errors unpad-b"><label><span>¿Pago por internet?</span><input type="hidden" name="ticketTypes[0][payOnline]" value="0"><input type="checkbox" name="ticketTypes[0][payOnline]" class="ticket-type-payment-field" value="1"></label></div>
-                                                </div><div class="col-xs-12 col-sm-8 pad-t date-time" style="position: relative;display: none;"><div class="form-element form-element-small-errors unpad-b"><label><span>Fecha de entrada personalizada</span><input type="text" class="form-control" maxlength="50" name="ticketTypes[0][dateStart]" placeholder="yyyy-mm-dd h:i:s" value=""></label></div>
-                                                </div><div class="col-xs-12 col-sm-4 pad-t image-type" style="position: relative;display: none;"><div class="form-element form-element-small-errors unpad-b"><label><span>Image ticket type (105px x193px)</span><input type="file" class="form-control" name="ticketTypes[0][_image]" style="display: none;"></label></div>
-                                                <div class="form-element form-element-small-errors unpad-b no-label"><input type="hidden" name="ticketTypes[0][image]" value="0"></div>
-                                                <div class="loader"><img src="https://www.joinnus.com/inc/img/loader.gif"></div><div class="content-image"><a href="#" title="Eliminar imagen" class="close">X</a><img src="0"></div></div><div class="col-xs-12 pad-t"><button type="button" class="btn btn-default btn-xs" onclick="del_ticket(this);"><span class="glyphicon glyphicon-trash"></span> Eliminar entrada</button><div class="form-element form-element-small-errors unpad-b no-label"><input type="hidden" name="ticketTypes[0][deleteonsave]" class="del-on-save" value="0"></div>
-                                                </div></div></div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div> -->
-                            
+            
                             </div>
                         </div>
-            
                     </div>
                 </aw-wizard-step>
                 <aw-wizard-step stepTitle="Facturación">

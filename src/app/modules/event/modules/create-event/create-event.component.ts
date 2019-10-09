@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { EventModel } from '../../Model/event';
 import { UUID } from 'angular2-uuid';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -101,6 +102,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.model.currencyType = '';
         const tikects: ticketModel[]= [];
         this.model.listTiket = tikects;
+        this.model.contador = 0;
     }
 
     ngAfterViewInit() {
@@ -281,27 +283,57 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     addTikects(){
-        // if( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
-            const key = UUID.UUID();
-            let tikect = new ticketModel();
-            tikect.price = this.model.price;
-            tikect.currencyType = this.model.currencyType;
-            tikect.nameTicket = this.model.nameTicket;
-            tikect.quantityAvailable = this.model.quantityAvailable;
-            tikect.codeTmp = key;
-            this.model.listTiket.push(tikect);
-            console.log(this.model.listTiket);
-            this.model.price = '';
-            this.model.quantityAvailable = '';
-            this.model.nameTicket = '';
-        // }
+        if( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
+            if( this.model.listTiket.length < 10) {
+                const key = UUID.UUID();
+                let tikect = new ticketModel();
+                tikect.price = this.model.price;
+                tikect.currencyType = this.model.currencyType;
+                tikect.nameTicket = this.model.nameTicket;
+                tikect.quantityAvailable = this.model.quantityAvailable;
+                tikect.codeTmp = key;
+                this.model.listTiket.push(tikect);
+                console.log(this.model.listTiket);
+                this.model.price = '';
+                this.model.quantityAvailable = '';
+                this.model.nameTicket = '';
+                this.model.contador++;
+            } else{
+                Swal.fire('Oops... Solo se pueden agregar como máximo 10 entradas', this.message, 'error');
+            }
+            
+        }else{
+            Swal.fire('Oops... Los campos no pueden estar vacíos', this.message, 'error');
+        }
         
         
     }
 
     deleteTickets(tikectValue: string){
-        let indice = this.model.listTiket.findIndex(x => { return x.codeTmp == tikectValue});
-        this.model.listTiket.splice(indice, 1);
-        console.log(this.model.listTiket);
+                
+        Swal.fire({
+            title: '¿Estas Seguro?',
+            text: "No se podra revertir esto!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            
+            if (result.value) {
+                let indice = this.model.listTiket.findIndex(x => { return x.codeTmp == tikectValue});
+                this.model.listTiket.splice(indice, 1);
+                console.log(this.model.listTiket);
+                this.model.contador--;
+                Swal.fire(
+                    'Eliminado!',
+                    'La entrada ha sido eliminada.',
+                    'success'
+                )
+            }
+        })
+        
     }
 }
