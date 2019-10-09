@@ -301,3 +301,4 @@ button.btnSearch:focus { outline: 0; opacity: 0.6; background: #de615e; color: #
 button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #de615e; color: #fff; }
 button.btnSearch:active:focus, button.btnSearch.active:focus { outline: 0; opacity: 0.6; background: #de615e; color: #fff; }
 
+
