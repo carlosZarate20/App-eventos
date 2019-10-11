@@ -1,6 +1,6 @@
 import { ticketModel } from './user';
 
-export class EventModel{
+export class EventModel {
     public name: string;
     public description: string;
     public aditionalInformation: string;

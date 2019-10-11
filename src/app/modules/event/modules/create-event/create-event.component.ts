@@ -305,7 +305,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolBillingInformation = false;
         this.boolSendEvent = true;
     }
-    validateURLCorrect (data: string) {
+
+    validateURLCorrect(data: string) {
         // const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)|(HTTP:\/\/WWW\.|HTTPS:\/\/WWW\.|HTTP:\/\/|HTTPS:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
         const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
         if (!pattern.test(data.toLowerCase())) {
@@ -314,23 +315,21 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             this.validFieldsAux = false;
         }
     }
-    
 
     validateURLVideo(){
         this.validUrlLink = false;
-        if(this.model.urlVideo != '' && this.model.urlVideo.length > 0) {
+        if (this.model.urlVideo != '' && this.model.urlVideo.length > 0) {
             this.validateURLCorrect(this.model.urlVideo);
             this.validUrlLink = this.validFieldsAux;
-            if(this.validFieldsAux){
+            if (this.validFieldsAux) {
                 this.validUrlLinkMessage = true;
-            }else {
+            } else {
                 this.validUrlLinkMessage = false;
             }
-        }else {
+        } else {
             this.validUrlLinkMessage = false;
         }
     }
-    
 
     addTikects() {
         if ( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {

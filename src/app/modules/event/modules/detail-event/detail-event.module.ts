@@ -10,7 +10,6 @@ import { DetailsEventService } from '../../services/detailsEvent.service';
 
 const routes: Routes = [
   { path: '', component: DetailEventComponent },
-  
 ];
 
 @NgModule({

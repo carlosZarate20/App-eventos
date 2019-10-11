@@ -75,4 +75,4 @@ const routes: Routes = [
   bootstrap: [EventComponent],
   exports: [EventComponent]
 })
-export class EventModule {}
+export class EventModule { }

@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Constants } from '../shared/util/constants';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     public displayDialogAlert: Boolean = false;
     public titularAlerta: string = '';
     public message: any = '';
+    public role: any = [];
     constructor(private loginService: LoginService, private fb: FormBuilder, private router: Router) {
         this.loginForm = this.loginValidateForm();
     }
@@ -33,7 +35,13 @@ export class LoginComponent implements OnInit {
                 (res: any) => {
                     localStorage.setItem('token', res.token);
                     localStorage.setItem('tokenExpiration', res.expiration);
-                    this.router.navigate(['/event/events']);
+                    const values = this.loginService.getDecodedAccessToken();
+                    this.role = values.Role;
+                    if (this.role === Constants.ROLE_ADMIN ) {
+                        this.router.navigate(['/admin']);
+                    } else {
+                        this.router.navigate(['/event/events']);
+                    }
                 },
                 (err: any) => {
                     this.message = err.error;

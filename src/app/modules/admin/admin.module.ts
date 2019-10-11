@@ -3,18 +3,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateEventComponent } from './create-event.component';
 import {CalendarModule} from 'primeng/calendar';
-import { CreateEventService } from '../../services/createEvent.service';
+import { CreateEventService } from '../event/services/createEvent.service';
 import { ArchwizardModule } from 'angular-archwizard';
+import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
-  { path: '', component: CreateEventComponent },
+  { path: '', component: AdminComponent },
 ];
 
 @NgModule({
     declarations: [
-      CreateEventComponent
+        AdminComponent
     ],
     imports: [
       RouterModule.forChild(routes),
@@ -25,8 +25,7 @@ const routes: Routes = [
       ReactiveFormsModule,
       ArchwizardModule
     ],
-    providers: [CreateEventService],
-    bootstrap:[CreateEventComponent],
-    exports: [CreateEventComponent]
+    bootstrap: [AdminComponent],
+    exports: [AdminComponent]
   })
-  export class CreateEventModule { }
+  export class AdminModule { }

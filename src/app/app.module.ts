@@ -10,11 +10,11 @@ import { EventModule } from './modules/event/event.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './Helpers/jwt.interceptor';
 import { DetailEventModule } from './modules/event/modules/detail-event/detail-event.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @NgModule({
   declarations: [
     AppComponent
-   
   ],
   imports: [
     BrowserModule,
@@ -25,8 +25,8 @@ import { DetailEventModule } from './modules/event/modules/detail-event/detail-e
     EventModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    DetailEventModule
-    
+    DetailEventModule,
+    AdminModule
   ],
   providers: [
     {

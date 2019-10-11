@@ -77,7 +77,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   }
 
   findEvent() {
-    let wordSearch = this.keyword;
+    const wordSearch = this.keyword;
     this.model.listEvent = [];
     setTimeout(() => {
       this.loading = true;
@@ -99,19 +99,19 @@ export class EventComponent implements OnInit, AfterViewInit {
               err => {
               }
             );
-          }else{
+          } else {
           }
-        } 
-      } else{
+        }
+      } else {
         this.model.listEvent = [];
         this.loading = false;
       }
-        
+
     }, 1000);
   }
 
-  passDetailsView(id: any){
-    this.router.navigate(['/event/detail' , id])
+  passDetailsView(id: any) {
+    this.router.navigate(['/event/detail' , id]);
   }
 
 }
