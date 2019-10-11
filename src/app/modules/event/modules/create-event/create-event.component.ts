@@ -10,6 +10,7 @@ import { LoginService } from '../../services/login.service';
 import { EventModel } from '../../Model/event';
 import { UUID } from 'angular2-uuid';
 import Swal from 'sweetalert2';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -37,12 +38,15 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public wizardSteps: Array<Object>;
     public step: any;
     public contador: number = 0;
+    public validFieldsAux: Boolean = false;
+    public validUrlLink: Boolean;
+    public validUrlLinkMessage: Boolean;
     public eventModel: EventModel = new EventModel();
-    constructor(public createService: CreateEventService, private fbr: FormBuilder,
+    constructor(public createService: CreateEventService,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
-        this.eventForm = this.eventModelFrom();
+        // this.eventForm = this.eventModelFrom();
     }
     ngOnInit() {
         this.step = '1';
@@ -74,6 +78,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolTickets = false;
         this.boolBillingInformation = false;
         this.boolSendEvent = false;
+        this.validUrlLinkMessage = false;
         this.contador = 0;
         this.model.name = '';
         this.model.description = '';
@@ -148,9 +153,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     registerEvent() {
-        // let startDateHour = form.startDate + ' ' + form.startHour;
-        // let endDateHour = form.endDate + ' ' + form.endHour;
-        // const ticketModelClass = new ticketModel();
         const datePipe = new DatePipe('en-PE');
         // const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
         // const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
@@ -192,8 +194,32 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
         this.createService.registerEvent(fd).subscribe(
             res => {
-                this.router.navigate(['/event/events']);
-                console.log('Registro del Evento Correctamente');
+                let timerInterval
+                Swal.fire({
+                title: 'Evento registrado correctamente',
+                html: 'Se le redireccionara en <strong></strong> milisegundos.',
+                type: 'success',
+                timer: 2000,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                    Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft().toString();
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+
+                }
+                }).then((result) => {
+                if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.timer
+                ) {
+                    this.router.navigate(['/event/events']);
+                    console.log('Registro del Evento Correctamente');
+                }
+                })
+                
             },
             err => {
                 console.log('Error el en servidor del registro');
@@ -217,33 +243,33 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         );
     }
 
-    eventModelFrom(): FormGroup {
-        return this.fbr.group({
-            id : [null],
-            name : ['', Validators.compose([Validators.required])],
-            description: ['', Validators.compose([Validators.required])],
-            aditionalInformation: ['', Validators.compose([Validators.required])],
-            startDate: ['', Validators.compose([Validators.required])],
-            endDate: ['', Validators.compose([Validators.required])],
-            adress: ['', Validators.compose([Validators.required])],
-            reference: ['', Validators.compose([Validators.required])],
-            nameTicket: ['', Validators.compose([Validators.required])],
-            quantityAvailable: [0, Validators.compose([Validators.required])],
-            price: ['', Validators.compose([Validators.required])],
-            currencyType: [0, Validators.compose([Validators.required])],
-            eventCategoryId: [0, Validators.compose([Validators.required])],
-            cityId: [0, Validators.compose([Validators.required])],
-            urlVideo: ['', Validators.compose([Validators.required])],
-            document: ['', Validators.compose([Validators.required])],
-            socialReason: ['', Validators.compose([Validators.required])],
-            bankNumber: ['', Validators.compose([Validators.required])],
-            bank: ['', Validators.compose([Validators.required])],
-            bankCurrencyTipe: [0, Validators.compose([Validators.required])],
-            personalContact: ['', Validators.compose([Validators.required])],
-            phoneContact: ['', Validators.compose([Validators.required])],
-            emailContact: ['', Validators.compose([Validators.required])]
-        });
-    }
+    // eventModelFrom(): FormGroup {
+    //     return this.fbr.group({
+    //         id : [null],
+    //         name : ['', Validators.compose([Validators.required])],
+    //         description: ['', Validators.compose([Validators.required])],
+    //         aditionalInformation: ['', Validators.compose([Validators.required])],
+    //         startDate: ['', Validators.compose([Validators.required])],
+    //         endDate: ['', Validators.compose([Validators.required])],
+    //         adress: ['', Validators.compose([Validators.required])],
+    //         reference: ['', Validators.compose([Validators.required])],
+    //         nameTicket: ['', Validators.compose([Validators.required])],
+    //         quantityAvailable: [0, Validators.compose([Validators.required])],
+    //         price: ['', Validators.compose([Validators.required])],
+    //         currencyType: [0, Validators.compose([Validators.required])],
+    //         eventCategoryId: [0, Validators.compose([Validators.required])],
+    //         cityId: [0, Validators.compose([Validators.required])],
+    //         urlVideo: ['', Validators.compose([Validators.required])],
+    //         document: ['', Validators.compose([Validators.required])],
+    //         socialReason: ['', Validators.compose([Validators.required])],
+    //         bankNumber: ['', Validators.compose([Validators.required])],
+    //         bank: ['', Validators.compose([Validators.required])],
+    //         bankCurrencyTipe: [0, Validators.compose([Validators.required])],
+    //         personalContact: ['', Validators.compose([Validators.required])],
+    //         phoneContact: ['', Validators.compose([Validators.required])],
+    //         emailContact: ['', Validators.compose([Validators.required])]
+    //     });
+    // }
     viewCreateEvents() {
         this.boolDetails = true;
         this.boolUbication = false;
@@ -279,6 +305,32 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolBillingInformation = false;
         this.boolSendEvent = true;
     }
+    validateURLCorrect (data: string) {
+        // const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)|(HTTP:\/\/WWW\.|HTTPS:\/\/WWW\.|HTTP:\/\/|HTTPS:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+        const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+        if (!pattern.test(data.toLowerCase())) {
+            this.validFieldsAux = true;
+        } else {
+            this.validFieldsAux = false;
+        }
+    }
+    
+
+    validateURLVideo(){
+        this.validUrlLink = false;
+        if(this.model.urlVideo != '' && this.model.urlVideo.length > 0) {
+            this.validateURLCorrect(this.model.urlVideo);
+            this.validUrlLink = this.validFieldsAux;
+            if(this.validFieldsAux){
+                this.validUrlLinkMessage = true;
+            }else {
+                this.validUrlLinkMessage = false;
+            }
+        }else {
+            this.validUrlLinkMessage = false;
+        }
+    }
+    
 
     addTikects() {
         if ( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {

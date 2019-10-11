@@ -93,8 +93,12 @@
                                         </div>
                                         <div class="form-element form-element-small-errors unpad-b">
                                             <label for="businessName"><span>URL del Video *</span></label>
-                                            <input type="text" [(ngModel)]="model.urlVideo" name=" video" class="form-control" id="businessName" value="">
+                                            <input type="text" [(ngModel)]="model.urlVideo" name=" video" class="form-control" id="businessName" value="" (blur)="validateURLVideo()">
+                                            <div *ngIf="validUrlLinkMessage" class="help-block" style="color: red">
+                                                Error, URL invalida
+                                            </div>
                                         </div>
+                                        
                                         <div class="form-element-information">
                                             <div class="row">
                                                 <div class="col-md-6">
