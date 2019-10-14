@@ -13,6 +13,8 @@ export class EventsHomeComponent implements OnInit {
   image: any;
   constructor(public eventService: HomeEventService, public router: Router) { 
     this.model.listEvent = [];
+    this.model.listEvent2 = [];
+    this.model.listCategories = [];
   }
 
   ngOnInit() {
@@ -24,10 +26,33 @@ export class EventsHomeComponent implements OnInit {
     ]
     this.image = '../../../../../assets/images/banner1.jpg';
     this.getListEvent();
+    this.getListCategories();
   }
 
   getListEvent(){
     this.eventService.getEvent().subscribe(
+      res => {
+          this.model.listEvent = res;
+          this.model.listEvent2 = res;
+
+          for(var i = 0; i< this.model.listEvent.length; i++ ){
+            this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image
+          }
+          console.log(res);
+      }
+    );
+  }
+  getListCategories() {
+    this.eventService.getCategories().subscribe(
+      res => {
+          this.model.listCategories = res;
+          console.log(res);
+      }
+    );
+  }
+
+  findCategory(categoryId: any) {
+    this.eventService.getEventValue(categoryId).subscribe(
       res => {
           this.model.listEvent = res;
 

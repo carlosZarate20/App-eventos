@@ -16,8 +16,11 @@ export class RegisterComponent implements OnInit {
     submitted = false;
     constructor( public registerService: RegisterUserService, private fb: FormBuilder, private router: Router) {
         this.userForm = this.createForm();
+        this.getDistrict();
     }
     ngOnInit() {
+        this.model.lisDistrict = [];
+        this.model.checkUser = false;
     }
 
     registerUser(form: any) {
@@ -39,6 +42,8 @@ export class RegisterComponent implements OnInit {
     createForm(): FormGroup {
         return this.fb.group({
             id : [null],
+            districtId: [null, Validators.required],
+            userType: [false],
             email: ['', Validators.compose([Validators.required, Validators.email])],
             emailConfirm: ['', Validators.compose([Validators.required, Validators.maxLength(40)])],
             password: ['', Validators.compose([Validators.required,
@@ -54,5 +59,22 @@ export class RegisterComponent implements OnInit {
             phone: ['', Validators.compose([Validators.required,
                 Validators.minLength(7), Validators.maxLength(9), Validators.pattern('[0-9]*')])]
         }, {validator: [CustomValidators.passwordMatchValidator]});
+    }
+
+    getDistrict(){
+        this.registerService.getDistrict().subscribe(
+            res => {
+                this.model.lisDistrict = res;
+                console.log(res);
+            },
+            err =>{
+
+            }
+        );
+            
+        
+    }
+    changeValue(userType: boolean){
+
     }
 }

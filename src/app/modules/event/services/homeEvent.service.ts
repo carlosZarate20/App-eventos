@@ -10,7 +10,19 @@ export class HomeEventService {
 
     getEvent(){
         return this.http
-        .get('http://edumoreno27-001-site6.etempurl.com/listar_eventos')
+        .get('http://edumoreno27-001-site6.etempurl.com/listar_eventos/')
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    getCategories(){
+        return this.http
+        .get('http://edumoreno27-001-site6.etempurl.com/listar_categorias/')
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    getEventValue(categoryId: any){
+        return this.http
+        .get('http://edumoreno27-001-site6.etempurl.com/listar_eventos/' + categoryId)
         .map((res: Response) => res)
         .catch(this.handleError);
     }

@@ -36,6 +36,16 @@
                                     Este campo solo acepta letras y un máximo de 55 caracteres
                                 </div>
                             </div>
+                            <div class="form-group"> 
+                                <label  class="sr-only" for="form-username">Distrito</label>
+                                <select formControlName="districtId" class="form-username form-control" style="height: 50px;">
+                                    <option  value="null" disabled="true" [selected]="true">Seleccionar distrito...</option>
+                                    <option *ngFor="let district of model.lisDistrict" [value]="district.id">{{district.name}}</option>
+                                </select>
+                                <div *ngIf="submitted && userForm.controls['districtId'].errors?.required" class="help-block" style="color: red">
+                                        Este campo es obligatorio
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Correo</label>
                                 <input type="text" formControlName="email" placeholder="Correo..." class="form-username form-control">
@@ -58,7 +68,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Celular</label>
-                                <input type="text" formControlName="phone" placeholder="Celular..." class="form-username form-control" autocomplete="off">
+                                <input type="text" formControlName="phone" name="phone" placeholder="Celular..." class="form-username form-control" >
                                 <div *ngIf="submitted && userForm.controls['phone'].errors?.required" class="help-block" style="color: red">
                                     Este campo es obligatorio
                                 </div>
@@ -102,11 +112,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="switch">
-                                    <input  name="model.checkClient" id="chk1" type="checkbox"  data-toggle="toggle">
-                                    <span class="slider round"></span>
-                                </label>
-                                <label style="color: white">Afiliate con nosotros</label>
+                                <div id="div-switch">
+                                    <label class="switch">
+                                        <input formControlName="userType" name="userType" id="chk1" type="checkbox" data-toggle="toggle">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                
+                                <div style="display: inline-block;">
+                                    <label style="color: white">Afiliate con nosotros</label>
+                                </div>
                             </div>
                             <button  type="submit" class="btn">Ingresar!</button>
                         </form>

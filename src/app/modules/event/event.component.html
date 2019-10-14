@@ -30,7 +30,7 @@
 					<li *ngFor="let menuItem of model.menu.register.items" [routerLinkActive]="['active']">
 						<a *ngIf="usuario == null" routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
 					<li *ngFor="let menuItem of model.menu.create.items" [routerLinkActive]="['active']">
-						<a *ngIf="usuario != null && roleAdmin" routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
+						<a *ngIf="usuario != null && roleClient" routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
 					<li  class="dropdown" *ngIf="usuario != null">
 						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{usuario}}
 							<i class="glyphicon glyphicon-user"></i>

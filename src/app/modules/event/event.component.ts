@@ -47,12 +47,12 @@ export class EventComponent implements OnInit, AfterViewInit {
       console.log(values);
       this.usuario = values.Name;
       this.role = values.Role;
-      if (this.role === Constants.ROLE_ADMIN ) {
-        this.roleAdmin = true;
-        console.log('El rol ingresado es administrador');
+      if (this.role === Constants.ROLE_CLIENT ) {
+        this.roleClient = true;
+        console.log('El rol ingresado es Cliente');
       } else {
-        this.roleAdmin = false;
-        console.log('El rol ingresado no es administrador');
+        this.roleClient = false;
+        console.log('El rol ingresado es publico general');
       }
     } else {
       this.usuario = null;
@@ -85,7 +85,9 @@ export class EventComponent implements OnInit, AfterViewInit {
         if (wordSearch == this.keyword) {
           if (this.keyword) {
             const events = {
-              name: this.keyword
+              name: this.keyword,
+              startDate: '',
+              endDate: ''
             }
             console.log(events);
             this.searchService.findEventSearch(events).subscribe(

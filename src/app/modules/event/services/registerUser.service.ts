@@ -17,9 +17,9 @@ export class RegisterUserService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
-    getValues(): Observable<Response>{
+    getDistrict(): Observable<Response>{
         return this.http
-        .get('http://edumoreno27-001-site6.etempurl.com/api/values')
+        .get('http://edumoreno27-001-site6.etempurl.com/listar_distritos')
         .map((res: Response) => res)
         .catch(this.handleError);
     }

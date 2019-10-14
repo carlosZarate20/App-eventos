@@ -363,3 +363,8 @@ button.btnSearch:active:focus, button.btnSearch.active:focus { outline: 0; opaci
     border-radius: 50%;
   }
 
+  #div-switch {
+    display: inline-block;
+    width: 60px;
+    vertical-align: middle;
+  }
