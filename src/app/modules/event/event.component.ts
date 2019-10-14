@@ -64,6 +64,7 @@ export class EventComponent implements OnInit, AfterViewInit {
 
   logout() {
     this.loginService.logout();
+    this.router.navigate(['/event/events']);
   }
 
   activateSearch() {

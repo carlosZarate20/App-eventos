@@ -29,8 +29,7 @@ export class LoginService {
     logout() {
         localStorage.removeItem("token");   
         localStorage.removeItem("tokenExpiration");
-        localStorage.clear();
-        this.router.navigate(['/']);        
+        localStorage.clear();     
     }
 
     getDecodedAccessToken(): any {
