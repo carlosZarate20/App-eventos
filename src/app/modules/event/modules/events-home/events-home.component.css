@@ -41,6 +41,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     font-size: .8em;
     width: 100%;
 }
+.menu_category .nav-category {
+    padding-left: 0;
+}
+#menu-listados-mobile {
+    background: #101010;
+    z-index: 999;
+    width: 100%;
+    position: relative!important;
+    color: #fff!important;
+}
 .nav .open > a{
 	background-color: #2B2B2B !important;
     color: #fff;
@@ -125,7 +135,7 @@ label{
     list-style: none;
     display: inline-block;
     margin: 1em 0 0;
-    float: right;
+	float: right;
 }
 .social-nav li {
     display: inline-block;
@@ -402,6 +412,9 @@ i.fa.fa-shopping-bag.top_logo_agile_bag {
 .multi-gd-img img{
 	width:100%;
 }
+.navbar {
+    position: absolute;
+}
 /*-- nav-bar --*/
 /* .navbar-default {
     background: #050404;
@@ -559,7 +572,7 @@ letter-spacing: 2px;
 .agile_short_dropdown > li > a:hover{
     color: #fff;
     text-decoration: none;
-    background-color: #2fdab8;
+    background-color: #333;
 }
 /*-- //left nav --*/
 .top_nav_right {
@@ -3355,7 +3368,7 @@ color: #000;
     background: #000;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    background-color: #2fdab8;
+    background-color: #333;
 	color:#fff;
 }
 .product-men.single {
@@ -4294,7 +4307,7 @@ p.w3ls_para {
 		padding: 17px 0;
 	}
 	.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-		background-color: #2fdab8;
+		background-color: #333;
 	}
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #FFF;

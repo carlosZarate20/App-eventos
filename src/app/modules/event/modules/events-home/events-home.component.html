@@ -105,7 +105,23 @@
 			</div><!-- /.container-fluid -->
 		</nav>
 	</div>	
-	
+	<div id="menu-listados-mobile" class="menu_category navbar navbar-default visible-xs">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-menu-navbar-collapse" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="bs-menu-navbar-collapse" aria-expanded="false" style="height: 1px;">
+				<ul id="menu-home-mobile" class="nav navbar-nav listado-nav">
+					<li id="menu-home-nuevos-mobile" *ngFor="let itemCategorie of model.listCategories"><a (click)="findCategory(itemCategorie.id)">{{itemCategorie.name}}</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 	<div class="new_arrivals_agile_w3ls_info">
 		<div class="container">
 			<div class="resp-tabs-container">

@@ -9,7 +9,7 @@
 				<span class="icon-bar"></span>
 			</button>
 		</div>	
-		<div class="collapse navbar-collapse navbar-ex1-collapse"> 
+		<div class="collapse navbar-collapse navbar-ex1-collapse" id="example-1"> 
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<a class="navbar-brand" rel="home" routerLink="/event/events" style="padding-right: 100px">Logo</a>
 			</div>
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="col-md-4 col-sm-4 col-xs-4">
-				<ul class="nav navbar-nav navbar-right hidden-xs">			
+				<ul class="nav navbar-nav navbar-right">			
 					<li *ngFor="let menuItem of model.menu.login.items" [routerLinkActive]="['active']">
 						<a *ngIf="usuario == null" routerLink="{{menuItem.url}}">{{menuItem.name}}</a></li>
 					<li *ngFor="let menuItem of model.menu.register.items" [routerLinkActive]="['active']">
