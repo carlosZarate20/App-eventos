@@ -15,10 +15,9 @@ export class AdminEventService {
         this.headerCustomize = this.constant.getHeaders();
     }
 
-    findEventSearch(form: any): Observable<Response>{
-        var test = this.constant.getHeaders(true); 
+    findEventSearch(form: any): Observable<Response> {
         return this.http
-        .post('http://edumoreno27-001-site6.etempurl.com/buscar', form)
+        .post(`${environment.apiUrl}/buscar`, form)
         .map((res: Response) => res)
         .catch(this.handleError);
     }

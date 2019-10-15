@@ -17,7 +17,7 @@ export class DetailsEventService {
 
     getDetailsEvent(id: any) {
         return this.http
-        .get(`${environment.apiUrl}/detalle_evento/` + id)
+        .get(`${environment.apiUrl}/detalle_evento/${id}`)
         .map((res: Response) => res)
         .catch(this.handleError);
     }

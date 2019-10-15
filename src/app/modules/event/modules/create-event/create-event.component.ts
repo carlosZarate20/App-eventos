@@ -194,7 +194,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
         this.createService.registerEvent(fd).subscribe(
             res => {
-                let timerInterval
+                let timerInterval;
                 Swal.fire({
                 title: 'Evento registrado correctamente',
                 html: 'Se le redireccionara en <strong></strong> milisegundos.',
@@ -207,7 +207,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     }, 100)
                 },
                 onClose: () => {
-                    clearInterval(timerInterval)
+                    clearInterval(timerInterval);
 
                 }
                 }).then((result) => {
@@ -218,8 +218,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     this.router.navigate(['/event/events']);
                     console.log('Registro del Evento Correctamente');
                 }
-                })
-                
+                });
+
             },
             err => {
                 console.log('Error el en servidor del registro');
@@ -307,7 +307,9 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     validateURLCorrect(data: string) {
+        // tslint:disable-next-line:max-line-length
         // const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)|(HTTP:\/\/WWW\.|HTTPS:\/\/WWW\.|HTTP:\/\/|HTTPS:\/\/)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+        // tslint:disable-next-line:max-line-length
         const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
         if (!pattern.test(data.toLowerCase())) {
             this.validFieldsAux = true;

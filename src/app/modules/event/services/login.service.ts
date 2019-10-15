@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Router } from '@angular/router';
-import * as jwt_decode from "jwt-decode";
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable()
 export class LoginService {
@@ -15,42 +15,40 @@ export class LoginService {
     login(form: any): Observable<Response> {
         return this.http
         .post(`${environment.apiUrl}/login`, form)
-        .map((res: Response) => res)   
+        .map((res: Response) => res);
     }
 
     getToken(): string  {
-        return localStorage.getItem("token");
+        return localStorage.getItem('token');
     }
 
-    getTokenExpiration(): string{
-        return localStorage.getItem("tokenExpiration");        
+    getTokenExpiration(): string {
+        return localStorage.getItem('tokenExpiration');
     }
 
     logout() {
-        localStorage.removeItem("token");   
-        localStorage.removeItem("tokenExpiration");
-        localStorage.clear();     
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
+        localStorage.clear();
     }
 
     getDecodedAccessToken(): any {
-      var token = this.getToken();
-      try{
+      const token = this.getToken();
+      try {
           return jwt_decode(token);
-      }
-      catch(Error){
+      } catch (Error) {
           return null;
       }
     }
 
     isLogged(): boolean {
-        let exp = this.getTokenExpiration();    
-        if (!exp) {      
+        const exp = this.getTokenExpiration();
+        if (!exp) {
           return false;
-        }    
-        var now = new Date().getTime();
-        var dateExp = new Date(exp).getTime();  
-    
-        if (now >= dateExp) {  
+        }
+        const now = new Date().getTime();
+        const dateExp = new Date(exp).getTime();
+        if (now >= dateExp) {
           localStorage.removeItem('token');
           localStorage.removeItem('tokenExpiration');
           return false;
@@ -58,7 +56,6 @@ export class LoginService {
         } else {
           return true;
         }
-        
       }
 
     handleError(handleError: any): Observable<Response> {

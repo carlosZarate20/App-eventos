@@ -31,7 +31,7 @@
 
               "./src/assets/css/bootstrap.css",
               "./src/assets/css/bootstrap.min.css",
-              "./src/assets/css/font-awesome.css",
+              "./src/assets/css/font-awesome.css"
             ],
             "scripts": [
 

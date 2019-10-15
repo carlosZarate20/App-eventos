@@ -3,26 +3,27 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HomeEventService {
     constructor(private http: HttpClient) { }
 
-    getEvent(){
+    getEvent() {
         return this.http
-        .get('http://edumoreno27-001-site6.etempurl.com/listar_eventos/')
+        .get(`${environment.apiUrl}/listar_eventos/`)
         .map((res: Response) => res)
         .catch(this.handleError);
     }
-    getCategories(){
+    getCategories() {
         return this.http
-        .get('http://edumoreno27-001-site6.etempurl.com/listar_categorias/')
+        .get(`${environment.apiUrl}/listar_categorias/`)
         .map((res: Response) => res)
         .catch(this.handleError);
     }
-    getEventValue(categoryId: any){
+    getEventValue(categoryId: any) {
         return this.http
-        .get('http://edumoreno27-001-site6.etempurl.com/listar_eventos/' + categoryId)
+        .get(`${environment.apiUrl}/listar_eventos/${categoryId}`)
         .map((res: Response) => res)
         .catch(this.handleError);
     }

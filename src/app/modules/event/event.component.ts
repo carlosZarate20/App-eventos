@@ -25,7 +25,7 @@ export class EventComponent implements OnInit, AfterViewInit {
   public validateFilter: Boolean = false;
   public loading: Boolean = false;
 
-  constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService, 
+  constructor( private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService,
                public searchService: SearchEventService, private fb: FormBuilder) {
     this.model.menu = {};
     this.model.menu.inicio = { display: true, items: [] };
@@ -72,7 +72,7 @@ export class EventComponent implements OnInit, AfterViewInit {
     console.log('abrio modal');
   }
 
-  desactivateSearch(){
+  desactivateSearch() {
     this.modalSearch = false;
     console.log('cerro modal');
   }

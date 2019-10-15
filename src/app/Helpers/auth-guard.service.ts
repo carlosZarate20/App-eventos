@@ -6,8 +6,7 @@ import { LoginService } from '../modules/event/services/login.service';
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
-  constructor(private loginService: LoginService,
-    private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {

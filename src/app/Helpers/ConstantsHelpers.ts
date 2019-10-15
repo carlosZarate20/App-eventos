@@ -4,24 +4,23 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ConstantHelper  {
-    
+
   constructor( public loginService: LoginService) {}
-    
+
   getHeaders(isFormData: boolean = false): HttpHeaders {
-    let token = this.loginService.getToken();
+    const token = this.loginService.getToken();
     if(isFormData == true){
       return new HttpHeaders({
         'Accept': '/',
         'Authorization': `bearer ${token}`
-      });    
+      });
 
-    } else 
-    {
+    } else {
       return new HttpHeaders({
-        'Content-Type': 'application/json',        
+        'Content-Type': 'application/json',
         'Authorization': `bearer ${token}`
-      });  
+      });
 
-    }   
+    }
   }
 }

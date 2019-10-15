@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminComponent,
+    loadChildren: './modules/admin/admin.module#AdminModule',
     canActivate: []
   }
   // {
