@@ -9,6 +9,8 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { AdminComponent } from './admin.component';
 import { JwtInterceptor } from 'src/app/Helpers/jwt.interceptor';
 import { LoginService } from '../event/services/login.service';
+import { AuthGuardService } from 'src/app/Helpers/auth-guard.service';
+import { ConstantHelper } from 'src/app/Helpers/ConstantsHelpers';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
@@ -16,7 +18,7 @@ const routes: Routes = [
     path: 'create',
     component: AdminComponent,
     loadChildren: './modules/create-category/create-category.module#CreateCategoryModule',
-    canActivate: [],
+    canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
   },
 ];
@@ -36,6 +38,8 @@ const routes: Routes = [
     ],
     providers: [
       LoginService,
+      AuthGuardService,
+      ConstantHelper,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: JwtInterceptor,

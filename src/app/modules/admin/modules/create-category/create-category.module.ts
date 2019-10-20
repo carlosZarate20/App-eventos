@@ -6,6 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {CalendarModule} from 'primeng/calendar';
 import { ArchwizardModule } from 'angular-archwizard';
 import { CreateCategoryComponent } from './create-category.component';
+import { AdminEventService } from '../../services/admin.service';
+import { LoginService } from 'src/app/modules/event/services/login.service';
 
 const routes: Routes = [
   { path: '', component: CreateCategoryComponent },
@@ -24,7 +26,7 @@ const routes: Routes = [
       ReactiveFormsModule,
       ArchwizardModule
     ],
-    // providers: [CreateEventService],
+    providers: [AdminEventService, LoginService],
     bootstrap: [CreateCategoryComponent],
     exports: [CreateCategoryComponent]
   })

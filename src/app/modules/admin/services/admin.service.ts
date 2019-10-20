@@ -14,10 +14,41 @@ export class AdminEventService {
     constructor(private http: HttpClient, private constant: ConstantHelper) {
         this.headerCustomize = this.constant.getHeaders();
     }
-
-    findEventSearch(form: any): Observable<Response> {
+    getCategory() {
+        const headers = this.constant.getHeaders();
         return this.http
-        .post(`${environment.apiUrl}/buscar`, form)
+        .get(`${environment.apiUrl}/obtener_categorias`, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+
+    createCategory(categorie: any): Observable<Response> {
+        const test = this.constant.getHeaders(true);
+        return this.http
+        .post(`${environment.apiUrl}/creacion_categoria`, categorie, {
+            headers: test
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    
+    editCategory(value: any) {
+        const headers = this.constant.getHeaders();
+        return this.http
+        .post(`${environment.apiUrl}/editar_categoria`, value, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    deleteCategory(id: any){
+        const headers = this.constant.getHeaders();
+        return this.http
+        .post(`${environment.apiUrl}/eliminar_categoria`, id, {
+            headers: this.headerCustomize
+            })
         .map((res: Response) => res)
         .catch(this.handleError);
     }

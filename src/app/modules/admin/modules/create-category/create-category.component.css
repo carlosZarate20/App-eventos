@@ -102,6 +102,16 @@
     top: 0;
     width: 3.2rem;
 }
+.form-control.m-input--pill {
+    border-radius: 1.3rem;
+}
+
+.m-input-icon>.m-input-icon__icon>span>i {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 0;
+}
 @media (min-width: 1200px)
 {
     .col-xl-4 {
@@ -161,3 +171,28 @@
         max-width: 66.66667%;
     }
 }
+.dataTables_wrapper .dataTable th {
+    background: #f4f3f8;
+}
+
+.dataTables_wrapper {
+    padding: 0 !important;
+}
+.dataTables_wrapper .dataTable {
+    width: 100% !important;
+    border-collapse: initial !important;
+    border-spacing: 0 !important;
+    margin: 1rem 0 !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.btn.btn-info {
+    color: #fff;
+}
+/* table.dataTable thead>tr>th.sorting_asc{
+    padding-right: 30px;
+} */
