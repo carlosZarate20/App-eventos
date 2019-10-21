@@ -14,10 +14,10 @@ export class AdminEventService {
     constructor(private http: HttpClient, private constant: ConstantHelper) {
         this.headerCustomize = this.constant.getHeaders();
     }
-    getCategory() {
+    getCategory(name: any) {
         const headers = this.constant.getHeaders();
         return this.http
-        .get(`${environment.apiUrl}/obtener_categorias`, {
+        .get(`${environment.apiUrl}/obtener_categorias/${name}`, {
             headers: this.headerCustomize
             })
         .map((res: Response) => res)
@@ -43,7 +43,7 @@ export class AdminEventService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
-    deleteCategory(id: any){
+    deleteCategory(id: any) {
         const headers = this.constant.getHeaders();
         return this.http
         .post(`${environment.apiUrl}/eliminar_categoria`, id, {
@@ -52,7 +52,15 @@ export class AdminEventService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
-
+    getCategoryEdit(idCategory: any) {
+        const headers = this.constant.getHeaders();
+        return this.http
+        .get(`${environment.apiUrl}/obtener_categoria/${idCategory}`, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
     handleError(handleError: any): Observable<Response> {
         throw new Error('Method not implemented.');
     }

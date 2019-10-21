@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeEventService } from '../../services/homeEvent.service';
 import { Router } from '@angular/router';
+import { categorieModel, categorieModel2 } from '../../Model/event';
 
 @Component({
   selector: 'app-events-home',
@@ -10,11 +11,14 @@ import { Router } from '@angular/router';
 export class EventsHomeComponent implements OnInit {
   items: Array<any> = [];
   public model: any = {};
+  public validateList= false;
   image: any;
   constructor(public eventService: HomeEventService, public router: Router) { 
     this.model.listEvent = [];
     this.model.listEvent2 = [];
     this.model.listCategories = [];
+  
+   
   }
 
   ngOnInit() {
@@ -25,6 +29,10 @@ export class EventsHomeComponent implements OnInit {
       {image4: 'assest/images/banner4.jpg'}
     ]
     this.image = '../../../../../assets/images/banner1.jpg';
+    const category: categorieModel[] = [];
+    const category2: categorieModel2[] = [];
+    this.model.listCategoriesAux = category;
+    this.model.listCategoriesAux2 = category2;
     this.getListEvent();
     this.getListCategories();
   }
@@ -45,8 +53,31 @@ export class EventsHomeComponent implements OnInit {
   getListCategories() {
     this.eventService.getCategories().subscribe(
       res => {
-          this.model.listCategories = res;
-          console.log(res);
+
+        this.model.listCategories = res;
+        console.log(res);
+        if(this.model.listCategories.length > 5) {
+          this.validateList = true;
+          
+          
+          for( let i = 0; i < this.model.listCategories.length; i++){
+            if(this.model.listCategoriesAux.length < 4){
+              const category = new categorieModel();
+              category.id = this.model.listCategories[i].id;
+              category.name = this.model.listCategories[i].name;
+              this.model.listCategoriesAux.push(category); 
+            } else{
+              const category2 = new categorieModel2();
+              category2.id = this.model.listCategories[i].id;
+              category2.name = this.model.listCategories[i].name;
+              this.model.listCategoriesAux2.push(category2);
+
+            }
+          }
+        } else {
+          this.validateList = false;
+        }
+        
       }
     );
   }

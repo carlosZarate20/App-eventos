@@ -25,3 +25,11 @@ export class EventModel {
     public emailContact: any;
     public listTiket: Array<ticketModel> = [];
 }
+export class categorieModel {
+    public id: string;
+    public name: string;
+} 
+export class categorieModel2 {
+    public id: string;
+    public name: string;
+} 

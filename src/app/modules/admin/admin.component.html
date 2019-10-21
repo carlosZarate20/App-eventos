@@ -17,11 +17,11 @@
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
-            <li><a href="#" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Stats"><i class="fa fa-bar-chart-o"></i>
+            <!-- <li><a href="#" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Stats"><i class="fa fa-bar-chart-o"></i>
                 </a>
-            </li>            
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin User <b class="fa fa-angle-down"></b></a>
+            </li>             -->
+            <li class="dropdown" *ngIf="usuario != null">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{usuario}} <b class="fa fa-angle-down"></b></a>
                 <ul class="dropdown-menu">
                     <!-- <li><a href="#"><i class="fa fa-fw fa-user"></i> Editar Perfil</a></li>
                     <li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
@@ -33,14 +33,14 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
-                <li>
-                    <a data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw fa-search"></i> CATEGORIAS <i class="fa fa-fw fa-angle-down pull-right"></i></a>
-                    <ul id="submenu-1" class="collapse">
+                <li *ngFor="let menuItem of model.menu.categories.items" [routerLinkActive]="['active']">
+                    <a routerLink="{{menuItem.url}}"><i class="fa fa-fw fa-search"></i> CATEGORIAS</a>
+                    <!-- <ul id="submenu-1" class="collapse">
                         <li *ngFor="let menuItem of model.menu.categories.items" [routerLinkActive]="['active']" ><a routerLink="{{menuItem.url}}"><i class="fa fa-angle-double-right"></i> {{menuItem.name}}</a></li>
                         
-                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.2</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
-                    </ul>
+                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.2</a></li>
+                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li>
+                    </ul> -->
                 </li>
                 <li> <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-bar-chart-o"></i>  REPORTES <i class="fa fa-fw fa-angle-down pull-right"></i></a></li>
                 <!-- <li>

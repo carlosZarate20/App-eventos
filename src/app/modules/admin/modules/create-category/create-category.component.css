@@ -43,7 +43,7 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    font-size: 1.3rem;
+    /* font-size: 1.3rem; */
     font-weight: 500;
     font-family: Roboto;
     margin: 0;
@@ -196,3 +196,31 @@
 /* table.dataTable thead>tr>th.sorting_asc{
     padding-right: 30px;
 } */
+.m-portlet .m-portlet__head .m-portlet__head-text {
+    color: #575962;
+}
+.m-portlet .m-portlet__head {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0;
+    padding: 0 2.2rem;
+    height: 5.1rem;
+    position: relative;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }

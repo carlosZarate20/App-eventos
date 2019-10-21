@@ -14,51 +14,143 @@ declare var $: any;
 export class CreateCategoryComponent implements OnInit {
     public model: any = {};
     public nameCategory: string;
+    public validateCreate = false;
+    public validateEdit = false;
+    public loading = false;
     constructor(private createCategory: AdminEventService, public loginService: LoginService) {
         this.model.listCategory = [];
+        this.model.listCategoryName = [];
     }
 
     ngOnInit() {
-        this.getListCategory();
+        this.getListCategory('');
         this.model.nameCategory = '';
+        this.model.nameEditCategory = '';
+        this.model.idCategory = '';
+        this.model.searchCategory = '';
     }
 
-    getListCategory(){
-        this.createCategory.getCategory().subscribe(
+    getListCategory(value: any){
+        this.createCategory.getCategory('').subscribe(
             res =>{
                 this.model.listCategory = res;
                 console.log(this.model.listCategory);
             }
         );
     }
-    saveCategory() {
-        const tokenAcces = this.loginService.getDecodedAccessToken();
-
-        const categories = {
-            userId: tokenAcces.Id,
-            name: this.model.nameCategory
+    validateNameCategoryCreate(){
+        if(this.model.nameCategory != '') {
+            this.validateCreate = false;
         }
-        this.createCategory.createCategory(categories).subscribe(
-            (res: any) => {
-                this.getListCategory();
-                console.log('registrado');
-                
-            },
-            (err: any) => {
-                $("#myModal").modal("hide");
-                this.model.nameCategory = '';
-                this.getListCategory();
-                
-                console.log('No registrado');
-            }
-        );
     }
+    validateNameCategoryEdit(){
+        if(this.model.nameEditCategory != '') {
+            this.validateEdit = false;
+        }
+    }
+    saveCategory() {
+        if(this.model.nameCategory != '') {
+            this.validateCreate = false;
+            const tokenAcces = this.loginService.getDecodedAccessToken();
 
-    updateCategory(){
+            const categories = {
+                userId: tokenAcces.Id,
+                name: this.model.nameCategory
+            }
+            this.createCategory.createCategory(categories).subscribe(
+                (res: any) => {
+                    $("#myModal").modal("hide");
+                    this.model.nameCategory = '';
+                    this.getListCategory('');
+                    console.log('registrado');
+                    
+                },
+                (err: any) => {
+                    console.log('No registrado');
+                }
+            );
+        } else {
+            this.validateCreate = true;
+        }
         
     }
+    findCategory() {
+        const wordSearch = this.model.searchCategory;
+        setTimeout(() => {
+            this.loading = true;
+            if(wordSearch != '' ) {
+              if (wordSearch == this.model.searchCategory) {
+                if (this.model.searchCategory) {
+                  this.createCategory.getCategory(wordSearch).subscribe(
+                    (res: any) => {
+                        this.loading = false;
+                    this.model.listCategory= res;
+                    },
+                    err => {
+                    }
+                  );
+                } else {
+                }
+              }
+            } else {
+                this.getListCategory('');
+                this.loading = false;
+            }
+        }, 1000);
+    }
+
+    updateCategory() {
+        if(this.model.nameEditCategory != '') {
+            this.validateEdit = false;
+            const editCategories = {
+                id: this.model.idCategory,
+                name: this.model.nameEditCategory
+            }
+            Swal.fire({
+                title: '¿Estas Seguro de editar la categoría?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    this.createCategory.editCategory(editCategories).subscribe(
+                        res => {
+                            $("#myModalEdit").modal("hide");
+                            this.getListCategory('');
+                        }, 
+                        err => {
+            
+                        }
+                    );
+                    Swal.fire(
+                        'Editado!',
+                        'La categoría ha sido editada correctamente.',
+                        'success'
+                    );
+                }
+            });
+        } else {
+            this.validateEdit = true;
+        }
+       
+    }
+    getEditCategory(idCategory: any){
+        this.createCategory.getCategoryEdit(idCategory).subscribe(
+            (res: any) => {
+                this.model.listCategoryName = res; 
+                this.model.nameEditCategory = this.model.listCategoryName.name;
+                this.model.idCategory = this.model.listCategoryName.id;
+            }, 
+            (err: any) => {
+
+            }
+        )
+    }
     deleteCategory(idCategory: any){
-        const categories = {
+        const categoriesDelete = {
             id: idCategory
         }
         Swal.fire({
@@ -72,9 +164,9 @@ export class CreateCategoryComponent implements OnInit {
             cancelButtonText: 'No'
         }).then((result) => {
             if (result.value) {
-                this.createCategory.deleteCategory(categories).subscribe(
+                this.createCategory.deleteCategory(categoriesDelete).subscribe(
                     res => {
-                        this.getListCategory();
+                        this.getListCategory('');
                         console.log("Ha sido eliminado");
                     },
                     err => {
