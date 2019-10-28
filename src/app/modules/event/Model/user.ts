@@ -14,3 +14,9 @@ export class ticketModel {
     price : string;
     currencyType: string;
 }
+export class ticketTypeModel {
+    codeTmp: string;
+    codeTicket: string;
+    nameTypeTicket: string;
+    quantityAvailable : string;
+}

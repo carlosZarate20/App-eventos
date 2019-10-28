@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { HttpClient } from 'selenium-webdriver/http';
-import { userModel, ticketModel } from '../../Model/User';
+import { userModel, ticketModel, ticketTypeModel } from '../../Model/User';
 import { CreateEventService } from '../../services/createEvent.service';
 import { FormGroup, FormControl, Validators, FormBuilder, Form } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -41,12 +41,13 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public validFieldsAux: Boolean = false;
     public validUrlLink: Boolean;
     public validUrlLinkMessage: Boolean;
+    public validFile;
+    public validTable;
     public eventModel: EventModel = new EventModel();
     constructor(public createService: CreateEventService,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
-        // this.eventForm = this.eventModelFrom();
     }
     ngOnInit() {
         this.step = '1';
@@ -104,9 +105,20 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.model.quantityAvailable = '';
         this.model.price = '';
         this.model.currencyType = '';
+        this.model.ticket = '';
+        this.model.typeTicket = '';
+        this.model.quantityTicketAvailable = '';
+        this.model.quantityTableAvailable = '';
+        this.model.nameTypeTicket = '';
+        this.model.nameTypeTable = '';
         const tikects: ticketModel[] = [];
+        const typeTikects: ticketTypeModel[] = [];
         this.model.listTiket = tikects;
         this.model.contador = 0;
+        this.model.contadorAux = 0;
+        this.model.listTypeTicket = typeTikects;
+        this.validFile = false;
+        this.validTable = false;
     }
 
     ngAfterViewInit() {
@@ -243,33 +255,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         );
     }
 
-    // eventModelFrom(): FormGroup {
-    //     return this.fbr.group({
-    //         id : [null],
-    //         name : ['', Validators.compose([Validators.required])],
-    //         description: ['', Validators.compose([Validators.required])],
-    //         aditionalInformation: ['', Validators.compose([Validators.required])],
-    //         startDate: ['', Validators.compose([Validators.required])],
-    //         endDate: ['', Validators.compose([Validators.required])],
-    //         adress: ['', Validators.compose([Validators.required])],
-    //         reference: ['', Validators.compose([Validators.required])],
-    //         nameTicket: ['', Validators.compose([Validators.required])],
-    //         quantityAvailable: [0, Validators.compose([Validators.required])],
-    //         price: ['', Validators.compose([Validators.required])],
-    //         currencyType: [0, Validators.compose([Validators.required])],
-    //         eventCategoryId: [0, Validators.compose([Validators.required])],
-    //         cityId: [0, Validators.compose([Validators.required])],
-    //         urlVideo: ['', Validators.compose([Validators.required])],
-    //         document: ['', Validators.compose([Validators.required])],
-    //         socialReason: ['', Validators.compose([Validators.required])],
-    //         bankNumber: ['', Validators.compose([Validators.required])],
-    //         bank: ['', Validators.compose([Validators.required])],
-    //         bankCurrencyTipe: [0, Validators.compose([Validators.required])],
-    //         personalContact: ['', Validators.compose([Validators.required])],
-    //         phoneContact: ['', Validators.compose([Validators.required])],
-    //         emailContact: ['', Validators.compose([Validators.required])]
-    //     });
-    // }
     viewCreateEvents() {
         this.boolDetails = true;
         this.boolUbication = false;
@@ -374,6 +359,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     });
                 this.model.listTiket.splice(indice, 1);
                 console.log(this.model.listTiket);
+                this.model.quantityTicketAvailable = '';
+                this.model.ticket = '';
                 this.model.contador--;
                 Swal.fire(
                     'Eliminado!',
@@ -382,5 +369,53 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                 );
             }
         });
+    }
+
+    addTypeTickets() {
+        if (this.model.typeTicket == 1) {
+            if (this.model.quantityTicketAvailable != '' && this.model.nameTypeTicket != '') {
+                const key = UUID.UUID();
+                const tikectType = new ticketTypeModel();
+                tikectType.nameTypeTicket = this.model.nameTypeTicket;
+                tikectType.quantityAvailable = this.model.quantityTicketAvailable;
+                tikectType.codeTmp = key;
+                this.model.listTypeTicket.push(tikectType);
+                console.log(this.model.listTypeTicket);
+                this.model.quantityTicketAvailable = '';
+                this.model.nameTypeTicket = '';
+                this.model.contadorAux++;
+            } else {
+                Swal.fire('Los campos no pueden estar vacíos', this.message, 'info');
+            }
+        } else {
+            if (this.model.quantityTableAvailable != '' && this.model.nameTypeTable != '') {
+                const key = UUID.UUID();
+                const tikectType = new ticketTypeModel();
+                tikectType.nameTypeTicket = this.model.nameTypeTable;
+                tikectType.quantityAvailable = this.model.quantityTableAvailable;
+                tikectType.codeTmp = key;
+                this.model.listTypeTicket.push(tikectType);
+                console.log(this.model.listTypeTicket);
+                this.model.quantityTableAvailable = '';
+                this.model.nameTypeTable = '';
+                this.model.contadorAux++;
+            } else {
+                Swal.fire('Los campos no pueden estar vacíos', this.message, 'info');
+            }
+        }
+        
+    }
+    deleteTypeTickets() {
+
+    }
+
+    checkTypeTicket() {
+        if(this.model.typeTicket == 1) {
+            this.validFile = true;
+            this.validTable = false;
+        } else {
+            this.validFile = false;
+            this.validTable = true;
+        }
     }
 }

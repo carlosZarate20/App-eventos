@@ -62,6 +62,11 @@ export class CreateCategoryComponent implements OnInit {
                     $("#myModal").modal("hide");
                     this.model.nameCategory = '';
                     this.getListCategory('');
+                    Swal.fire(
+                        'Registrado!',
+                        'La categoría ha sido registrada correctamente.',
+                        'success'
+                    );
                     console.log('registrado');
                     
                 },
