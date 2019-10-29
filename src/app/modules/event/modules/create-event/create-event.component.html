@@ -230,7 +230,7 @@
                                                 <label><span></span></label>
                                                 <label><span></span></label>
                                                 <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
-                                                type="button" class="btn btn-gray btn-sm btn-block has-tooltip" (click)="addTikects()">
+                                                type="button" class="btn btn-primary btn-sm btn-block has-tooltip" (click)="addTikects()">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                     Agregar entrada
                                                 </button>
@@ -317,8 +317,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
                                                         <label><span>Seleccionar entrada</span></label>
-                                                        <select [(ngModel)]="model.ticket" name="currency"  data-city-currency="1" class="form-control input-sm">
-                                                            <option *ngFor="let items of model.listTiket" value="items.id">{{items.nameTicket}}</option>
+                                                        <select [(ngModel)]="model.ticket" name="currency"  data-city-currency="1" class="form-control input-sm" (change)="checkTypeTicketList()">
+                                                            <option *ngFor="let items of model.listTiket" [value]="items.codeTmp">{{items.nameTicket}}</option>
                                                         </select>
                                                     </div>                                  
                                                 </div>
@@ -330,6 +330,13 @@
                                                             <option value="2">Mesa</option>
                                                         </select>
                                                     </div>                                  
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-element form-element-small-errors unpad-b no-label">
+                                                        <label><span>Cantidad de entradas disponibles</span></label>
+                                                        <br/>
+                                                        <label><span>{{model.valueQuantity}}</span></label>
+                                                    </div>
                                                 </div>
                                                 
                                             </div>
@@ -373,9 +380,9 @@
                                                     <label><span></span></label>
                                                     <label><span></span></label>
                                                     <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
-                                                    type="button" class="btn btn-gray btn-sm btn-block has-tooltip" (click)="addTypeTickets()">
+                                                    type="button" class="btn btn-primary btn-sm btn-block has-tooltip" (click)="addTypeTickets()">
                                                         <span class="glyphicon glyphicon-plus"></span>
-                                                        Agregar entrada
+                                                        Agregar
                                                     </button>
                                                 </div>
                                             </div>

@@ -119,6 +119,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.model.listTypeTicket = typeTikects;
         this.validFile = false;
         this.validTable = false;
+        this.model.valueQuantity = 0
     }
 
     ngAfterViewInit() {
@@ -417,5 +418,15 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             this.validFile = false;
             this.validTable = true;
         }
+    }
+    checkTypeTicketList(){
+        console.log(this.model.ticket);
+        for(let i= 0; i < this.model.listTiket.length; i++) {
+            if(this.model.ticket == this.model.listTiket[i].codeTmp) {
+                this.model.valueQuantity = this.model.listTiket[i].quantityAvailable
+            }
+        }
+        // this.model.valueQuantity  = this.model.listTiket.findIndex(x => { return x.codeTmp == this.model.ticket})
+        
     }
 }
