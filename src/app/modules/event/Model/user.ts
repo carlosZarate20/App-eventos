@@ -7,16 +7,42 @@ export class userModel {
     lastName: string;
     phone: string;
 }
+export class ticketModelAux {
+    codeTmp: string;
+    nameTicket: string;
+    quantityAvailable : any;
+    price : string;
+    currencyType: string;
+}
 export class ticketModel {
     codeTmp: string;
     nameTicket: string;
-    quantityAvailable : string;
+    quantityAvailable : any;
     price : string;
     currencyType: string;
 }
 export class ticketTypeModel {
     codeTmp: string;
+    number: Int16Array;
     codeTicket: string;
     nameTypeTicket: string;
-    quantityAvailable : string;
+    type: string;
+    quantity: any;
+}
+export class ticketTableModel {
+    codeTmp: string;
+    number: Int16Array;
+    codeTicket: string;
+    nameTypeTicket: string;
+    type: string;
+    quantity: any;
+}
+export class ticketTypeModelList {
+    codeTmp: string;
+    idCodeTicket: any;
+    number: Int16Array;
+    codeTicket: string;
+    nameTypeTicket: string;
+    type: string;
+    quantity: any;
 }

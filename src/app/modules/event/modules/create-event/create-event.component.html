@@ -326,8 +326,8 @@
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
                                                         <label><span>Seleccionar tipo</span></label>
                                                         <select [(ngModel)]="model.typeTicket" name="currency" data-city-currency="1" class="form-control input-sm" (change)="checkTypeTicket()">
-                                                            <option value="1">Fila</option>
-                                                            <option value="2">Mesa</option>
+                                                            <option value="1">Mesa</option>
+                                                            <option value="2">Fila</option>
                                                         </select>
                                                     </div>                                  
                                                 </div>
@@ -341,39 +341,16 @@
                                                 
                                             </div>
                                             <div *ngIf="validFile" class="col-md-12">
-                                                <div class="col-md-4">
+                                                <!-- <div class="col-md-4">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
                                                         <label><span>Nombre Fila</span></label>
                                                         <input [(ngModel)]="model.nameTypeTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
                                                     </div>                                  
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-4">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
-                                                        <label><span>Cantidad </span></label>
+                                                        <label><span>Cantidad Filas </span></label>
                                                         <input [(ngModel)]="model.quantityTicketAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
-                                                    </div>                                  
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label><span></span></label>
-                                                    <label><span></span></label>
-                                                    <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
-                                                    type="button" class="btn btn-gray btn-sm btn-block has-tooltip" (click)="addTypeTickets()">
-                                                        <span class="glyphicon glyphicon-plus"></span>
-                                                        Agregar entrada
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div *ngIf="validTable" class="col-md-12">
-                                                <div class="col-md-4">
-                                                    <div class="form-element form-element-small-errors unpad-b no-label">
-                                                        <label><span>Nombre Mesa</span></label>
-                                                        <input [(ngModel)]="model.nameTypeTable" type="text" name="businessName" class="form-control" id="businessName" value="">
-                                                    </div>                                  
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-element form-element-small-errors unpad-b no-label">
-                                                        <label><span>Cantidad</span></label>
-                                                        <input [(ngModel)]="model.quantityTableAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
                                                     </div>                                  
                                                 </div>
                                                 <div class="col-md-4">
@@ -386,30 +363,92 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div *ngIf="model.listTypeTicket.length > 0" class="col-md-12">
+                                            <div *ngIf="validTable" class="col-md-12">
+                                                <!-- <div class="col-md-4">
+                                                    <div class="form-element form-element-small-errors unpad-b no-label">
+                                                        <label><span>Nombre Mesa</span></label>
+                                                        <input [(ngModel)]="model.nameTypeTable" type="text" name="businessName" class="form-control" id="businessName" value="">
+                                                    </div>                                  
+                                                </div> -->
+                                                <div class="col-md-4">
+                                                    <div class="form-element form-element-small-errors unpad-b no-label">
+                                                        <label><span>Cantidad Mesas</span></label>
+                                                        <input [(ngModel)]="model.quantityTableAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
+                                                    </div>                                  
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label><span></span></label>
+                                                    <label><span></span></label>
+                                                    <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
+                                                    type="button" class="btn btn-primary btn-sm btn-block has-tooltip" (click)="addTableTickets()">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                        Agregar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="model.listTypeTicket.length > 0 && validListSeat" class="col-md-12">
                                                 <fieldset>
                                                     <legend>Lista de Asientos </legend>
                                                     <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed;">
                                                         <thead>
                                                             <tr>
-                                                                <th>Nombre</th>
+                                                                <th>#</th>
+                                                                <th>Tipo de Entrada</th>
+                                                                <th>Tipo de Asiento</th>
                                                                 <th>Cantidad</th>
-                                                                <th class="text-center">Acciones</th>
+                                                                <!-- <th class="text-center">Acciones</th> -->
                             
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let items of model.listTypeTicket">
+                                                                <td style="word-wrap: break-word;">{{items.number}}</td>
+                                                                <td style="word-wrap: break-word;">{{items.codeTicket}}</td>
                                                                 <td style="word-wrap: break-word;">{{items.nameTypeTicket}}</td>
-                                                                <td style="word-wrap: break-word;">{{items.quantityAvailable}}</td>
-                                                                <td class="text-center"> <a class="ico-grid" title="Eliminar"><i class="fa fa-trash" (click)="deleteTickets(items.codeTmp)"></i>
-                                                                </a></td>
+                                                                <td style="word-wrap: break-word;">{{items.quantity}}</td>
+                                                                <!-- <td class="text-center"> <a class="ico-grid" title="Eliminar"><i class="fa fa-trash" (click)="deleteTickets(items.codeTmp)"></i>
+                                                                </a></td> -->
                                                             </tr>
                                                         </tbody>
                                                     </table> 
                                                     <div class="col-xs-12 col-sm-12">
                                                         <div class="form-element form-element-small-errors unpad-b no-label">
                                                             <span>Cantidad de entradas agregadas: {{this.model.contadorAux}}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+    
+                                                </fieldset>
+                                            
+                                            </div>
+                                            <div *ngIf="model.listTableTicket.length > 0 && validListTable" class="col-md-12">
+                                                <fieldset>
+                                                    <legend>Lista de Asientos </legend>
+                                                    <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Tipo de Entrada</th>
+                                                                <th>Tipo de Asiento</th>
+                                                                <th>Cantidad</th>
+                                                                <!-- <th class="text-center">Acciones</th> -->
+                            
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let items of model.listTableTicket">
+                                                                <td style="word-wrap: break-word;">{{items.number}}</td>
+                                                                <td style="word-wrap: break-word;">{{items.codeTicket}}</td>
+                                                                <td style="word-wrap: break-word;">{{items.nameTypeTicket}}</td>
+                                                                <td style="word-wrap: break-word;">{{items.quantity}}</td>
+                                                                <!-- <td class="text-center"> <a class="ico-grid" title="Eliminar"><i class="fa fa-trash" (click)="deleteTickets(items.codeTmp)"></i>
+                                                                </a></td> -->
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                                    <div class="col-xs-12 col-sm-12">
+                                                        <div class="form-element form-element-small-errors unpad-b no-label">
+                                                            <span>Cantidad de entradas agregadas: {{this.model.contadorAuxTable}}</span>
                                                         </div>
                                                         
                                                     </div>

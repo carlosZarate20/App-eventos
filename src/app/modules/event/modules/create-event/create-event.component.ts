@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { HttpClient } from 'selenium-webdriver/http';
-import { userModel, ticketModel, ticketTypeModel } from '../../Model/User';
+import { userModel, ticketModel, ticketTypeModel, ticketTableModel, ticketTypeModelList, ticketModelAux } from '../../Model/User';
 import { CreateEventService } from '../../services/createEvent.service';
 import { FormGroup, FormControl, Validators, FormBuilder, Form } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -43,6 +43,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public validUrlLinkMessage: Boolean;
     public validFile;
     public validTable;
+    public validListSeat;
+    public validListTable;
     public eventModel: EventModel = new EventModel();
     constructor(public createService: CreateEventService,
                 private router: Router, private loginService: LoginService) {
@@ -80,6 +82,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.boolBillingInformation = false;
         this.boolSendEvent = false;
         this.validUrlLinkMessage = false;
+        this.validListSeat = false;
+        this.validListTable = false;
         this.contador = 0;
         this.model.name = '';
         this.model.description = '';
@@ -107,16 +111,25 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.model.currencyType = '';
         this.model.ticket = '';
         this.model.typeTicket = '';
-        this.model.quantityTicketAvailable = '';
-        this.model.quantityTableAvailable = '';
+        this.model.quantityTicketAvailable = 0;
+        this.model.quantityTableAvailable = 0;
         this.model.nameTypeTicket = '';
         this.model.nameTypeTable = '';
+        const tikectsAux: ticketModelAux[] = [];
         const tikects: ticketModel[] = [];
         const typeTikects: ticketTypeModel[] = [];
+        const tableTickets: ticketTableModel[] = [];
+        const typeTicketsList: ticketTypeModelList[] = [];
+        this.model.listTiketAux = tikectsAux;
         this.model.listTiket = tikects;
+        this.model.listTableTicket = tableTickets;
         this.model.contador = 0;
+        this.model.numberTable = 1;
+        this.model.numberRow = 1;
+        this.model.contadorAuxTable = 0;
         this.model.contadorAux = 0;
         this.model.listTypeTicket = typeTikects;
+        this.model.seatList = typeTicketsList;
         this.validFile = false;
         this.validTable = false;
         this.model.valueQuantity = 0
@@ -202,9 +215,15 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             fd.append(`TicketList[${i}].QuantityAvailable`, this.model.listTiket[i].quantityAvailable);
             fd.append(`TicketList[${i}].Price`, this.model.listTiket[i].price);
             fd.append(`TicketList[${i}].CurrencyType`, this.model.listTiket[i].currencyType);
+            let j = 0;
+            let listAux =  this.model.seatList.filter( x => x.idCodeTicket == this.model.listTiket[i].codeTmp );
+            for(j ; j < listAux.length; j++) {
+                fd.append(`TicketList[${i}].SeatList[${j}][0].Number`, listAux[j].number);
+                fd.append(`TicketList[${i}].SeatList[${j}][0].Quantity`, listAux[j].quantity);
+                fd.append(`TicketList[${i}].SeatList[${j}][0].Type`, listAux[j].type);
+            }
         }
-
-
+        
         this.createService.registerEvent(fd).subscribe(
             res => {
                 let timerInterval;
@@ -324,13 +343,24 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             if ( this.model.listTiket.length < 10) {
                 const key = UUID.UUID();
                 const tikect = new ticketModel();
+                const tikectsAux = new ticketModelAux();
                 tikect.price = this.model.price;
                 tikect.currencyType = this.model.currencyType;
                 tikect.nameTicket = this.model.nameTicket;
                 tikect.quantityAvailable = this.model.quantityAvailable;
                 tikect.codeTmp = key;
                 this.model.listTiket.push(tikect);
-                console.log(this.model.listTiket);
+
+                tikectsAux.price = this.model.price;
+                tikectsAux.currencyType = this.model.currencyType;
+                tikectsAux.nameTicket = this.model.nameTicket;
+                tikectsAux.quantityAvailable = this.model.quantityAvailable;
+                tikectsAux.codeTmp = key;
+                this.model.listTiketAux.push(tikectsAux);
+
+                this.validListSeat = true;
+                this.validListTable = false;
+
                 this.model.price = '';
                 this.model.quantityAvailable = '';
                 this.model.nameTicket = '';
@@ -360,7 +390,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     });
                 this.model.listTiket.splice(indice, 1);
                 console.log(this.model.listTiket);
-                this.model.quantityTicketAvailable = '';
+                this.model.quantityTicketAvailable = 0;
                 this.model.ticket = '';
                 this.model.contador--;
                 Swal.fire(
@@ -373,57 +403,126 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     addTypeTickets() {
-        if (this.model.typeTicket == 1) {
-            if (this.model.quantityTicketAvailable != '' && this.model.nameTypeTicket != '') {
-                const key = UUID.UUID();
-                const tikectType = new ticketTypeModel();
-                tikectType.nameTypeTicket = this.model.nameTypeTicket;
-                tikectType.quantityAvailable = this.model.quantityTicketAvailable;
-                tikectType.codeTmp = key;
-                this.model.listTypeTicket.push(tikectType);
-                console.log(this.model.listTypeTicket);
-                this.model.quantityTicketAvailable = '';
-                this.model.nameTypeTicket = '';
-                this.model.contadorAux++;
-            } else {
-                Swal.fire('Los campos no pueden estar vacíos', this.message, 'info');
+        if (this.model.quantityTicketAvailable != 0) {
+            let valueTmp = '';
+            let valueQuantity = 0;
+            const key = UUID.UUID();
+            const tikectType = new ticketTypeModel();
+            const tikectTypeList = new ticketTypeModelList();
+            for(let i= 0; i < this.model.listTiketAux.length; i++) {
+                valueTmp = this.model.listTiketAux[i].codeTmp;
+                if(this.model.ticket == valueTmp) {
+                    valueQuantity = this.model.listTiketAux[i].quantityAvailable;
+                    if(parseInt(this.model.quantityTicketAvailable) > valueQuantity) {
+                        Swal.fire('La cantidad de entradas ingresadas supera las disponibles', this.message, 'info');
+                        break;
+                    } else{
+                        tikectType.codeTicket= this.model.listTiketAux[i].nameTicket;
+                        tikectType.nameTypeTicket = 'Fila';
+                        tikectType.quantity = this.model.quantityTicketAvailable;
+                        tikectType.codeTmp = key;
+                        tikectType.number =  this.model.numberRow;
+                        this.model.listTiketAux[i].quantityAvailable = this.model.listTiketAux[i].quantityAvailable - tikectType.quantity;
+                        this.model.listTypeTicket.push(tikectType);
+
+                        tikectTypeList.codeTicket= this.model.listTiketAux[i].nameTicket;
+                        tikectTypeList.type = this.model.typeTicket;
+                        tikectTypeList.quantity = this.model.quantityTicketAvailable;
+                        tikectTypeList.codeTmp = key;
+                        tikectTypeList.idCodeTicket = this.model.ticket;
+                        tikectTypeList.number =  this.model.numberRow;
+                        this.model.seatList.push(tikectTypeList);
+
+                        this.validListSeat = true;
+                        this.validListTable = false;  
+                        this.model.quantityTicketAvailable = 0;
+                        this.model.nameTypeTicket = '';
+                        this.model.numberRow++;
+                        this.model.contadorAux++;
+                        this.checkTypeTicketList();
+                        break;
+                    }
+                    
+                }
             }
+            
         } else {
-            if (this.model.quantityTableAvailable != '' && this.model.nameTypeTable != '') {
-                const key = UUID.UUID();
-                const tikectType = new ticketTypeModel();
-                tikectType.nameTypeTicket = this.model.nameTypeTable;
-                tikectType.quantityAvailable = this.model.quantityTableAvailable;
-                tikectType.codeTmp = key;
-                this.model.listTypeTicket.push(tikectType);
-                console.log(this.model.listTypeTicket);
-                this.model.quantityTableAvailable = '';
-                this.model.nameTypeTable = '';
-                this.model.contadorAux++;
-            } else {
-                Swal.fire('Los campos no pueden estar vacíos', this.message, 'info');
-            }
+            Swal.fire('Los campos no pueden estar vacíos', this.message, 'info');
         }
         
     }
-    deleteTypeTickets() {
+    addTableTickets() {
+        if (this.model.quantityTableAvailable != 0) {
+            let valueTmp = '';
+            let valueQuantity = 0;
+            const key = UUID.UUID();
+            const tableType = new ticketTypeModel();
+            const tikectTypeList = new ticketTypeModelList();
+            for(let i= 0; i < this.model.listTiketAux.length; i++) {
+                valueTmp = this.model.listTiketAux[i].codeTmp;
+                if(this.model.ticket == valueTmp) {
+                    valueQuantity = this.model.tikectsAux[i].quantityAvailable;
+                    if(parseInt(this.model.quantityTableAvailable) > valueQuantity) {
+                        Swal.fire('La cantidad de entradas ingresadas supera las disponibles', this.message, 'info');
+                        break;
+                    } else {
+                        tableType.codeTicket = this.model.listTiketAux[i].nameTicket;
+                        tableType.nameTypeTicket = 'Mesa';
+                        tableType.quantity = this.model.quantityTableAvailable;
+                        tableType.codeTmp = key;
+                        tableType.number = this.model.numberTable;
+                        this.model.listTiketAux[i].quantityAvailable = this.model.listTiketAux[i].quantityAvailable  - tableType.quantity;
+                        this.model.listTableTicket.push(tableType);
+
+                        tikectTypeList.codeTicket= this.model.listTiketAux[i].nameTicket;
+                        tikectTypeList.type = this.model.typeTicket;
+                        tikectTypeList.quantity = this.model.quantityTicketAvailable;
+                        tikectTypeList.codeTmp = key;
+                        tikectTypeList.number =  this.model.numberRow;
+                        this.model.seatList.push(tikectTypeList);
+            
+                        this.validListSeat = false;
+                        this.validListTable = true;
+                        this.model.quantityTableAvailable = 0;
+                        this.model.nameTypeTable = '';
+                        this.model.numberTable++;
+                        this.model.contadorAuxTable++;
+                        this.checkTypeTicketList();
+                        break;
+                    }
+                    
+                }
+            }
+            
+        } else {
+            Swal.fire('Los campos no pueden estar vacíos', this.message, 'info');
+        }
+        
+    }
+    updateTypeTickets() {
 
     }
 
     checkTypeTicket() {
         if(this.model.typeTicket == 1) {
-            this.validFile = true;
-            this.validTable = false;
-        } else {
             this.validFile = false;
             this.validTable = true;
+            this.validListTable = true;
+            this.validListSeat = false;
+
+        } else {
+            this.validFile = true;
+            this.validTable = false;
+            this.validListSeat = true;
+            this.validListTable = false;
         }
     }
     checkTypeTicketList(){
+        this.model.valueQuantity = 0;
         console.log(this.model.ticket);
-        for(let i= 0; i < this.model.listTiket.length; i++) {
-            if(this.model.ticket == this.model.listTiket[i].codeTmp) {
-                this.model.valueQuantity = this.model.listTiket[i].quantityAvailable
+        for(let i= 0; i < this.model.listTiketAux.length; i++) {
+            if(this.model.ticket == this.model.listTiketAux[i].codeTmp) {
+                this.model.valueQuantity = this.model.listTiketAux[i].quantityAvailable
             }
         }
         // this.model.valueQuantity  = this.model.listTiket.findIndex(x => { return x.codeTmp == this.model.ticket})
