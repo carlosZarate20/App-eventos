@@ -4,6 +4,7 @@ import { LoginService } from './services/login.service';
 import { Constants } from './modules/shared/util/constants';
 import { SearchEventService } from './services/searchEvent.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-event',
@@ -96,7 +97,7 @@ export class EventComponent implements OnInit, AfterViewInit {
                 this.loading = false;
                 this.model.listEvent = res;
                 for (let i = 0; i < this.model.listEvent.length; i++) {
-                  this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image;
+                  this.model.listEvent[i].image = `${environment.apiUrl}` + this.model.listEvent[i].image;
                 }
               },
               err => {

@@ -216,7 +216,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             fd.append(`TicketList[${i}].Price`, this.model.listTiket[i].price);
             fd.append(`TicketList[${i}].CurrencyType`, this.model.listTiket[i].currencyType);
             let j = 0;
-            let listAux =  this.model.seatList.filter( x => x.idCodeTicket == this.model.listTiket[i].codeTmp );
+            let listAux =  this.model.seatList.filter( x => x.idCodeTicket == this.model.listTiket[i].codeTmp);
             for(j ; j < listAux.length; j++) {
                 fd.append(`TicketList[${i}].SeatList[${j}][0].Number`, listAux[j].number);
                 fd.append(`TicketList[${i}].SeatList[${j}][0].Quantity`, listAux[j].quantity);
@@ -416,7 +416,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     if(parseInt(this.model.quantityTicketAvailable) > valueQuantity) {
                         Swal.fire('La cantidad de entradas ingresadas supera las disponibles', this.message, 'info');
                         break;
-                    } else{
+                    } else {
                         tikectType.codeTicket= this.model.listTiketAux[i].nameTicket;
                         tikectType.nameTypeTicket = 'Fila';
                         tikectType.quantity = this.model.quantityTicketAvailable;
@@ -461,7 +461,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             for(let i= 0; i < this.model.listTiketAux.length; i++) {
                 valueTmp = this.model.listTiketAux[i].codeTmp;
                 if(this.model.ticket == valueTmp) {
-                    valueQuantity = this.model.tikectsAux[i].quantityAvailable;
+                    valueQuantity = this.model.listTiketAux[i].quantityAvailable;
                     if(parseInt(this.model.quantityTableAvailable) > valueQuantity) {
                         Swal.fire('La cantidad de entradas ingresadas supera las disponibles', this.message, 'info');
                         break;
@@ -476,8 +476,9 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
                         tikectTypeList.codeTicket= this.model.listTiketAux[i].nameTicket;
                         tikectTypeList.type = this.model.typeTicket;
-                        tikectTypeList.quantity = this.model.quantityTicketAvailable;
+                        tikectTypeList.quantity = this.model.quantityTableAvailable;
                         tikectTypeList.codeTmp = key;
+                        tikectTypeList.idCodeTicket = this.model.ticket;
                         tikectTypeList.number =  this.model.numberRow;
                         this.model.seatList.push(tikectTypeList);
             
@@ -522,7 +523,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         console.log(this.model.ticket);
         for(let i= 0; i < this.model.listTiketAux.length; i++) {
             if(this.model.ticket == this.model.listTiketAux[i].codeTmp) {
-                this.model.valueQuantity = this.model.listTiketAux[i].quantityAvailable
+                this.model.valueQuantity = this.model.listTiketAux[i].quantityAvailable;
             }
         }
         // this.model.valueQuantity  = this.model.listTiket.findIndex(x => { return x.codeTmp == this.model.ticket})

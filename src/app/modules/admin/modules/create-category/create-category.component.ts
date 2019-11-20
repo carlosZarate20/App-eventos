@@ -89,7 +89,7 @@ export class CreateCategoryComponent implements OnInit {
                   this.createCategory.getCategory(wordSearch).subscribe(
                     (res: any) => {
                         this.loading = false;
-                    this.model.listCategory= res;
+                        this.model.listCategory= res;
                     },
                     err => {
                     }
@@ -127,7 +127,6 @@ export class CreateCategoryComponent implements OnInit {
                             this.getListCategory('');
                         }, 
                         err => {
-            
                         }
                     );
                     Swal.fire(
@@ -152,7 +151,7 @@ export class CreateCategoryComponent implements OnInit {
             (err: any) => {
 
             }
-        )
+        );
     }
     deleteCategory(idCategory: any){
         const categoriesDelete = {

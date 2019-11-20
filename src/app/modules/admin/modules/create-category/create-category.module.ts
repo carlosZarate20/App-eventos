@@ -8,6 +8,8 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { CreateCategoryComponent } from './create-category.component';
 import { AdminEventService } from '../../services/admin.service';
 import { LoginService } from 'src/app/modules/event/services/login.service';
+import {PaginatorModule} from 'primeng/paginator';
+import {AccordionModule} from 'primeng/accordion';
 
 const routes: Routes = [
   { path: '', component: CreateCategoryComponent },
@@ -24,7 +26,9 @@ const routes: Routes = [
       FormsModule,
       CalendarModule,
       ReactiveFormsModule,
-      ArchwizardModule
+      ArchwizardModule,
+      PaginatorModule,
+      AccordionModule
     ],
     providers: [AdminEventService, LoginService],
     bootstrap: [CreateCategoryComponent],
