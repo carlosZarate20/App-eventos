@@ -33,7 +33,6 @@ export class AdminEventService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
-    
     editCategory(value: any) {
         const headers = this.constant.getHeaders();
         return this.http
