@@ -117,5 +117,8 @@ export class EventComponent implements OnInit, AfterViewInit {
   passDetailsView(id: any) {
     this.router.navigate(['/event/detail' , id]);
   }
+  home() {
+    this.router.navigate(['/event/events']);
+  }
 
 }
