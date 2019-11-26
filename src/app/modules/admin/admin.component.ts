@@ -19,8 +19,10 @@ export class AdminComponent implements OnInit {
     constructor(private activatedRoute: ActivatedRoute, private router: Router, public loginService: LoginService) {
         this.model.menu = {};
         this.model.menu.categories = { display: true, items: [] };
+        this.model.menu.bank = { display: true, items: [] };
 
         this.model.menu.categories.items.push({ url: '/admin/create', name: 'Crear Categoría'});
+        this.model.menu.bank.items.push({ url: '/admin/bank', name: 'Crear Banco'});
         // this.model.menu.categories.items.push({ url: '/admin/maintenance', name: 'Editar Categoría'});
     }
     ngOnInit() {

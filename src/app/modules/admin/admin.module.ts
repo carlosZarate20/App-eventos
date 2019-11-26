@@ -20,7 +20,16 @@ const routes: Routes = [
     loadChildren: './modules/create-category/create-category.module#CreateCategoryModule',
     canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
+    
   },
+  {
+    path: 'bank',
+    component: AdminComponent,
+    loadChildren: './modules/admin-bank/admin-bank.module#AdminBankModule',
+    canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
+    
+  }
 ];
 
 @NgModule({
