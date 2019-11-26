@@ -22,8 +22,7 @@ const routes: Routes = [
       ReactiveFormsModule
     ],
     providers:[RegisterUserService],
-    bootstrap:[RegisterComponent], 
+    bootstrap:[RegisterComponent],
     exports: [RegisterComponent]
   })
   export class RegisterModule { }
-  

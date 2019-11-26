@@ -20,13 +20,16 @@ export class AdminComponent implements OnInit {
         this.model.menu = {};
         this.model.menu.categories = { display: true, items: [] };
         this.model.menu.bank = { display: true, items: [] };
+        this.model.menu.messages = { display: true, items: [] };
 
-        this.model.menu.categories.items.push({ url: '/admin/create', name: 'Crear Categoría'});
-        this.model.menu.bank.items.push({ url: '/admin/bank', name: 'Crear Banco'});
+        this.model.menu.categories.items.push({ url: '/admin/create', name: 'Categoría'});
+        this.model.menu.bank.items.push({ url: '/admin/bank', name: 'Banco'});
+        this.model.menu.messages.items.push({ url: '/admin/messages', name: 'Mensajes'});
         // this.model.menu.categories.items.push({ url: '/admin/maintenance', name: 'Editar Categoría'});
     }
     ngOnInit() {
         const values = this.loginService.getDecodedAccessToken();
+        // tslint:disable-next-line:triple-equals
         if (values != null || values != undefined) {
             console.log(values);
             this.usuario = values.Name;

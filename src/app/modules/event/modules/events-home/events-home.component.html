@@ -88,18 +88,6 @@
 				<div class="nav-category collapse navbar-collapse">
 					<ul *ngIf="!validateList" class="nav navbar-nav listado-nav">
 						<li *ngFor="let itemCategorie of model.listCategories"><a (click)="findCategory(itemCategorie.id)">{{itemCategorie.name}}</a></li>
-						<!-- <li ><a href="#">Todos</a></li>
-						<li ><a href="#">Nuevos</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">Conciertos</a></li>
-								<li><a href="#">Deportes</a></li>
-								<li><a href="#">Teatro</a></li>
-								<li><a href="#">Entretenimiento</a></li>
-								<li><a href="#">Seminarios</a></li>
-							</ul>
-						</li> -->
 					</ul>
 					<ul *ngIf="validateList" class="nav navbar-nav listado-nav">
 						<li *ngFor="let itemCategory of model.listCategoriesAux">
@@ -108,7 +96,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Otras Categorías<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li *ngFor="let itemCategory2 of model.listCategoriesAux2" ><a (click)="findCategory(itemCategory2.id)">{{itemCategory2.name}}</a></li>
+								<li *ngFor="let itemCategory2 of model.listCategoriesAux2" ><a (click)="findCategory(itemCategory2.id)" style="color: white;">{{itemCategory2.name}}</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -128,7 +116,7 @@
 			</div>
 			<div class="navbar-collapse collapse" id="bs-menu-navbar-collapse" aria-expanded="false" style="height: 1px;">
 				<ul id="menu-home-mobile" class="nav navbar-nav listado-nav">
-					<li id="menu-home-nuevos-mobile" *ngFor="let itemCategorie of model.listCategories"><a (click)="findCategory(itemCategorie.id)">{{itemCategorie.name}}</a></li>
+					<li id="menu-home-nuevos-mobile" *ngFor="let itemCategorie of model.listCategories"><a (click)="findCategory(itemCategorie.id)" style="color: white;">{{itemCategorie.name}}</a></li>
 				</ul>
 			</div>
 		</div>

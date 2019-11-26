@@ -368,3 +368,11 @@ button.btnSearch:active:focus, button.btnSearch.active:focus { outline: 0; opaci
     width: 60px;
     vertical-align: middle;
   }
+  #div-switch.checked .off {
+    display:none;
+  }
+  
+  #div-switch.checked .on {
+    display:block;
+  
+  }

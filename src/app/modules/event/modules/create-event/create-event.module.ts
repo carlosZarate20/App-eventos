@@ -26,7 +26,7 @@ const routes: Routes = [
       ArchwizardModule
     ],
     providers: [CreateEventService],
-    bootstrap:[CreateEventComponent],
+    bootstrap: [CreateEventComponent],
     exports: [CreateEventComponent]
   })
   export class CreateEventModule { }

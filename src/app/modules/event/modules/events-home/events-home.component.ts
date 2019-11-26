@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeEventService } from '../../services/homeEvent.service';
 import { Router } from '@angular/router';
 import { categorieModel, categorieModel2 } from '../../Model/event';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-events-home',
@@ -11,14 +12,12 @@ import { categorieModel, categorieModel2 } from '../../Model/event';
 export class EventsHomeComponent implements OnInit {
   items: Array<any> = [];
   public model: any = {};
-  public validateList= false;
+  public validateList = false;
   image: any;
-  constructor(public eventService: HomeEventService, public router: Router) { 
+  constructor(public eventService: HomeEventService, public router: Router) {
     this.model.listEvent = [];
     this.model.listEvent2 = [];
     this.model.listCategories = [];
-  
-   
   }
 
   ngOnInit() {
@@ -27,7 +26,7 @@ export class EventsHomeComponent implements OnInit {
       {image2: 'assest/images/banner2.jpg'},
       {image3: 'assest/images/banner3.jpg'},
       {image4: 'assest/images/banner4.jpg'}
-    ]
+    ];
     this.image = '../../../../../assets/images/banner1.jpg';
     const category: categorieModel[] = [];
     const category2: categorieModel2[] = [];
@@ -37,16 +36,16 @@ export class EventsHomeComponent implements OnInit {
     this.getListCategories();
   }
 
-  getListEvent(){
+  getListEvent() {
     this.eventService.getEvent().subscribe(
       res => {
           this.model.listEvent = res;
           this.model.listEvent2 = res;
 
-          for(var i = 0; i< this.model.listEvent.length; i++ ){
-            this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < this.model.listEvent.length; i++) {
+            this.model.listEvent[i].image = `${environment.apiUrl}${this.model.listEvent[i].image}`;
           }
-          console.log(res);
       }
     );
   }
@@ -55,18 +54,16 @@ export class EventsHomeComponent implements OnInit {
       res => {
 
         this.model.listCategories = res;
-        console.log(res);
-        if(this.model.listCategories.length > 5) {
+        if (this.model.listCategories.length > 5) {
           this.validateList = true;
-          
-          
-          for( let i = 0; i < this.model.listCategories.length; i++){
-            if(this.model.listCategoriesAux.length < 4){
+          // tslint:disable-next-line:prefer-for-of
+          for ( let i = 0; i < this.model.listCategories.length; i++) {
+            if (this.model.listCategoriesAux.length < 4) {
               const category = new categorieModel();
               category.id = this.model.listCategories[i].id;
               category.name = this.model.listCategories[i].name;
-              this.model.listCategoriesAux.push(category); 
-            } else{
+              this.model.listCategoriesAux.push(category);
+            } else {
               const category2 = new categorieModel2();
               category2.id = this.model.listCategories[i].id;
               category2.name = this.model.listCategories[i].name;
@@ -77,7 +74,6 @@ export class EventsHomeComponent implements OnInit {
         } else {
           this.validateList = false;
         }
-        
       }
     );
   }
@@ -86,16 +82,15 @@ export class EventsHomeComponent implements OnInit {
     this.eventService.getEventValue(categoryId).subscribe(
       res => {
           this.model.listEvent = res;
-
-          for(var i = 0; i< this.model.listEvent.length; i++ ){
-            this.model.listEvent[i].image = 'http://edumoreno27-001-site6.etempurl.com' + this.model.listEvent[i].image
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < this.model.listEvent.length; i++) {
+            this.model.listEvent[i].image = `${environment.apiUrl}${this.model.listEvent[i].image}`;
           }
-          console.log(res);
       }
     );
   }
 
-  passDetailsView(id: any){
-    this.router.navigate(['/event/detail' , id])
+  passDetailsView(id: any) {
+    this.router.navigate(['/event/detail' , id]);
   }
 }

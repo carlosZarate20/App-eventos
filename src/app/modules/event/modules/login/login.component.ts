@@ -16,8 +16,9 @@ import { Constants } from '../shared/util/constants';
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     submitted = false;
+    // tslint:disable-next-line:ban-types
     public displayDialogAlert: Boolean = false;
-    public titularAlerta: string = '';
+    public titularAlerta = '';
     public message: any = '';
     public role: any = [];
     constructor(private loginService: LoginService, private fb: FormBuilder, private router: Router) {
@@ -46,8 +47,6 @@ export class LoginComponent implements OnInit {
                 (err: any) => {
                     this.message = err.error;
                     Swal.fire('Oops...', this.message, 'error');
-                    console.log(err.error);
-                    console.log('Login Erroneo');
                     // this.displayDialogAlert = true;
                 }
             );

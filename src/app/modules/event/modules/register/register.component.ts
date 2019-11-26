@@ -4,6 +4,8 @@ import { userModel } from '../../Model/User';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomValidators } from '../../Model/CustomValidators';
+import Swal from 'sweetalert2';
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -14,6 +16,7 @@ export class RegisterComponent implements OnInit {
     public model: any = {};
     userForm: FormGroup;
     submitted = false;
+    public message: any = '';
     constructor( public registerService: RegisterUserService, private fb: FormBuilder, private router: Router) {
         this.userForm = this.createForm();
         this.getDistrict();
@@ -25,6 +28,7 @@ export class RegisterComponent implements OnInit {
 
     registerUser(form: any) {
         this.submitted = true;
+        console.log(form.userType);
         if (this.userForm.invalid) {
             return;
         } else {
@@ -33,7 +37,8 @@ export class RegisterComponent implements OnInit {
                     this.router.navigate(['/event/login']);
                 },
                 (err: any) => {
-                    console.log('Registro Erroneo');
+                    this.message = err.error;
+                    Swal.fire('Oops...', this.message, 'error');
                 }
             );
         }
@@ -50,7 +55,7 @@ export class RegisterComponent implements OnInit {
                 Validators.minLength(6),
                 CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
                 CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
-                CustomValidators.patternValidator(/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })])],
+                CustomValidators.patternValidator(/[ !@#$%^&ñÑ*()_+\-=\[\]{};':"\\|,.<>\/?]/, { hasSpecialCharacters: true })])],
             passwordConfirm: ['', Validators.compose([Validators.required])],
             name: ['', Validators.compose([Validators.required,
                 CustomValidators.patternValidator(/^[A-Za-z](?!.*?\s$)[A-Za-z\s]{0,55}$/, { isvalid: true })])],
@@ -61,20 +66,18 @@ export class RegisterComponent implements OnInit {
         }, {validator: [CustomValidators.passwordMatchValidator]});
     }
 
-    getDistrict(){
+    getDistrict() {
         this.registerService.getDistrict().subscribe(
             res => {
                 this.model.lisDistrict = res;
                 console.log(res);
             },
-            err =>{
+            err => {
 
             }
         );
-            
-        
     }
-    changeValue(userType: boolean){
-
+    changeValue(userType: boolean) {
+        console.log(userType);
     }
 }

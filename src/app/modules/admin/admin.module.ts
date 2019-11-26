@@ -20,7 +20,6 @@ const routes: Routes = [
     loadChildren: './modules/create-category/create-category.module#CreateCategoryModule',
     canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
-    
   },
   {
     path: 'bank',
@@ -28,7 +27,13 @@ const routes: Routes = [
     loadChildren: './modules/admin-bank/admin-bank.module#AdminBankModule',
     canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
-    
+  },
+  {
+    path: 'messages',
+    component: AdminComponent,
+    loadChildren: './modules/admin-messages/admin-messages.module#AdminMessagesModule',
+    canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   }
 ];
 

@@ -13,8 +13,7 @@ export class RegisterUserService {
     register(form: any): Observable<Response> {
         return this.http
         .post(`${environment.apiUrl}/creacion_usuario`, form)
-        .map((res: Response) => res)
-        .catch(this.handleError);
+        .map((res: Response) => res);
     }
     getDistrict(): Observable<Response> {
         return this.http
