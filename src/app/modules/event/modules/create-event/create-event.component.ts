@@ -46,10 +46,12 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public validListSeat;
     public validListTable;
     public eventModel: EventModel = new EventModel();
+    public messageError: any = '';
     constructor(public createService: CreateEventService,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
+        this.model.listBank = [];
     }
     ngOnInit() {
         this.step = '1';
@@ -74,6 +76,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
         this.getCities();
         this.getCategory();
+        this.getBank();
         this.url = '';
         this.url2 = '';
         this.boolDetails = true;
@@ -115,6 +118,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.model.quantityTableAvailable = 0;
         this.model.nameTypeTicket = '';
         this.model.nameTypeTable = '';
+        this.model.InBannerPost = false;
+        this.model.InMainView = false;
         const tikectsAux: ticketModelAux[] = [];
         const tikects: ticketModel[] = [];
         const typeTikects: ticketTypeModel[] = [];
@@ -178,6 +183,15 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         );
     }
 
+    getBank(){
+        this.createService.getBank().subscribe(
+            res => {
+                this.model.listBank = res;
+                console.log(res);
+            }
+        );
+    }
+
     registerEvent() {
         const datePipe = new DatePipe('en-PE');
         // const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
@@ -201,11 +215,13 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         fd.append('document', this.model.document);
         fd.append('socialReason', this.model.socialReason);
         fd.append('bankNumber', this.model.bankNumber);
-        fd.append('bank', this.model.bank);
+        fd.append('bankId', this.model.bank);
         fd.append('bankCurrencyTipe', this.model.bankCurrencyTipe);
         fd.append('personContact', this.model.personalContact);
         fd.append('phoneContact', this.model.phoneContact);
         fd.append('emailContact', this.model.emailContact);
+        fd.append('inBannerPost', this.model.InBannerPost);
+        fd.append('inMainView', this.model.InMainView);
 
         const tokenAcces = this.loginService.getDecodedAccessToken();
         fd.append('UserId', tokenAcces.Id);
@@ -218,9 +234,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             let j = 0;
             const listAux =  this.model.seatList.filter( x => x.idCodeTicket == this.model.listTiket[i].codeTmp);
             for (j ; j < listAux.length; j++) {
-                fd.append(`TicketList[${i}].SeatList[${j}][0].Number`, listAux[j].number);
+                // fd.append(`TicketList[${i}].SeatList[${j}][0].Number`, listAux[j].number);
                 fd.append(`TicketList[${i}].SeatList[${j}][0].Quantity`, listAux[j].quantity);
                 fd.append(`TicketList[${i}].SeatList[${j}][0].Type`, listAux[j].type);
+                fd.append(`TicketList[${i}].SeatList[${j}][0].Name`, listAux[j].name);
             }
         }
         this.createService.registerEvent(fd).subscribe(
@@ -247,13 +264,12 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     result.dismiss === Swal.DismissReason.timer
                 ) {
                     this.router.navigate(['/event/events']);
-                    console.log('Registro del Evento Correctamente');
                 }
                 });
 
             },
             err => {
-                console.log('Error el en servidor del registro');
+                Swal.fire('Oops...', 'No se han ingresado todos los campos obligatorios', 'error');
             }
         );
 
@@ -422,6 +438,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         tikectType.quantity = this.model.quantityTicketAvailable;
                         tikectType.codeTmp = key;
                         tikectType.number =  this.model.numberRow;
+                        tikectType.name = this.model.nameTypeTicket;
                         this.model.listTiketAux[i].quantityAvailable = this.model.listTiketAux[i].quantityAvailable - tikectType.quantity;
                         this.model.listTypeTicket.push(tikectType);
 
@@ -431,6 +448,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         tikectTypeList.codeTmp = key;
                         tikectTypeList.idCodeTicket = this.model.ticket;
                         tikectTypeList.number =  this.model.numberRow;
+                        tikectTypeList.name = this.model.nameTypeTicket;
                         this.model.seatList.push(tikectTypeList);
 
                         this.validListSeat = true;
@@ -469,6 +487,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         tableType.quantity = this.model.quantityTableAvailable;
                         tableType.codeTmp = key;
                         tableType.number = this.model.numberTable;
+                        tableType.name = this.model.nameTypeTable;
                         this.model.listTiketAux[i].quantityAvailable = this.model.listTiketAux[i].quantityAvailable  - tableType.quantity;
                         this.model.listTableTicket.push(tableType);
 
@@ -478,6 +497,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         tikectTypeList.codeTmp = key;
                         tikectTypeList.idCodeTicket = this.model.ticket;
                         tikectTypeList.number =  this.model.numberRow;
+                        tikectTypeList.name = this.model.nameTypeTable;
                         this.model.seatList.push(tikectTypeList);
                         this.validListSeat = false;
                         this.validListTable = true;

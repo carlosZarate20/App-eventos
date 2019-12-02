@@ -14,6 +14,52 @@ export class AdminEventService {
     constructor(private http: HttpClient, private constant: ConstantHelper) {
         this.headerCustomize = this.constant.getHeaders();
     }
+    getBank(name: any) {
+        const headers = this.constant.getHeaders();
+        return this.http
+        .get(`${environment.apiUrl}/obtener_bancos/${name}`, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+
+    createBank(bank: any): Observable<Response> {
+        const test = this.constant.getHeaders(true);
+        return this.http
+        .post(`${environment.apiUrl}/creacion_banco`, bank, {
+            headers: test
+            })
+        .map((res: Response) => res)
+    }
+    editBank(value: any) {
+        const headers = this.constant.getHeaders();
+        return this.http
+        .post(`${environment.apiUrl}/editar_banco`, value, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    deleteBank(id: any) {
+        const headers = this.constant.getHeaders();
+        return this.http
+        .post(`${environment.apiUrl}/eliminar_banco`, id, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    getBankEdit(id: any) {
+        const headers = this.constant.getHeaders();
+        return this.http
+        .get(`${environment.apiUrl}/obtener_banco/${id}`, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    
     getCategory(name: any) {
         const headers = this.constant.getHeaders();
         return this.http
@@ -31,7 +77,6 @@ export class AdminEventService {
             headers: test
             })
         .map((res: Response) => res)
-        .catch(this.handleError);
     }
     editCategory(value: any) {
         const headers = this.constant.getHeaders();
@@ -60,6 +105,8 @@ export class AdminEventService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
+
+    
     handleError(handleError: any): Observable<Response> {
         throw new Error('Method not implemented.');
     }

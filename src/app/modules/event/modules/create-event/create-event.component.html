@@ -341,12 +341,12 @@
                                                 
                                             </div>
                                             <div *ngIf="validFile" class="col-md-12">
-                                                <!-- <div class="col-md-4">
+                                                <div class="col-md-4">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
-                                                        <label><span>Nombre de fila</span></label>
+                                                        <label><span>Nombre por fila</span></label>
                                                         <input [(ngModel)]="model.nameTypeTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
                                                     </div>                                  
-                                                </div> -->
+                                                </div>
                                                 <div class="col-md-4">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
                                                         <label><span>Cantidad por fila </span></label>
@@ -364,12 +364,12 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="validTable" class="col-md-12">
-                                                <!-- <div class="col-md-4">
+                                                <div class="col-md-4">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
-                                                        <label><span>Nombre de mesa</span></label>
+                                                        <label><span>Nombre por mesa</span></label>
                                                         <input [(ngModel)]="model.nameTypeTable" type="text" name="businessName" class="form-control" id="businessName" value="">
                                                     </div>                                  
-                                                </div> -->
+                                                </div>
                                                 <div class="col-md-4">
                                                     <div class="form-element form-element-small-errors unpad-b no-label">
                                                         <label><span>Cantidad por mesa</span></label>
@@ -392,7 +392,7 @@
                                                     <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed;">
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
+                                                                <th>Nombre</th>
                                                                 <th>Tipo de Entrada</th>
                                                                 <th>Tipo de Asiento</th>
                                                                 <th>Cantidad</th>
@@ -402,7 +402,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let items of model.listTypeTicket">
-                                                                <td style="word-wrap: break-word;">{{items.number}}</td>
+                                                                <td style="word-wrap: break-word;">{{items.name}}</td>
                                                                 <td style="word-wrap: break-word;">{{items.codeTicket}}</td>
                                                                 <td style="word-wrap: break-word;">{{items.nameTypeTicket}}</td>
                                                                 <td style="word-wrap: break-word;">{{items.quantity}}</td>
@@ -427,7 +427,7 @@
                                                     <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed;">
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
+                                                                <th>Nombre</th>
                                                                 <th>Tipo de Entrada</th>
                                                                 <th>Tipo de Asiento</th>
                                                                 <th>Cantidad</th>
@@ -437,7 +437,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let items of model.listTableTicket">
-                                                                <td style="word-wrap: break-word;">{{items.number}}</td>
+                                                                <td style="word-wrap: break-word;">{{items.name}}</td>
                                                                 <td style="word-wrap: break-word;">{{items.codeTicket}}</td>
                                                                 <td style="word-wrap: break-word;">{{items.nameTypeTicket}}</td>
                                                                 <td style="word-wrap: break-word;">{{items.quantity}}</td>
@@ -566,7 +566,10 @@
                                             <div class="col-md-3">
                                                 <div class="form-element form-element-small-errors unpad-b">
                                                     <label for="bankName">Banco</label>
-                                                    <input type="text" [(ngModel)]="model.bank" name="bankName" class="form-control" id="bankName" value="">
+                                                    <select [(ngModel)]="model.bank" name="bankName" data-city-currency="1" class="form-control input-sm">
+                                                        <option *ngFor="let bank of model.listBank" [value]="bank.id">{{bank.name}}</option>
+                                                    </select>
+                                                    <!-- <input type="text" [(ngModel)]="model.bank" name="bankName" class="form-control" id="bankName" value=""> -->
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -645,11 +648,26 @@
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-12"> 
                                                     <div class="form-element no-label">
+                                                        <!-- <input type="hidden" name="acceptTerms" value="0"> -->
+                                                        <input type="checkbox" [(ngModel)]="model.InBannerPost"  name="InBannerPost" required="required">
+                                                        <label class="term"> Publicar en el banner</label>
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12"> 
+                                                    <div class="form-element no-label">
+                                                        <!-- <input type="hidden" name="acceptTerms" value="0"> -->
+                                                        <input type="checkbox" [(ngModel)]="model.InMainView" name="InMainView" required="required"> 
+                                                        <label class="term"> Publicar en la vista Principal</label>
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12"> 
+                                                    <div class="form-element no-label">
                                                         <input type="hidden" name="acceptTerms" value="0">
                                                         <input type="checkbox" name="acceptTerms" required="required" value="1">
                                                         <label class="term"> He leído y acepto los<a><b> Términos y Condiciones</b></a></label>
                                                     </div>
-                                                
                                                 </div>
                                                 <div class="col-xs-12 col-sm-12"> 
                                                     <div class="form-element no-label">
@@ -658,7 +676,6 @@
                                                         <label class="term"> ¿Usted ha leído y acepta los términos y condiciones para el tratamiento de sus datos personales contenidos en la<a>
                                                             <b> Política de Privacidad Web?</b></a></label>
                                                     </div>
-                                                    
                                                 </div>
                                                 <div class="col-xs-12 col-sm-12"> 
                                                     <div class="form-element no-label">

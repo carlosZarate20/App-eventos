@@ -28,6 +28,7 @@ export class ticketTypeModel {
     nameTypeTicket: string;
     type: string;
     quantity: any;
+    name: string;
 }
 export class ticketTableModel {
     codeTmp: string;
@@ -36,13 +37,14 @@ export class ticketTableModel {
     nameTypeTicket: string;
     type: string;
     quantity: any;
+    name: string;
 }
 export class ticketTypeModelList {
     codeTmp: string;
     idCodeTicket: any;
     number: Int16Array;
     codeTicket: string;
-    nameTypeTicket: string;
+    name: string;
     type: string;
     quantity: any;
 }

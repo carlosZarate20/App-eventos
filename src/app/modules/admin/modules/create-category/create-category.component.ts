@@ -17,6 +17,7 @@ export class CreateCategoryComponent implements OnInit {
     public validateCreate = false;
     public validateEdit = false;
     public loading = false;
+    public message: any = '';
     constructor(private createCategory: AdminEventService, public loginService: LoginService) {
         this.model.listCategory = [];
         this.model.listCategoryName = [];
@@ -67,10 +68,10 @@ export class CreateCategoryComponent implements OnInit {
                         'La categoría ha sido registrada correctamente.',
                         'success'
                     );
-                    console.log('registrado');
                 },
                 (err: any) => {
-                    console.log('No registrado');
+                    this.message = err.error;
+                    Swal.fire('Oops...', this.message, 'error');
                 }
             );
         } else {

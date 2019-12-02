@@ -29,7 +29,6 @@ export class CreateEventService {
             headers: test,
             })
         .map((res: Response) => res)
-        .catch(this.handleError);
     }
 
     getCities() {
@@ -44,6 +43,15 @@ export class CreateEventService {
         const headers = this.constant.getHeaders();
         return this.http
         .get(`${environment.apiUrl}/obtener_categorias`, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    getBank(){
+        const headers = this.constant.getHeaders();
+        return this.http
+        .get(`${environment.apiUrl}/listar_bancos`, {
             headers: this.headerCustomize
             })
         .map((res: Response) => res)

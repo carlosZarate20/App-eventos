@@ -41,7 +41,7 @@ export class EventsHomeComponent implements OnInit {
       res => {
           this.model.listEvent = res;
           this.model.listEvent2 = res;
-
+          console.log(this.model.listEvent );
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < this.model.listEvent.length; i++) {
             this.model.listEvent[i].image = `${environment.apiUrl}${this.model.listEvent[i].image}`;
