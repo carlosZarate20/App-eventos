@@ -34,6 +34,13 @@ const routes: Routes = [
     loadChildren: './modules/admin-messages/admin-messages.module#AdminMessagesModule',
     canActivate: [AuthGuardService],
     runGuardsAndResolvers: 'always',
+  },
+  {
+    path: 'banner',
+    component: AdminComponent,
+    loadChildren: './modules/admin-banner/admin-banner.module#AdminBannerModule',
+    canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   }
 ];
 
