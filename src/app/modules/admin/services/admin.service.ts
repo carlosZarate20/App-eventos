@@ -14,10 +14,20 @@ export class AdminEventService {
     constructor(private http: HttpClient, private constant: ConstantHelper) {
         this.headerCustomize = this.constant.getHeaders();
     }
-    getBank(name: any) {
+    getBank(name: any, nextPage: any = null, numberRows: any = null) {
         const headers = this.constant.getHeaders();
+        let urlAbsolute = environment.apiUrl;
+        if (name != null && name != undefined) {
+            urlAbsolute += `/obtener_bancos?name=${name}`;
+        }
+        if ( nextPage != null ) {
+            urlAbsolute += `&pageNumber=${nextPage}`;
+        }
+        if ( numberRows != null ) {
+            urlAbsolute += `&pageSize=${numberRows}`;
+        }
         return this.http
-        .get(`${environment.apiUrl}/obtener_bancos/${name}`, {
+        .get(urlAbsolute, {
             headers: this.headerCustomize
             })
         .map((res: Response) => res)

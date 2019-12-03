@@ -11,7 +11,13 @@ export class HomeEventService {
 
     getEvent() {
         return this.http
-        .get(`${environment.apiUrl}/listar_eventos/`)
+        .get(`${environment.apiUrl}/listar_eventos_vista_principal/`)
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    getBanner(){
+        return this.http
+        .get(`${environment.apiUrl}/listar_eventos_banner/`)
         .map((res: Response) => res)
         .catch(this.handleError);
     }
@@ -23,7 +29,7 @@ export class HomeEventService {
     }
     getEventValue(categoryId: any) {
         return this.http
-        .get(`${environment.apiUrl}/listar_eventos/${categoryId}`)
+        .get(`${environment.apiUrl}/listar_eventos_vista_principal/${categoryId}`)
         .map((res: Response) => res)
         .catch(this.handleError);
     }

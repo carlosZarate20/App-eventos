@@ -18,10 +18,13 @@ export class AdminBankComponent implements OnInit {
     public validateEdit = false;
     public loading = false;
     public message: any = '';
+    public totalPages: any;
+    public modelSend: any = {};
 
     constructor(public bankService: AdminEventService, public loginService: LoginService) {
         this.model.listBank = [];
         this.model.listBankName = [];
+        this.model.listBankAux = [];
         
     }
     ngOnInit() {
@@ -32,14 +35,23 @@ export class AdminBankComponent implements OnInit {
         this.model.searchBank = '';
     }
 
-    getListBank(value: any) {
-        this.bankService.getBank('').subscribe(
+    getListBank(value: any, pageNext: any = null, numberRows: any = null) {
+        this.bankService.getBank(value, pageNext, numberRows).subscribe(
             res => {
-                this.model.listBank = res;
+                this.model.listBankAux  = res;
+                console.log(res);
+                this.model.listBank = this.model.listBankAux.data;
+                this.totalPages = this.model.listBankAux.totalPages;
                 console.log(this.model.listBank);
             }
         );
     }
+    paginate(event: any) {
+        this.modelSend.rows = event.rows;
+        this.modelSend.page = event.page + 1;
+        this.getListBank('', this.modelSend.page, this.modelSend.rows);
+    }
+
     validateNameBankCreate() {
         if (this.model.nameBank != '') {
             this.validateCreate = false;

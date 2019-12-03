@@ -33,14 +33,27 @@ export class EventsHomeComponent implements OnInit {
     this.model.listCategoriesAux = category;
     this.model.listCategoriesAux2 = category2;
     this.getListEvent();
+    this.getListBanner();
     this.getListCategories();
+  }
+
+  getListBanner() {
+    this.eventService.getBanner().subscribe(
+      res => {
+          this.model.listEvent2 = res;
+          console.log(this.model.listEvent2 );
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < this.model.listEvent2.length; i++) {
+            this.model.listEvent2[i].image = `${environment.apiUrl}${this.model.listEvent2[i].image}`;
+          }
+      }
+    );
   }
 
   getListEvent() {
     this.eventService.getEvent().subscribe(
       res => {
           this.model.listEvent = res;
-          this.model.listEvent2 = res;
           console.log(this.model.listEvent );
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < this.model.listEvent.length; i++) {
