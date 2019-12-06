@@ -20,6 +20,7 @@ export class AdminBankComponent implements OnInit {
     public message: any = '';
     public totalPages: any;
     public modelSend: any = {};
+    public pageSize: any = {};
 
     constructor(public bankService: AdminEventService, public loginService: LoginService) {
         this.model.listBank = [];
@@ -41,13 +42,14 @@ export class AdminBankComponent implements OnInit {
                 this.model.listBankAux  = res;
                 console.log(res);
                 this.model.listBank = this.model.listBankAux.data;
+                this.pageSize = this.model.listBankAux.pageSize;
                 this.totalPages = this.model.listBankAux.totalPages;
                 console.log(this.model.listBank);
             }
         );
     }
     paginate(event: any) {
-        this.modelSend.rows = event.rows;
+        this.modelSend.rows = this.pageSize;
         this.modelSend.page = event.page + 1;
         this.getListBank('', this.modelSend.page, this.modelSend.rows);
     }

@@ -67,7 +67,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p-paginator [rows]="1" [totalRecords]="lastPage" (onPageChange)="paginate($event)" *ngIf="model.listBank.length > 0"></p-paginator>
+                    <p-paginator [rows]="pageSize" [totalRecords]="lastPage" (onPageChange)="paginate($event)" *ngIf="model.listBank.length > 0"></p-paginator>
                 </div>
 
                 <!-- Modal -->

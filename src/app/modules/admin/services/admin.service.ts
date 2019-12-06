@@ -80,14 +80,33 @@ export class AdminEventService {
         .catch(this.handleError);
     }
 
-    getCategory(name: any) {
+    getCategory(name: any, nextPage: any = null, numberRows: any = null) {
+
         const headers = this.constant.getHeaders();
+        let urlAbsolute = environment.apiUrl;
+        if (name != null && name != undefined) {
+            urlAbsolute += `/obtener_categorias?name=${name}`;
+        }
+        if ( nextPage != null ) {
+            urlAbsolute += `&pageNumber=${nextPage}`;
+        }
+        if ( numberRows != null ) {
+            urlAbsolute += `&pageSize=${numberRows}`;
+        }
         return this.http
-        .get(`${environment.apiUrl}/obtener_categorias/${name}`, {
+        .get(urlAbsolute, {
             headers: this.headerCustomize
             })
         .map((res: Response) => res)
         .catch(this.handleError);
+
+        // const headers = this.constant.getHeaders();
+        // return this.http
+        // .get(`${environment.apiUrl}/obtener_categorias/${name}`, {
+        //     headers: this.headerCustomize
+        //     })
+        // .map((res: Response) => res)
+        // .catch(this.handleError);
     }
 
     createCategory(categorie: any): Observable<Response> {

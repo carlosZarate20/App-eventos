@@ -18,9 +18,14 @@ export class CreateCategoryComponent implements OnInit {
     public validateEdit = false;
     public loading = false;
     public message: any = '';
+    public totalPages: any;
+    public modelSend: any = {};
+    public pageSize: any;
+
     constructor(private createCategory: AdminEventService, public loginService: LoginService) {
         this.model.listCategory = [];
         this.model.listCategoryName = [];
+        this.model.listGategoryAux = [];
     }
 
     ngOnInit() {
@@ -31,13 +36,23 @@ export class CreateCategoryComponent implements OnInit {
         this.model.searchCategory = '';
     }
 
-    getListCategory(value: any) {
-        this.createCategory.getCategory('').subscribe(
+    getListCategory(value: any, pageNext: any = null, numberRows: any = null) {
+        this.createCategory.getCategory(value, pageNext, numberRows).subscribe(
             res => {
-                this.model.listCategory = res;
-                console.log(this.model.listCategory);
+                this.model.listGategoryAux = res;
+                console.log(this.model.listGategoryAux );
+                this.model.listCategory = this.model.listGategoryAux.data;
+                this.pageSize = this.model.listGategoryAux.pageSize;
+                this.totalPages = this.model.listGategoryAux.totalPages;
+                console.log( this.totalPages);
+                console.log( this.pageSize);
             }
         );
+    }
+    paginate(event: any) {
+        this.modelSend.rows = this.pageSize;
+        this.modelSend.page = event.page + 1;
+        this.getListCategory('', this.modelSend.page, this.modelSend.rows);
     }
     validateNameCategoryCreate() {
         if (this.model.nameCategory != '') {
