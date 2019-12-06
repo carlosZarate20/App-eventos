@@ -37,17 +37,32 @@
                         role="grid" style="width: 974px;"> 
                         <thead>
                             <tr role="row">
-                                <th class="text-center sorting_asc">Nombre de banco</th>
-                                <th class="text-center sorting_asc">Opciones</th>
-                                <th class="text-center sorting_asc">Opciones</th>
+                                <th class="text-center sorting_asc">Nombre de Evento</th>
+                                <th class="text-center sorting_asc">Vista Banner</th>
+                                <th class="text-center sorting_asc">Vista Principal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr role="row" class="odd" *ngFor="let items of model.listBank">
+                            <tr role="row" class="odd" *ngFor="let items of model.listEvent">
                                 <td class="sorting_1 text-center">{{items.name}}</td>
                                 <td class="text-center">
-                                    <button type="buttom" (click)="getEditBank(items.id)" class="btn btn-info btn-sm edit" data-toggle="modal"  data-target="#myModalEdit"> <i class="fa fa-edit"></i> </button>
-                                    <button type="button" (click)="deleteBank(items.id)" class="btn btn-danger btn-sm delete"> <i class="fa fa-trash"></i> </button>
+                                    <div *ngIf="items.inBannerPost == true">
+                                        <div (change)= "validateCheked()">
+                                            <input type="checkbox" name="acceptTerms" required="required"  checked>
+                                        </div>
+                                        
+                                    </div>
+                                    <div *ngIf="items.inBannerPost == false">
+                                        <input type="checkbox" name="acceptTerms" required="required">
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="items.inMainView == true">
+                                        <input type="checkbox" name="acceptTerms" required="required" checked>
+                                    </div>
+                                    <div *ngIf="items.inMainView == false">
+                                        <input type="checkbox" name="acceptTerms" required="required">
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -58,7 +73,6 @@
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
-                        <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>

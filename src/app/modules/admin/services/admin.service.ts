@@ -14,6 +14,16 @@ export class AdminEventService {
     constructor(private http: HttpClient, private constant: ConstantHelper) {
         this.headerCustomize = this.constant.getHeaders();
     }
+
+    getEvent() {
+        const headers = this.constant.getHeaders();
+        return this.http
+        .get(`${environment.apiUrl}/listar_eventos_admin`, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
     getBank(name: any, nextPage: any = null, numberRows: any = null) {
         const headers = this.constant.getHeaders();
         let urlAbsolute = environment.apiUrl;
@@ -40,7 +50,7 @@ export class AdminEventService {
         .post(`${environment.apiUrl}/creacion_banco`, bank, {
             headers: test
             })
-        .map((res: Response) => res)
+        .map((res: Response) => res);
     }
     editBank(value: any) {
         const headers = this.constant.getHeaders();
@@ -69,7 +79,7 @@ export class AdminEventService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
-    
+
     getCategory(name: any) {
         const headers = this.constant.getHeaders();
         return this.http

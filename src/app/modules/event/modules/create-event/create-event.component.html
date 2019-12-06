@@ -226,23 +226,15 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4 col-sm-4 col-sm-push-4 text-right">
-                                                <label><span></span></label>
-                                                <label><span></span></label>
-                                                <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
-                                                type="button" class="btn btn-primary btn-sm btn-block has-tooltip" (click)="addTikects()">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                    Agregar entrada
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12">
+
                                             <div class="col-md-4">     
                                                 <div class="form-element form-element-small-errors unpad-b no-label">
                                                     <label><span>Tipo Entrada *</span></label>
                                                     <input [(ngModel)]="model.nameTicket" type="text" name="businessName" class="form-control" id="businessName" value="">
                                                 </div>       
                                             </div>
+                                            
+                                            
                                             <div class="col-md-4">
                                                 <div class="form-element form-element-small-errors unpad-b no-label"> 
                                                     <label>
@@ -251,6 +243,9 @@
                                                     <input [(ngModel)]="model.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12">
+                                            
                                             <div class="col-md-4">
                                                 <div class="form-element form-element-small-errors unpad-b no-label">
                                                     <label>
@@ -258,6 +253,15 @@
                                                     </label>
                                                     <input [(ngModel)]="model.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
                                                 </div>                                  
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-sm-push-4 text-right">
+                                                <label><span></span></label>
+                                                <label><span></span></label>
+                                                <button data-toggle="tooltip" id="addMoreTickets" title="Agrega más entradas, si tienes más de un precio, público o ubicación."
+                                                type="button" class="btn btn-primary btn-sm btn-block has-tooltip" (click)="addTikects()">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                                    Agregar entrada
+                                                </button>
                                             </div>
                                             
                                         </div>

@@ -18,17 +18,28 @@ export class AdminBannerComponent implements OnInit {
     public validateEdit = false;
     public loading = false;
     public message: any = '';
+    public checkBanner: boolean;
 
     constructor(public bankService: AdminEventService, public loginService: LoginService) {
+        this.model.listEvent = [];
         this.model.listBank = [];
         this.model.listBankName = [];
     }
     ngOnInit() {
         this.getListBank('');
+        this.getListEvent();
         this.model.nameBank = '';
         this.model.nameEditBank = '';
         this.model.id = '';
         this.model.searchBank = '';
+    }
+    getListEvent() {
+        this.bankService.getEvent().subscribe(
+            res => {
+                this.model.listEvent = res;
+                console.log(this.model.listEvent);
+            }
+        );
     }
 
     getListBank(value: any) {
@@ -38,6 +49,42 @@ export class AdminBannerComponent implements OnInit {
                 console.log(this.model.listBank);
             }
         );
+    }
+    validateCheked() {
+        console.log($('#chk').val());
+        if ($('#chk').val() == 'on') {
+            this.checkBanner = true;
+            console.log(this.checkBanner);
+        }
+        Swal.fire({
+            title: '¿Estas Seguro de editar el banco?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.value) {
+                // this.getListEvent();
+                // this.bankService.editBank(editBank).subscribe(
+                //     res => {
+                //         $('#myModalEdit').modal('hide');
+                //         this.getListBank('');
+                //     },
+                //     err => {
+                //     }
+                // );
+                Swal.fire(
+                    'Editado!',
+                    'El banco ha sido editada correctamente.',
+                    'success'
+                );
+            } else {
+                // document.getElementById(iIdDealerCondicionContrato).checked = bCierreLinea;
+                // this.getListEvent();
+            }
+        });
     }
     validateNameBankCreate() {
         if (this.model.nameBank != '') {
