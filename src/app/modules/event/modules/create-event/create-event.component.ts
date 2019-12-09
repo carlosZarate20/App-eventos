@@ -51,6 +51,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
+        this.model.listCategoryAux = []; 
         this.model.listBank = [];
     }
     ngOnInit() {
@@ -177,7 +178,8 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     getCategory() {
         this.createService.getCategory().subscribe(
             res => {
-                this.model.listCategory = res;
+                this.model.listCategoryAux = res;
+                this.model.listCategory = this.model.listCategoryAux.data;
                 console.log(res);
             }
         );
