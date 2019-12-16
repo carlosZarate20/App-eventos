@@ -7,6 +7,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { DetailEventComponent } from './detail-event.component';
 import { DetailsEventService } from '../../services/detailsEvent.service';
+import { NgxLoadingModule } from 'ngx-loading';
+
 
 const routes: Routes = [
   { path: '', component: DetailEventComponent },
@@ -23,7 +25,8 @@ const routes: Routes = [
       FormsModule,
       ReactiveFormsModule,
       ConfirmDialogModule,
-      DialogModule
+      DialogModule,
+      NgxLoadingModule,
     ],
     providers: [DetailsEventService],
     bootstrap:[DetailEventComponent], 

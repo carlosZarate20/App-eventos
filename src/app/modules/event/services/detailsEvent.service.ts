@@ -5,7 +5,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { environment } from 'src/environments/environment';
 import { ConstantHelper } from 'src/app/Helpers/ConstantsHelpers';
-import * as _ from 'lodash';
 
 @Injectable()
 export class DetailsEventService {
@@ -20,6 +19,23 @@ export class DetailsEventService {
         .get(`${environment.apiUrl}/detalle_evento/${id}`)
         .map((res: Response) => res)
         .catch(this.handleError);
+    }
+    getListSeat(ticketId: any){
+        const headers = this.constant.getHeaders();
+        return this.http
+        .get(`${environment.apiUrl}/obtener_filas_asientos/${ticketId}`,  {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
+    saveTickectSeat(from: any){
+        const test = this.constant.getHeaders(true);
+        return this.http
+        .post(`${environment.apiUrl}/comprar_asiento_mesa`, from, {
+            headers: test
+            })
+        .map((res: Response) => res)
     }
 
     handleError(handleError: any): Observable<Response> {

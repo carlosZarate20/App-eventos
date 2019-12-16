@@ -48,3 +48,4 @@ export class ticketTypeModelList {
     type: string;
     quantity: any;
 }
+

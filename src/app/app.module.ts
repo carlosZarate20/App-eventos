@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './Helpers/jwt.interceptor';
 import { DetailEventModule } from './modules/event/modules/detail-event/detail-event.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminModule } from './modules/admin/admin.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     DetailEventModule,
-    AdminModule
+    AdminModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [
     {
