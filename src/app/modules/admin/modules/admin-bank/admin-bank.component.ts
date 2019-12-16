@@ -17,16 +17,16 @@ export class AdminBankComponent implements OnInit {
     public validateCreate = false;
     public validateEdit = false;
     public loading = false;
+    public loading2 = false;
     public message: any = '';
     public totalPages: any;
     public modelSend: any = {};
     public pageSize: any = {};
-
     constructor(public bankService: AdminEventService, public loginService: LoginService) {
         this.model.listBank = [];
         this.model.listBankName = [];
         this.model.listBankAux = [];
-        
+
     }
     ngOnInit() {
         this.getListBank('');
@@ -66,6 +66,7 @@ export class AdminBankComponent implements OnInit {
     }
     saveBank() {
         if (this.model.nameBank != '') {
+            this.loading = true;
             this.validateCreate = false;
             const tokenAcces = this.loginService.getDecodedAccessToken();
 
@@ -75,6 +76,7 @@ export class AdminBankComponent implements OnInit {
             };
             this.bankService.createBank(bank).subscribe(
                 (res: any) => {
+                    this.loading = false;
                     $('#myModal').modal('hide');
                     this.model.nameBank = '';
                     this.getListBank('');
@@ -85,6 +87,7 @@ export class AdminBankComponent implements OnInit {
                     );
                 },
                 (err: any) => {
+                    this.loading = false;
                     this.message = err.error;
                     Swal.fire('Oops...', this.message, 'error');
                 }
@@ -109,13 +112,16 @@ export class AdminBankComponent implements OnInit {
                 confirmButtonText: 'Si',
                 cancelButtonText: 'No'
             }).then((result) => {
+                this.loading = true;
                 if (result.value) {
                     this.bankService.editBank(editBank).subscribe(
                         res => {
+                            this.loading = false;
                             $('#myModalEdit').modal('hide');
                             this.getListBank('');
                         },
                         err => {
+                            this.loading = false;
                         }
                     );
                     Swal.fire(
@@ -175,13 +181,13 @@ export class AdminBankComponent implements OnInit {
     findBank() {
         const wordSearch = this.model.searchBank;
         setTimeout(() => {
-            this.loading = true;
+            this.loading2 = true;
             if (wordSearch != '' ) {
               if (wordSearch == this.model.searchBank) {
                 if (this.model.searchBank) {
                   this.bankService.getBank(wordSearch).subscribe(
                     (res: any) => {
-                        this.loading = false;
+                        this.loading2 = false;
                         this.model.listBank = res;
                     },
                     err => {
@@ -192,7 +198,7 @@ export class AdminBankComponent implements OnInit {
               }
             } else {
                 this.getListBank('');
-                this.loading = false;
+                this.loading2 = false;
             }
         }, 1000);
     }

@@ -10,6 +10,7 @@ import { AdminEventService } from '../../services/admin.service';
 import { LoginService } from 'src/app/modules/event/services/login.service';
 import {PaginatorModule} from 'primeng/paginator';
 import {AccordionModule} from 'primeng/accordion';
+import { NgxLoadingModule } from 'ngx-loading';
 
 const routes: Routes = [
   { path: '', component: CreateCategoryComponent },
@@ -28,7 +29,8 @@ const routes: Routes = [
       ReactiveFormsModule,
       ArchwizardModule,
       PaginatorModule,
-      AccordionModule
+      AccordionModule,
+      NgxLoadingModule
     ],
     providers: [AdminEventService, LoginService],
     bootstrap: [CreateCategoryComponent],

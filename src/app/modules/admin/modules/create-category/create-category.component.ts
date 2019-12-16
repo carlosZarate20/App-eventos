@@ -17,6 +17,7 @@ export class CreateCategoryComponent implements OnInit {
     public validateCreate = false;
     public validateEdit = false;
     public loading = false;
+    public loading2 = false;
     public message: any = '';
     public totalPages: any;
     public modelSend: any = {};
@@ -66,6 +67,7 @@ export class CreateCategoryComponent implements OnInit {
     }
     saveCategory() {
         if (this.model.nameCategory != '') {
+            this.loading = true;
             this.validateCreate = false;
             const tokenAcces = this.loginService.getDecodedAccessToken();
 
@@ -75,6 +77,7 @@ export class CreateCategoryComponent implements OnInit {
             };
             this.createCategory.createCategory(categories).subscribe(
                 (res: any) => {
+                    this.loading = false;
                     $('#myModal').modal('hide');
                     this.model.nameCategory = '';
                     this.getListCategory('');
@@ -85,6 +88,7 @@ export class CreateCategoryComponent implements OnInit {
                     );
                 },
                 (err: any) => {
+                    this.loading = false;
                     this.message = err.error;
                     Swal.fire('Oops...', this.message, 'error');
                 }
@@ -96,13 +100,13 @@ export class CreateCategoryComponent implements OnInit {
     findCategory() {
         const wordSearch = this.model.searchCategory;
         setTimeout(() => {
-            this.loading = true;
+            this.loading2 = true;
             if (wordSearch != '' ) {
               if (wordSearch == this.model.searchCategory) {
                 if (this.model.searchCategory) {
                   this.createCategory.getCategory(wordSearch).subscribe(
                     (res: any) => {
-                        this.loading = false;
+                        this.loading2 = false;
                         this.model.listCategory = res;
                     },
                     err => {
@@ -113,7 +117,7 @@ export class CreateCategoryComponent implements OnInit {
               }
             } else {
                 this.getListCategory('');
-                this.loading = false;
+                this.loading2 = false;
             }
         }, 1000);
     }
@@ -134,13 +138,16 @@ export class CreateCategoryComponent implements OnInit {
                 confirmButtonText: 'Si',
                 cancelButtonText: 'No'
             }).then((result) => {
+                this.loading = true;
                 if (result.value) {
                     this.createCategory.editCategory(editCategories).subscribe(
                         res => {
+                            this.loading = false;
                             $('#myModalEdit').modal('hide');
                             this.getListCategory('');
                         },
                         err => {
+                            this.loading = false;
                         }
                     );
                     Swal.fire(
@@ -180,12 +187,15 @@ export class CreateCategoryComponent implements OnInit {
             confirmButtonText: 'Si',
             cancelButtonText: 'No'
         }).then((result) => {
+            this.loading = true;
             if (result.value) {
                 this.createCategory.deleteCategory(categoriesDelete).subscribe(
                     res => {
+                        this.loading = false;
                         this.getListCategory('');
                     },
                     err => {
+                        this.loading = false;
                     }
                 );
                 Swal.fire(

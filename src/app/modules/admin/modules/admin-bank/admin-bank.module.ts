@@ -11,6 +11,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { AccordionModule } from 'primeng/accordion';
 import { AdminBankComponent } from './admin-bank.component';
 import { LoginService } from 'src/app/modules/event/services/login.service';
+import { NgxLoadingModule } from 'ngx-loading';
 
 const routes: Routes = [
   { path: '', component: AdminBankComponent },
@@ -29,7 +30,8 @@ const routes: Routes = [
         ReactiveFormsModule,
         ArchwizardModule,
         PaginatorModule,
-        AccordionModule
+        AccordionModule,
+        NgxLoadingModule
     ],
     providers: [AdminEventService, LoginService],
     bootstrap: [AdminBankComponent],

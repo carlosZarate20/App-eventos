@@ -29,8 +29,7 @@ const routes: Routes = [
       NgxLoadingModule,
     ],
     providers: [DetailsEventService],
-    bootstrap:[DetailEventComponent], 
+    bootstrap: [DetailEventComponent],
     exports: [DetailEventComponent]
   })
   export class DetailEventModule { }
-  

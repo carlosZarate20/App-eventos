@@ -47,6 +47,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public validListTable;
     public eventModel: EventModel = new EventModel();
     public messageError: any = '';
+    public loading = false;
     constructor(public createService: CreateEventService,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
@@ -195,6 +196,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     registerEvent() {
+        this.loading = true;
         const datePipe = new DatePipe('en-PE');
         // const startDateHour = datePipe.transform(form.startDate, 'dd/MM/yyyy h:mm:ss');
         // const endDateHour = datePipe.transform(form.endDate, 'dd/MM/yyyy h:mm:ss');
@@ -244,6 +246,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         }
         this.createService.registerEvent(fd).subscribe(
             res => {
+                this.loading = false;
                 let timerInterval;
                 Swal.fire({
                 title: 'Evento registrado correctamente',
@@ -254,7 +257,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                     Swal.showLoading()
                     timerInterval = setInterval(() => {
                     Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft().toString();
-                    }, 100)
+                    }, 100);
                 },
                 onClose: () => {
                     clearInterval(timerInterval);
@@ -271,6 +274,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
 
             },
             err => {
+                this.loading = false;
                 Swal.fire('Oops...', 'No se han ingresado todos los campos obligatorios', 'error');
             }
         );
@@ -435,7 +439,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         Swal.fire('La cantidad de entradas ingresadas supera las disponibles', this.message, 'info');
                         break;
                     } else {
-                        tikectType.codeTicket= this.model.listTiketAux[i].nameTicket;
+                        tikectType.codeTicket = this.model.listTiketAux[i].nameTicket;
                         tikectType.nameTypeTicket = 'Fila';
                         tikectType.quantity = this.model.quantityTicketAvailable;
                         tikectType.codeTmp = key;
@@ -444,7 +448,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         this.model.listTiketAux[i].quantityAvailable = this.model.listTiketAux[i].quantityAvailable - tikectType.quantity;
                         this.model.listTypeTicket.push(tikectType);
 
-                        tikectTypeList.codeTicket= this.model.listTiketAux[i].nameTicket;
+                        tikectTypeList.codeTicket = this.model.listTiketAux[i].nameTicket;
                         tikectTypeList.type = this.model.typeTicket;
                         tikectTypeList.quantity = this.model.quantityTicketAvailable;
                         tikectTypeList.codeTmp = key;
@@ -454,7 +458,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         this.model.seatList.push(tikectTypeList);
 
                         this.validListSeat = true;
-                        this.validListTable = false;  
+                        this.validListTable = false;
                         this.model.quantityTicketAvailable = 0;
                         this.model.nameTypeTicket = '';
                         this.model.numberRow++;

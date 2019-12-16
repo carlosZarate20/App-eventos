@@ -14,12 +14,12 @@
     min-height: 50px;
     margin-bottom: 0px;
     /* border: 1px solid transparent; */
-    border: 1px solid #000;
+    border-block-end: 1px solid transparent;
 }
-.navbar-default .navbar-nav > li > a {
-    /* color: #777; */
+/* .navbar-default .navbar-nav > li > a {
+    color: #777; 
     color: #fff !important;
-}
+} */
 .center {
     display: block;
     margin-left: auto;

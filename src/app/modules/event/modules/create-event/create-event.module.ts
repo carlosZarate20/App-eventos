@@ -7,6 +7,7 @@ import { CreateEventComponent } from './create-event.component';
 import {CalendarModule} from 'primeng/calendar';
 import { CreateEventService } from '../../services/createEvent.service';
 import { ArchwizardModule } from 'angular-archwizard';
+import { NgxLoadingModule } from 'ngx-loading';
 
 const routes: Routes = [
   { path: '', component: CreateEventComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
       FormsModule,
       CalendarModule,
       ReactiveFormsModule,
-      ArchwizardModule
+      ArchwizardModule,
+      NgxLoadingModule
     ],
     providers: [CreateEventService],
     bootstrap: [CreateEventComponent],

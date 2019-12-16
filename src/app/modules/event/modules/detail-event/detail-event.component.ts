@@ -39,24 +39,21 @@ export class DetailEventComponent implements OnInit {
     }
     getListSeatEvent(ticketId: any) {
         const tokenAcces = this.loginService.getDecodedAccessToken();
-        console.log(tokenAcces.id);
         if (tokenAcces == null) {
             Swal.fire('Necesita iniciar sesión para comprar las entradas', this.message, 'info');
         } else {
             $('#myModal').modal('show');
             this.detailEventService.getListSeat(ticketId).subscribe(
-                (res: any) =>{
+                (res: any) => {
                     this.model.listTicketSeat = res;
                     this.model.seatId = this.model.listTicketSeat.id;
                     console.log(this.model.seatId);
                     console.log(res);
                 },
                 (err: any) => {
-    
                 }
             );
         }
-        
     }
     getDetailsEvents(id: string) {
         this.detailEventService.getDetailsEvent(id).subscribe(
@@ -81,7 +78,6 @@ export class DetailEventComponent implements OnInit {
     saveLListTicket(seatId: any) {
         const quantitySearch =  this.quantity;
         const tokenAcces = this.loginService.getDecodedAccessToken();
-        
         setTimeout(() => {
             if(quantitySearch != '' ) {
                 if (quantitySearch == this.quantity) {
@@ -96,7 +92,6 @@ export class DetailEventComponent implements OnInit {
                 }
             }
         }, 1000);
-        
     }
     saveTickectSeat() {
         this.loading = true;
@@ -107,10 +102,11 @@ export class DetailEventComponent implements OnInit {
             fd.append(`UserSeatList[${i}].SeatId`, this.model.seatTiket[i].seatId);
             fd.append(`UserSeatList[${i}].Quantity`, this.model.seatTiket[i].quantity);
         }
-        
+
         this.detailEventService.saveTickectSeat(fd).subscribe(
             (res: any) => {
                 this.loading = false;
+                this.quantity = '';
                 $('#myModal').modal('hide');
                 this.getDetailsEvents(this.value);
                 Swal.fire(

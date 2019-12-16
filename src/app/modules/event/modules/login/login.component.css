@@ -257,7 +257,8 @@ button.btnSearch {
     padding: 2px 20px;
     vertical-align: middle;
     /* background: #de615e; */
-    background-color: #b7000f;
+    /* background-color: #b7000f; */
+    background-color: #337ab7;
     border: 0;
     border-radius: 4px;
     font-family: 'Roboto', sans-serif;
@@ -277,7 +278,8 @@ button.btn {
     padding: 0 20px;
     vertical-align: middle;
     /* background: #de615e; */
-    background-color: #b7000f;
+    /* background-color: #b7000f; */
+    background-color: #337ab7;
     border: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
