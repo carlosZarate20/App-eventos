@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
     public model: any = {};
     userForm: FormGroup;
     submitted = false;
+    public loading = false;
     public message: any = '';
     constructor( public registerService: RegisterUserService, private fb: FormBuilder, private router: Router) {
         this.userForm = this.createForm();
@@ -32,11 +33,14 @@ export class RegisterComponent implements OnInit {
         if (this.userForm.invalid) {
             return;
         } else {
+            this.loading = true;
             this.registerService.register(form).subscribe(
                 res => {
+                    this.loading = false;
                     this.router.navigate(['/event/login']);
                 },
                 (err: any) => {
+                    this.loading = false;
                     this.message = err.error;
                     Swal.fire('Oops...', this.message, 'error');
                 }

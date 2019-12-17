@@ -24,6 +24,16 @@ export class AdminEventService {
         .map((res: Response) => res)
         .catch(this.handleError);
     }
+    editEvent(parameter: any) {
+        // id, InBannerPost,,InMainView
+        const headers = this.constant.getHeaders();
+        return this.http
+        .post(`${environment.apiUrl}/editar_evento_admin`, parameter, {
+            headers: this.headerCustomize
+            })
+        .map((res: Response) => res)
+        .catch(this.handleError);
+    }
     getBank(name: any, nextPage: any = null, numberRows: any = null) {
         const headers = this.constant.getHeaders();
         let urlAbsolute = environment.apiUrl;
@@ -145,7 +155,6 @@ export class AdminEventService {
         .catch(this.handleError);
     }
 
-    
     handleError(handleError: any): Observable<Response> {
         throw new Error('Method not implemented.');
     }

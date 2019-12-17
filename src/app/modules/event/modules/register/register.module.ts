@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register.component';
 import { RegisterUserService } from '../../services/registerUser.service';
+import { NgxLoadingModule } from '../../../../../../node_modules/ngx-loading';
 
 const routes: Routes = [
   { path: '', component: RegisterComponent },
@@ -19,10 +20,11 @@ const routes: Routes = [
       CommonModule,
       HttpClientModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      NgxLoadingModule
     ],
-    providers:[RegisterUserService],
-    bootstrap:[RegisterComponent],
+    providers: [RegisterUserService],
+    bootstrap: [RegisterComponent],
     exports: [RegisterComponent]
   })
   export class RegisterModule { }

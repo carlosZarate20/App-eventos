@@ -28,7 +28,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     ReactiveFormsModule,
     DetailEventModule,
     AdminModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule
   ],
   providers: [
     {

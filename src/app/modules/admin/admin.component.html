@@ -35,23 +35,17 @@
             <ul class="nav navbar-nav side-nav">
                 <li *ngFor="let menuItem of model.menu.categories.items" [routerLinkActive]="['active']">
                     <a routerLink="{{menuItem.url}}"><i class="fa fa-fw fa-search"></i> CATEGORIAS</a>
-                    <!-- <ul id="submenu-1" class="collapse">
-                        <li *ngFor="let menuItem of model.menu.categories.items" [routerLinkActive]="['active']" ><a routerLink="{{menuItem.url}}"><i class="fa fa-angle-double-right"></i> {{menuItem.name}}</a></li>
-                        
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.2</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li>
-                    </ul> -->
                 </li>
                 <li *ngFor="let menuItem of model.menu.bank.items" [routerLinkActive]="['active']">
                     <a routerLink="{{menuItem.url}}"><i class="fa fa-fw fa-university"></i> BANCOS</a>
                 </li>
-                <li *ngFor="let menuItem of model.menu.messages.items" [routerLinkActive]="['active']">
+                <!-- <li *ngFor="let menuItem of model.menu.messages.items" [routerLinkActive]="['active']">
                     <a routerLink="{{menuItem.url}}"><i class="fa fa-envelope-o"></i> MENSAJES</a>
-                </li>
+                </li> -->
                 <li *ngFor="let menuItem of model.menu.banner.items" [routerLinkActive]="['active']">
                     <a routerLink="{{menuItem.url}}"><i class="fa fa-cog"></i> BANNER</a>
                 </li>
-                <li> <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-bar-chart-o"></i>  REPORTES </a></li>
+                <!-- <li> <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-bar-chart-o"></i>  REPORTES </a></li> -->
                 <!-- <li>
                     <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i>  MENU 2 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
                     <ul id="submenu-2" class="collapse">

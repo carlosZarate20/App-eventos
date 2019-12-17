@@ -121,7 +121,8 @@
     height: 53px;
 }
 .bg-primary {
-    background-color: #b7000f;
+    /* background-color: #b7000f; */
+    background-color: #337ab7;
 }
 .rnd-b {
     border-bottom-right-radius: 4px;
@@ -160,7 +161,8 @@
     font-size: 34px;
     text-align: left;
     font-weight: bold;
-    color: #b7000f;
+    /* color: #b7000f; */
+    color: #337ab7;
     background: none;
 }
 
@@ -220,7 +222,8 @@
 }
 .btn-primary {
     color: #fff;
-    background-color: #b7000f;
+    /* background-color: #b7000f; */
+    background-color: #337ab7
 }
 .btn-gainsboro {
     color: #333333;

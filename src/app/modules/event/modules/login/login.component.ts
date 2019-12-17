@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     public titularAlerta = '';
     public message: any = '';
     public role: any = [];
+    public loading = false;
     constructor(private loginService: LoginService, private fb: FormBuilder, private router: Router) {
         this.loginForm = this.loginValidateForm();
     }
@@ -32,8 +33,10 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) {
             return;
         } else {
+            this.loading = true;
             this.loginService.login(form).subscribe(
                 (res: any) => {
+                    this.loading = false;
                     localStorage.setItem('token', res.token);
                     localStorage.setItem('tokenExpiration', res.expiration);
                     const values = this.loginService.getDecodedAccessToken();
@@ -45,6 +48,7 @@ export class LoginComponent implements OnInit {
                     }
                 },
                 (err: any) => {
+                    this.loading = false;
                     this.message = err.error;
                     Swal.fire('Oops...', this.message, 'error');
                     // this.displayDialogAlert = true;
