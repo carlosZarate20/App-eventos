@@ -29,6 +29,7 @@ export class DetailEventComponent implements OnInit {
         const seat: seatModel[] = [];
         this.model.seatTiket = seat;
         this.quantity = [];
+        this.model.ticketPrice = '';
     }
     ngOnInit() {
         this.model.quantity = '';
@@ -37,7 +38,8 @@ export class DetailEventComponent implements OnInit {
         console.log(this.value);
         this.getDetailsEvents(this.value);
     }
-    getListSeatEvent(ticketId: any) {
+    getListSeatEvent(ticketId: any, ticketPrice: any) {
+        console.log(ticketPrice);
         const tokenAcces = this.loginService.getDecodedAccessToken();
         if (tokenAcces == null) {
             Swal.fire('Necesita iniciar sesión para comprar las entradas', this.message, 'info');
@@ -78,16 +80,46 @@ export class DetailEventComponent implements OnInit {
     saveLListTicket(seatId: any) {
         const quantitySearch =  this.quantity;
         const tokenAcces = this.loginService.getDecodedAccessToken();
+        let valueIdList = false;
         setTimeout(() => {
             if(quantitySearch != '' ) {
                 if (quantitySearch == this.quantity) {
-                    if(this.quantity ){
-                        const seatTikect = new seatModel();
-                        seatTikect.userId = tokenAcces.Id;
-                        seatTikect.seatId = seatId;
-                        seatTikect.quantity = this.quantity;
-                        this.model.seatTiket.push(seatTikect);
-                        console.log(this.model.seatTiket);
+                    if (this.quantity) {
+                        if (this.model.seatTiket.length > 0) {
+                            console.log('Antes ', this.model.seatTiket);
+                            const listAux =  this.model.seatTiket.filter( x => x.seatId == seatId);
+                            console.log('Durante ', listAux);
+                            for (let i = 0; i < listAux.length; i++) {
+                                listAux[i].quantity = this.quantity;
+                                valueIdList = true;
+                                console.log('Despues ', this.model.seatTiket);
+                                // if (listAux[i].seatId == seatId) {
+
+                                // }
+                            }
+
+                            // for (let i = 0; i < this.model.seatTiket.length; i++) {
+                            //     if (this.model.seatTiket[i].seatId == seatId) {
+                            //         this.model.seatTiket[i].quantity = this.quantity;
+                            //         valueIdList = true;
+                            //     }
+                            // }
+                            if (valueIdList == false) {
+                                const seatTikect = new seatModel();
+                                seatTikect.userId = tokenAcces.Id;
+                                seatTikect.seatId = seatId;
+                                seatTikect.quantity = this.quantity;
+                                this.model.seatTiket.push(seatTikect);
+                                console.log(this.model.seatTiket);
+                            }
+                        } else {
+                            const seatTikect = new seatModel();
+                            seatTikect.userId = tokenAcces.Id;
+                            seatTikect.seatId = seatId;
+                            seatTikect.quantity = this.quantity;
+                            this.model.seatTiket.push(seatTikect);
+                            console.log(this.model.seatTiket);
+                        }
                     }
                 }
             }
