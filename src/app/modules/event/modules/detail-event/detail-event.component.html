@@ -90,7 +90,7 @@
                             </div>   
                         </div>
                                        
-                        <div class="row" *ngFor="let items of model.listTicketSeat">
+                        <div class="row" *ngFor="let items of model.listTicketSeat; let i = index">
                             <br/> 
                             <div class="col-md-4">
                                 <label>{{items.name}}</label>
