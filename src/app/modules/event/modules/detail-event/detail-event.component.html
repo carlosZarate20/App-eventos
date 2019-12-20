@@ -103,9 +103,9 @@
                                 <label>{{items.quantity}}</label>
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <label >{{ticketPrice}}</label>
+                        
+                        <div *ngIf="valueTicketPrice > 0" class="col-md-3">
+                            <label >{{valueTicketPrice }}</label>
                         </div>   
                     
                     </div>

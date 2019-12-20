@@ -48,6 +48,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public eventModel: EventModel = new EventModel();
     public messageError: any = '';
     public loading = false;
+    public minimumDate = new Date();
     constructor(public createService: CreateEventService,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
@@ -186,7 +187,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         );
     }
 
-    getBank(){
+    getBank() {
         this.createService.getBank().subscribe(
             res => {
                 this.model.listBank = res;
@@ -547,5 +548,51 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             }
         }
         // this.model.valueQuantity  = this.model.listTiket.findIndex(x => { return x.codeTmp == this.model.ticket})
+    }
+
+    verifyDateBegin() {
+        if (this.model.startDate != null && this.model.startDate != undefined) {
+            if (this.model.endDate != null && this.model.endDate != undefined) {
+                const fechaActual = new Date();
+                if (this.model.startDate < fechaActual) {
+                    this.model.startDate = fechaActual;
+
+                } else if (this.model.startDate > this.model.endDate) {
+                    const timePlusOneDayI = new Date();
+                    timePlusOneDayI.setDate(this.model.startDate.getDate());
+                    timePlusOneDayI.setMonth(this.model.startDate.getMonth());
+                    timePlusOneDayI.setFullYear(this.model.startDate.getFullYear());
+                    timePlusOneDayI.setHours(this.model.startDate.getHours());
+                    timePlusOneDayI.setMinutes(this.model.startDate.getMinutes());
+                    this.model.startDate  = timePlusOneDayI;
+
+                    const timePlusOneDayF = new Date();
+                    timePlusOneDayF.setDate(this.model.startDate.getDate());
+                    timePlusOneDayF.setMonth(this.model.startDate.getMonth());
+                    timePlusOneDayF.setFullYear(this.model.startDate.getFullYear());
+                    // timePlusOneDayF.setHours(this.model.endDate.getHours());
+                    // timePlusOneDayF.setMinutes(this.model.endDate.getMinutes());
+                    this.model.endDate  = timePlusOneDayF;
+                }
+            }
+        }
+    }
+
+    verifyDateEnd() {
+
+        if (this.model.startDate != null && this.model.startDate != undefined) {
+            if (this.model.endDate != null && this.model.endDate != undefined) {
+                if (this.model.endDate < this.model.startDate) {
+                    const timePlusOneDayF = new Date();
+                    timePlusOneDayF.setDate(this.model.startDate.getDate());
+                    timePlusOneDayF.setMonth(this.model.startDate.getMonth());
+                    timePlusOneDayF.setFullYear(this.model.startDate.getFullYear());
+                    // timePlusOneDayF.setHours(this.model.endDate.getHours());
+                    // timePlusOneDayF.setMinutes(this.model.endDate.getMinutes());
+                    this.model.endDate = timePlusOneDayF;
+
+                }
+            }
+        }
     }
 }

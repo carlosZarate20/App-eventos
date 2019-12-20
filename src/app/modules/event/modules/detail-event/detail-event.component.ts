@@ -21,6 +21,7 @@ export class DetailEventComponent implements OnInit {
     public name: any;
     public quantity: any = {};
     public ticketPrice: any = 0;
+    public valueTicketPrice: any = 0;
     public message: string;
     public eventModel: EventModel = new EventModel();
     public loading = false;
@@ -122,8 +123,10 @@ export class DetailEventComponent implements OnInit {
                             console.log(this.model.seatTiket);
                         }
                     }
-                    this.ticketPrice = this.ticketPrice * this.quantity;
+                    this.valueTicketPrice = this.ticketPrice * this.quantity;
                 }
+            } else {
+                this.valueTicketPrice = 0;
             }
         }, 1000);
     }
