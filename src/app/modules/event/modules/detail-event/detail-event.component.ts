@@ -20,6 +20,7 @@ export class DetailEventComponent implements OnInit {
     public model: any = {};
     public name: any;
     public quantity: any = {};
+    public ticketPrice: any = 0;
     public message: string;
     public eventModel: EventModel = new EventModel();
     public loading = false;
@@ -29,7 +30,6 @@ export class DetailEventComponent implements OnInit {
         const seat: seatModel[] = [];
         this.model.seatTiket = seat;
         this.quantity = [];
-        this.model.ticketPrice = '';
     }
     ngOnInit() {
         this.model.quantity = '';
@@ -44,6 +44,7 @@ export class DetailEventComponent implements OnInit {
         if (tokenAcces == null) {
             Swal.fire('Necesita iniciar sesión para comprar las entradas', this.message, 'info');
         } else {
+            this.ticketPrice = ticketPrice;
             $('#myModal').modal('show');
             this.detailEventService.getListSeat(ticketId).subscribe(
                 (res: any) => {
@@ -121,6 +122,7 @@ export class DetailEventComponent implements OnInit {
                             console.log(this.model.seatTiket);
                         }
                     }
+                    this.ticketPrice = this.ticketPrice * this.quantity;
                 }
             }
         }, 1000);
