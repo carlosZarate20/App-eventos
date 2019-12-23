@@ -79,7 +79,8 @@ export class DetailEventComponent implements OnInit {
             }
         );
     }
-    saveLListTicket(seatId: any) {
+    saveLListTicket(seatId: any, iValue: any) {
+        this.quantity = iValue;
         const quantitySearch =  this.quantity;
         const tokenAcces = this.loginService.getDecodedAccessToken();
         let valueIdList = false;
@@ -89,15 +90,12 @@ export class DetailEventComponent implements OnInit {
                     if (this.quantity) {
                         if (this.model.seatTiket.length > 0) {
                             console.log('Antes ', this.model.seatTiket);
-                            const listAux =  this.model.seatTiket.filter( x => x.seatId == seatId);
+                            const listAux = this.model.seatTiket.filter( x => x.seatId == seatId);
                             console.log('Durante ', listAux);
                             for (let i = 0; i < listAux.length; i++) {
                                 listAux[i].quantity = this.quantity;
                                 valueIdList = true;
                                 console.log('Despues ', this.model.seatTiket);
-                                // if (listAux[i].seatId == seatId) {
-
-                                // }
                             }
 
                             // for (let i = 0; i < this.model.seatTiket.length; i++) {
@@ -126,6 +124,17 @@ export class DetailEventComponent implements OnInit {
                     this.valueTicketPrice = this.ticketPrice * this.quantity;
                 }
             } else {
+                // const listAux2 =  this.model.seatTiket.filter( x => x.seatId == seatId);
+                // for (let i = 0; i < listAux2.length; i++) {
+                //     var index = this.model.seatTiket.indexOf(seatId);
+                //     listAux2[i].quantity = this.quantity;
+                //     this.model.seatTiket.splice(index,1);
+                //     // valueIdList = true;
+                //     console.log('Despues ', this.model.seatTiket);
+                // }
+                // var index = this.model.seatTiket.indexOf(seatId);
+                // this.model.seatTiket.splice(index,1);
+                // console.log(this.model.seatTiket);
                 this.valueTicketPrice = 0;
             }
         }, 1000);
