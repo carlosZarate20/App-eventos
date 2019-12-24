@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DetailsEventService } from '../../services/detailsEvent.service';
 import { EventModel } from '../../Model/event';
 import { LoginService } from '../../services/login.service';
-import { seatModel } from '../../Model/seat';
+import { seatModel, seatModelRow, seatModelTable } from '../../Model/seat';
 import Swal from 'sweetalert2';
 declare var $: any;
 @Component({
@@ -29,6 +29,8 @@ export class DetailEventComponent implements OnInit {
         this.model.listEvent = [];
         this.model.listTicketSeat = [];
         const seat: seatModel[] = [];
+        const seatRow: seatModelRow[] = [];
+        const seatTable: seatModelTable[] = [];
         this.model.seatTiket = seat;
         this.quantity = [];
     }
