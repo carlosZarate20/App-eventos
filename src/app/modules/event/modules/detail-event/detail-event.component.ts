@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DetailsEventService } from '../../services/detailsEvent.service';
 import { EventModel } from '../../Model/event';
 import { LoginService } from '../../services/login.service';
-import { seatModel, seatModelRow, seatModelTable } from '../../Model/seat';
+import { seatModel } from '../../Model/seat';
 import Swal from 'sweetalert2';
 declare var $: any;
 @Component({
@@ -22,6 +22,7 @@ export class DetailEventComponent implements OnInit {
     public quantity: any = {};
     public ticketPrice: any = 0;
     public valueTicketPrice: any = 0;
+    public valueTicketPriceTotal: any = 0;
     public message: string;
     public eventModel: EventModel = new EventModel();
     public loading = false;
@@ -29,9 +30,8 @@ export class DetailEventComponent implements OnInit {
         this.model.listEvent = [];
         this.model.listTicketSeat = [];
         const seat: seatModel[] = [];
-        const seatRow: seatModelRow[] = [];
-        const seatTable: seatModelTable[] = [];
         this.model.seatTiket = seat;
+        this.model.typeSeat = '';
         this.quantity = [];
     }
     ngOnInit() {
@@ -52,8 +52,30 @@ export class DetailEventComponent implements OnInit {
             this.detailEventService.getListSeat(ticketId).subscribe(
                 (res: any) => {
                     this.model.listTicketSeat = res;
-                    this.model.seatId = this.model.listTicketSeat.id;
-                    console.log(this.model.seatId);
+                    // this.model.seatId = this.model.listTicketSeat.id;
+
+                    // for (let i = 0; i < this.model.listTicketSeat.length; i++) {
+                    //     if (this.model.listTicketSeatRow.length == 0){
+                    //         if (this.model.listTicketSeat[i].type == 2) {
+                    //             const seatRow = new seatModelRow();
+                    //             seatRow.id = this.model.listTicketSeat[i].id;
+                    //             seatRow.name = this.model.listTicketSeat[i].name;
+                    //             seatRow.quantity = this.model.listTicketSeat[i].quantity;
+                    //             seatRow.type = this.model.listTicketSeat[i].type;
+                    //             this.model.listTicketSeatRow.push(seatRow);
+                    //         }
+                    //     }
+                    //     if (this.model.listTicketSeatTable.length == 0) {
+                    //         if (this.model.listTicketSeat[i].type == 1) {
+                    //             const seatTable = new seatModelTable();
+                    //             seatTable.id = this.model.listTicketSeat[i].id;
+                    //             seatTable.name = this.model.listTicketSeat[i].name;
+                    //             seatTable.quantity = this.model.listTicketSeat[i].quantity;
+                    //             seatTable.type = this.model.listTicketSeat[i].type;
+                    //             this.model.listTicketSeatTable.push(seatTable);
+                    //         }
+                    //     }
+                    // }
                     console.log(res);
                 },
                 (err: any) => {
@@ -123,7 +145,7 @@ export class DetailEventComponent implements OnInit {
                             console.log(this.model.seatTiket);
                         }
                     }
-                    this.valueTicketPrice = this.ticketPrice * this.quantity;
+                    this.getValueTotal();
                 }
             } else {
                 // const listAux2 =  this.model.seatTiket.filter( x => x.seatId == seatId);
@@ -140,6 +162,14 @@ export class DetailEventComponent implements OnInit {
                 this.valueTicketPrice = 0;
             }
         }, 1000);
+    }
+    getValueTotal() {
+        this.valueTicketPriceTotal = 0;
+        let valueTicketQuantity = 0;
+        for (let i = 0; i < this.model.seatTiket.length; i++) {
+            valueTicketQuantity = valueTicketQuantity + parseInt(this.model.seatTiket[i].quantity);
+        }
+        this.valueTicketPriceTotal = this.ticketPrice * valueTicketQuantity;
     }
     saveTickectSeat() {
         this.loading = true;

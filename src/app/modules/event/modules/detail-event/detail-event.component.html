@@ -90,13 +90,13 @@
                             </div>   
                         </div> -->
                                        
-                        <div class="row" >
+                        <div class="row">
                             <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed;">
                                 <thead>
                                     <tr>
-                                        <th>Nombre de la Fila</th>
-                                        <th>Disponibles</th>
-                                        <th>Entradas</th>
+                                        <th>Nombre de Asiento</th>
+                                        <th>Asiento Disponible</th>
+                                        <th>Escoger Cantidad</th>
     
                                     </tr>
                                 </thead>
@@ -125,41 +125,20 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <!-- <br/>  -->
-                            <!-- <div class="col-md-4">
-                                <label>{{items.name}}</label>
-                            </div>
-                            <div class="col-md-3">
-                                <select [(ngModel)]="quantity" name="quantity" data-city-currency="1" class="form-control input-sm">
-                                    <option  [value]="init" disabled> -- Seleccione -- </option>
-                                    <option  [value]="1" > 1 </option>
-                                    <option  [value]="2" > 2 </option>
-                                    <option  [value]="3" > 3 </option>
-                                    <option  [value]="4" > 4 </option>
-                                    <option  [value]="5" > 5 </option>
-                                </select>
-                            </div> -->
-                            
-                            <!-- <div class="col-md-3">
-                                <input type="text"  [(ngModel)]="quantity" (keyup)="saveLListTicket(items.id)" class="form-control">
-                            </div> -->
-                            <!-- <div class="col-md-3">
-                                <label>{{items.quantity}}</label>
-                            </div> -->
                         </div>
                         
-                        <div *ngIf="valueTicketPrice > 0" class="col-md-12">
+                        <div *ngIf="valueTicketPriceTotal > 0" class="col-md-12">
                             <div class="col-md-12">
-                                <label for="exampleInputEmail1">Total a pagar:  </label>
-                                <label >{{valueTicketPrice }}</label>
+                                <label for="exampleInputEmail1">Total a pagar: S/.  </label>
+                                <label > {{valueTicketPriceTotal }}</label>
                             </div>
                             
                         </div>   
                     
                     </div>
-                    <div *ngIf="validateCreate" class="help-block" style="color: red">
+                    <!-- <div *ngIf="validateCreate" class="help-block" style="color: red">
                         Este Campo no puede estar vacío.
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="saveTickectSeat()">
