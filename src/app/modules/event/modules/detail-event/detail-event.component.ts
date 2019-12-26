@@ -38,19 +38,22 @@ export class DetailEventComponent implements OnInit {
         this.model.quantity = '';
         this.model.seatId = '';
         this.value = this.route.snapshot.paramMap.get('id');
-        console.log(this.value);
+        console.log('Valor ' + this.value);
         this.getDetailsEvents(this.value);
     }
     getListSeatEvent(ticketId: any, ticketPrice: any) {
+        this.loading = true;
         console.log(ticketPrice);
         const tokenAcces = this.loginService.getDecodedAccessToken();
         if (tokenAcces == null) {
+            this.loading = false;
             Swal.fire('Necesita iniciar sesión para comprar las entradas', this.message, 'info');
         } else {
             this.ticketPrice = ticketPrice;
             $('#myModal').modal('show');
             this.detailEventService.getListSeat(ticketId).subscribe(
                 (res: any) => {
+                    this.loading = false;
                     this.model.listTicketSeat = res;
                     // this.model.seatId = this.model.listTicketSeat.id;
 
@@ -148,18 +151,14 @@ export class DetailEventComponent implements OnInit {
                     this.getValueTotal();
                 }
             } else {
-                // const listAux2 =  this.model.seatTiket.filter( x => x.seatId == seatId);
-                // for (let i = 0; i < listAux2.length; i++) {
-                //     var index = this.model.seatTiket.indexOf(seatId);
-                //     listAux2[i].quantity = this.quantity;
-                //     this.model.seatTiket.splice(index,1);
-                //     // valueIdList = true;
-                //     console.log('Despues ', this.model.seatTiket);
-                // }
-                // var index = this.model.seatTiket.indexOf(seatId);
-                // this.model.seatTiket.splice(index,1);
-                // console.log(this.model.seatTiket);
+
+                const indice = this.model.seatTiket.findIndex(x => {
+                    return x.seatId == seatId;
+                });
+                this.model.seatTiket.splice(indice, 1);
+                console.log(this.model.seatTiket);
                 this.valueTicketPrice = 0;
+                this.getValueTotal();
             }
         }, 1000);
     }
@@ -175,29 +174,35 @@ export class DetailEventComponent implements OnInit {
         this.loading = true;
         const fd = new FormData();
         console.log(this.model.seatTiket.length);
-        for ( let i = 0 ; i < this.model.seatTiket.length; i++) {
-            fd.append(`UserSeatList[${i}].UserId`, this.model.seatTiket[i].userId);
-            fd.append(`UserSeatList[${i}].SeatId`, this.model.seatTiket[i].seatId);
-            fd.append(`UserSeatList[${i}].Quantity`, this.model.seatTiket[i].quantity);
-        }
-
-        this.detailEventService.saveTickectSeat(fd).subscribe(
-            (res: any) => {
-                this.loading = false;
-                this.quantity = '';
-                $('#myModal').modal('hide');
-                this.getDetailsEvents(this.value);
-                Swal.fire(
-                    'Comprado!',
-                    'Se realizó la compra correctamente.',
-                    'success'
-                );
-            },
-            (err: any) => {
-                this.loading = false;
-                this.message = err.error;
-                Swal.fire('Oops...', this.message, 'error');
+        if (this.model.seatTiket.length != 0) {
+            for ( let i = 0 ; i < this.model.seatTiket.length; i++) {
+                fd.append(`UserSeatList[${i}].UserId`, this.model.seatTiket[i].userId);
+                fd.append(`UserSeatList[${i}].SeatId`, this.model.seatTiket[i].seatId);
+                fd.append(`UserSeatList[${i}].Quantity`, this.model.seatTiket[i].quantity);
             }
-        );
+
+            this.detailEventService.saveTickectSeat(fd).subscribe(
+                (res: any) => {
+                    this.loading = false;
+                    this.quantity = '';
+                    $('#myModal').modal('hide');
+                    this.getDetailsEvents(this.value);
+                    Swal.fire(
+                        'Comprado!',
+                        'Se realizó la compra correctamente.',
+                        'success'
+                    );
+                },
+                (err: any) => {
+                    this.loading = false;
+                    this.message = err.error;
+                    Swal.fire('Oops...', this.message, 'error');
+                }
+            );
+        } else {
+            this.loading = false;
+            this.message = 'Ingresa la cantidad de entradas a comprar';
+            Swal.fire('Oops...', this.message, 'error');
+        }
     }
 }

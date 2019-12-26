@@ -361,7 +361,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     }
 
     addTikects() {
-        if ( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '') {
+        if ( this.model.price != '' && this.model.quantityAvailable != '' && this.model.nameTicket != '' && this.model.currencyType != '') {
             if ( this.model.listTiket.length < 10) {
                 const key = UUID.UUID();
                 const tikect = new ticketModel();

@@ -1,0 +1,30 @@
+<div class="content-wrapper">	
+    <div *ngIf="model.listEvent.length == 0">
+        <h1>No hay eventos comprados</h1>
+    </div>
+    
+    <div class="form-group" *ngIf="model.listEvent.length > 0">
+        <h1>Eventos Comprados</h1>
+        <div class="col-md-12">
+            <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed;">
+                <thead>
+                    <tr>
+                        <th>Nombre del Evento</th>
+                        <th>Tipo de Entrada</th>
+                        <th>Nombre de la Fila</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let items of model.listEvent; let i = index">
+                        <td style="word-wrap: break-word;">{{items.eventName}}</td>
+                        <td style="word-wrap: break-word;">{{items.ticketName}}</td>
+                        <td style="word-wrap: break-word;">{{items.seatName}}</td>
+                        <td style="word-wrap: break-word;">{{items.quantity}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>

@@ -7,35 +7,20 @@ import { environment } from 'src/environments/environment';
 import { ConstantHelper } from 'src/app/Helpers/ConstantsHelpers';
 
 @Injectable()
-export class DetailsEventService {
+export class EventTempService {
     public headerCustomize: HttpHeaders;
 
     constructor(private http: HttpClient, private constant: ConstantHelper) {
         this.headerCustomize = this.constant.getHeaders();
     }
-
-    getDetailsEvent(id: any) {
-        return this.http
-        .get(`${environment.apiUrl}/detalle_evento/${id}`)
-        .map((res: Response) => res)
-        .catch(this.handleError);
-    }
-    getListSeat(ticketId: any){
+    getListEventsBuy(userId: any) {
         const headers = this.constant.getHeaders();
         return this.http
-        .get(`${environment.apiUrl}/obtener_filas_asientos/${ticketId}`,  {
+        .get(`${environment.apiUrl}/obtener_entradas/${userId}`,  {
             headers: this.headerCustomize
             })
         .map((res: Response) => res)
         .catch(this.handleError);
-    }
-    saveTickectSeat(from: any){
-        const test = this.constant.getHeaders(true);
-        return this.http
-        .post(`${environment.apiUrl}/comprar_asiento_mesa`, from, {
-            headers: test
-            })
-        .map((res: Response) => res);
     }
 
     handleError(handleError: any): Observable<Response> {

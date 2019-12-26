@@ -82,7 +82,7 @@
         border-radius: 0;
         border-top: 1px rgba(0,0,0,.5) solid;
         overflow-y: auto;
-        background-color: #337ab7;
+        background-color: #055bd8;
         /*background-color: #5A6B7D;*/
         bottom: 0;
         overflow-x: hidden;
@@ -97,7 +97,7 @@
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: #337ab7 !important;
+        background-color: #055bd8 !important;
     }
 }
 .navbar-default .navbar-nav>li>a {

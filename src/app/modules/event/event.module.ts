@@ -47,6 +47,13 @@ const routes: Routes = [
       loadChildren: './modules/detail-event/detail-event.module#DetailEventModule',
       canActivate: [],
       runGuardsAndResolvers: 'always',
+  },
+  {
+    path: 'event-temp',
+    component: EventComponent,
+    loadChildren: './modules/event-temp/event-temp.module#EventTempModule',
+    canActivate: [],
+    runGuardsAndResolvers: 'always',
   }
 ];
 

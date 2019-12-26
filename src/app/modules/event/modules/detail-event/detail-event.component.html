@@ -40,10 +40,10 @@
                 <table class="table table-fixed table-striped table-bordered" style="width:100%; table-layout:fixed; ">
                     <thead>
                         <tr>
-                            <th style="height: 50px; background-color: #337ab7; color: white">Tipo de Entrada</th>
-                            <th style="height: 50px; background-color: #337ab7; color: white">Precio</th>
-                            <th style="height: 50px; background-color: #337ab7; color: white">Cantidad de entradas</th>
-                            <th style="height: 50px; background-color: #337ab7; color: white">Acciones</th>
+                            <th style="height: 50px; background-color: #055bd8; color: white">Tipo de Entrada</th>
+                            <th style="height: 50px; background-color: #055bd8; color: white">Precio</th>
+                            <th style="height: 50px; background-color: #055bd8; color: white">Cantidad de entradas</th>
+                            <th style="height: 50px; background-color: #055bd8; color: white">Acciones</th>
                             <!-- <th class="text-center">Acciones</th> -->
 
                         </tr>
@@ -51,7 +51,7 @@
                     <tbody>
                         <tr *ngFor="let items of model.listEvent">
                             <td style="word-wrap: break-word;">{{items.nameTicket}}</td>
-                            <td style="word-wrap: break-word;">{{items.price}}</td>
+                            <td style="word-wrap: break-word;">S/. {{items.price}}</td>
                             <td style="word-wrap: break-word;">{{items.quantityAvailable}}</td>
                             <td style="word-wrap: break-word;"><button type="button" class="btn btn-primary m-btn m-btn--icon btn-add" (click)="getListSeatEvent(items.id, items.price)" autocomplete="off" >
                                 <span>
@@ -95,7 +95,7 @@
                                 <thead>
                                     <tr>
                                         <th>Nombre de Asiento</th>
-                                        <th>Asiento Disponible</th>
+                                        <th>Asientos Disponibles</th>
                                         <th>Escoger Cantidad</th>
     
                                     </tr>

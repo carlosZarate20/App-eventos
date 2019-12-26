@@ -19,10 +19,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 .menu_category {
 	/* background: #101010; */
-	background: #337ab7;
+	background: #055bd8;
 	
     border: 0 solid;
-	border-bottom: 3px solid #337ab7;
+	border-bottom: 3px solid #055bd8;
 	/* border-bottom: 3px solid #101010; */
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -40,7 +40,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 }
 .menu_category .dropdown-menu{
 	border: 0 solid;
-    background: #337ab7!important;
+    background: #055bd8!important;
     font-size: .8em;
     width: 100%;
 }
@@ -48,14 +48,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     padding-left: 0;
 }
 #menu-listados-mobile {
-    background: #337ab7;
+    background: #055bd8;
     z-index: 999;
     width: 100%;
     position: relative!important;
     color: #fff!important;
 }
 .nav .open > a{
-	background-color: #337ab7 !important;
+	background-color: #055bd8 !important;
     color: #fff;
 }
 .navbar-default .navbar-nav>li>a{
