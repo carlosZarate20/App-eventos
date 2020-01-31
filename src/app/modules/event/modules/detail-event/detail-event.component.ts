@@ -26,6 +26,7 @@ export class DetailEventComponent implements OnInit {
     public message: string;
     public eventModel: EventModel = new EventModel();
     public loading = false;
+    public valueNegative = false;
     constructor(public route: ActivatedRoute, public detailEventService: DetailsEventService, private loginService: LoginService) {
         this.model.listEvent = [];
         this.model.listTicketSeat = [];
@@ -112,7 +113,7 @@ export class DetailEventComponent implements OnInit {
         const tokenAcces = this.loginService.getDecodedAccessToken();
         let valueIdList = false;
         setTimeout(() => {
-            if(quantitySearch != '' ) {
+            if (quantitySearch != '' ) {
                 if (quantitySearch == this.quantity) {
                     if (this.quantity) {
                         if (this.model.seatTiket.length > 0) {
@@ -179,26 +180,32 @@ export class DetailEventComponent implements OnInit {
                 fd.append(`UserSeatList[${i}].UserId`, this.model.seatTiket[i].userId);
                 fd.append(`UserSeatList[${i}].SeatId`, this.model.seatTiket[i].seatId);
                 fd.append(`UserSeatList[${i}].Quantity`, this.model.seatTiket[i].quantity);
-            }
-
-            this.detailEventService.saveTickectSeat(fd).subscribe(
-                (res: any) => {
-                    this.loading = false;
-                    this.quantity = '';
-                    $('#myModal').modal('hide');
-                    this.getDetailsEvents(this.value);
-                    Swal.fire(
-                        'Comprado!',
-                        'Se realizó la compra correctamente.',
-                        'success'
-                    );
-                },
-                (err: any) => {
-                    this.loading = false;
-                    this.message = err.error;
-                    Swal.fire('Oops...', this.message, 'error');
+                if (this.model.seatTiket[i].quantity <= 0) {
+                    this.valueNegative = true;
                 }
-            );
+            }
+            if (this.valueNegative == true) {
+                Swal.fire('Algunos valores son números negativos o ceros', this.message, 'info');
+            } else {
+                this.detailEventService.saveTickectSeat(fd).subscribe(
+                    (res: any) => {
+                        this.loading = false;
+                        this.quantity = '';
+                        $('#myModal').modal('hide');
+                        this.getDetailsEvents(this.value);
+                        Swal.fire(
+                            'Comprado!',
+                            'Se realizó la compra correctamente.',
+                            'success'
+                        );
+                    },
+                    (err: any) => {
+                        this.loading = false;
+                        this.message = err.error;
+                        Swal.fire('Oops...', this.message, 'error');
+                    }
+                );
+            }
         } else {
             this.loading = false;
             this.message = 'Ingresa la cantidad de entradas a comprar';
