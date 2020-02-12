@@ -125,7 +125,7 @@ export class AdminEventService {
         .post(`${environment.apiUrl}/creacion_categoria`, categorie, {
             headers: test
             })
-        .map((res: Response) => res)
+        .map((res: Response) => res);
     }
     editCategory(value: any) {
         const headers = this.constant.getHeaders();
@@ -133,8 +133,7 @@ export class AdminEventService {
         .post(`${environment.apiUrl}/editar_categoria`, value, {
             headers: this.headerCustomize
             })
-        .map((res: Response) => res)
-        .catch(this.handleError);
+        .map((res: Response) => res);
     }
     deleteCategory(id: any) {
         const headers = this.constant.getHeaders();

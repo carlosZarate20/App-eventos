@@ -38,6 +38,7 @@ export class CreateCategoryComponent implements OnInit {
     }
 
     getListCategory(value: any, pageNext: any = null, numberRows: any = null) {
+        this.loading = true;
         this.createCategory.getCategory(value, pageNext, numberRows).subscribe(
             res => {
                 this.model.listGategoryAux = res;
@@ -45,6 +46,7 @@ export class CreateCategoryComponent implements OnInit {
                 this.model.listCategory = this.model.listGategoryAux.data;
                 this.pageSize = this.model.listGategoryAux.pageSize;
                 this.totalPages = this.model.listGategoryAux.totalPages;
+                this.loading = false;
                 console.log( this.totalPages);
                 console.log( this.pageSize);
             }
@@ -141,19 +143,21 @@ export class CreateCategoryComponent implements OnInit {
                 this.loading = true;
                 if (result.value) {
                     this.createCategory.editCategory(editCategories).subscribe(
-                        res => {
+                        (res: any) => {
+                            this.getListCategory('');
                             this.loading = false;
                             $('#myModalEdit').modal('hide');
-                            this.getListCategory('');
+                            Swal.fire(
+                                'Editado!',
+                                'La categoría ha sido editada correctamente.',
+                                'success'
+                            );
                         },
                         err => {
                             this.loading = false;
+                            this.message = err.error;
+                            Swal.fire('Oops...', this.message, 'error');
                         }
-                    );
-                    Swal.fire(
-                        'Editado!',
-                        'La categoría ha sido editada correctamente.',
-                        'success'
                     );
                 }
             });
@@ -162,11 +166,13 @@ export class CreateCategoryComponent implements OnInit {
         }
     }
     getEditCategory(idCategory: any) {
+        this.loading = true;
         this.createCategory.getCategoryEdit(idCategory).subscribe(
             (res: any) => {
                 this.model.listCategoryName = res;
                 this.model.nameEditCategory = this.model.listCategoryName.name;
                 this.model.idCategory = this.model.listCategoryName.id;
+                this.loading = false;
             },
             (err: any) => {
 
@@ -193,15 +199,15 @@ export class CreateCategoryComponent implements OnInit {
                     res => {
                         this.loading = false;
                         this.getListCategory('');
+                        Swal.fire(
+                            'Eliminado!',
+                            'La categoría ha sido eliminada.',
+                            'success'
+                        );
                     },
                     err => {
                         this.loading = false;
                     }
-                );
-                Swal.fire(
-                    'Eliminado!',
-                    'La categoría ha sido eliminada.',
-                    'success'
                 );
             }
         });
