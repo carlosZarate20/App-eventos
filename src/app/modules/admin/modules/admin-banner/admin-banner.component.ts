@@ -33,10 +33,11 @@ export class AdminBannerComponent implements OnInit {
         this.model.searchBank = '';
     }
     getListEvent() {
+        this.loading = true;
         this.bankService.getEvent().subscribe(
             res => {
                 this.model.listEvent = res;
-                console.log(this.model.listEvent);
+                this.loading = false;
             }
         );
     }
@@ -65,6 +66,9 @@ export class AdminBannerComponent implements OnInit {
                         this.getListEvent();
                     },
                     err => {
+                        this.loading = false;
+                        this.message = err.error;
+                        Swal.fire('Oops...', this.message, 'error');
                     }
                 );
                 Swal.fire(
@@ -73,8 +77,8 @@ export class AdminBannerComponent implements OnInit {
                     'success'
                 );
             } else {
-                this.loading = false;
                 this.getListEvent();
+                this.loading = false;
             }
         });
     }

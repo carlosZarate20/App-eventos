@@ -69,7 +69,6 @@ export class AdminEventService {
             headers: this.headerCustomize
             })
         .map((res: Response) => res)
-        .catch(this.handleError);
     }
     deleteBank(id: any) {
         const headers = this.constant.getHeaders();

@@ -73,14 +73,13 @@ export class RegisterComponent implements OnInit {
         this.registerService.getDistrict().subscribe(
             res => {
                 this.model.lisDistrict = res;
-                console.log(res);
             },
             err => {
 
             }
         );
     }
-    changeValue(userType: boolean) {
-        console.log(userType);
-    }
+    // changeValue(userType: boolean) {
+    //     console.log(userType);
+    // }
 }

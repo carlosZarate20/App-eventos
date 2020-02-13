@@ -37,14 +37,14 @@ export class AdminBankComponent implements OnInit {
     }
 
     getListBank(value: any, pageNext: any = null, numberRows: any = null) {
+        this.loading = true;
         this.bankService.getBank(value, pageNext, numberRows).subscribe(
             res => {
                 this.model.listBankAux  = res;
-                console.log(res);
                 this.model.listBank = this.model.listBankAux.data;
                 this.pageSize = this.model.listBankAux.pageSize;
                 this.totalPages = this.model.listBankAux.totalPages;
-                console.log(this.model.listBank);
+                this.loading = false;
             }
         );
     }
@@ -119,28 +119,35 @@ export class AdminBankComponent implements OnInit {
                             this.loading = false;
                             $('#myModalEdit').modal('hide');
                             this.getListBank('');
+                            Swal.fire(
+                                'Editado!',
+                                'El banco ha sido editada correctamente.',
+                                'success'
+                            );
                         },
                         err => {
                             this.loading = false;
+                            this.message = err.error;
+                            Swal.fire('Oops...', this.message, 'error');
                         }
                     );
-                    Swal.fire(
-                        'Editado!',
-                        'El banco ha sido editada correctamente.',
-                        'success'
-                    );
+                } else {
+                    this.loading = false;
                 }
             });
         } else {
+            this.loading = false;
             this.validateEdit = true;
         }
     }
     getEditBank(id: any) {
+        this.loading = true;
         this.bankService.getBankEdit(id).subscribe(
             (res: any) => {
                 this.model.listBankName = res;
                 this.model.nameEditBank = this.model.listBankName.name;
                 this.model.id = this.model.listBankName.id;
+                this.loading = false;
             },
             (err: any) => {
 
@@ -162,18 +169,25 @@ export class AdminBankComponent implements OnInit {
             cancelButtonText: 'No'
         }).then((result) => {
             if (result.value) {
+                this.loading = true;
                 this.bankService.deleteBank(bankDelete).subscribe(
                     res => {
                         this.getListBank('');
+                        this.loading = false;
+                        Swal.fire(
+                            'Eliminado!',
+                            'El banco ha sido eliminado.',
+                            'success'
+                        );
                     },
                     err => {
+                        this.loading = false;
+                        this.message = err.error;
+                        Swal.fire('Oops...', this.message, 'error');
                     }
                 );
-                Swal.fire(
-                    'Eliminado!',
-                    'El banco ha sido eliminado.',
-                    'success'
-                );
+            } else {
+                this.loading = false;
             }
         });
     }
@@ -188,9 +202,14 @@ export class AdminBankComponent implements OnInit {
                   this.bankService.getBank(wordSearch).subscribe(
                     (res: any) => {
                         this.loading2 = false;
-                        this.model.listBank = res;
+                        this.model.listBank = res.data;
+                        this.pageSize = res.pageSize;
+                        this.totalPages = res.totalPages;
                     },
                     err => {
+                        this.loading2 = false;
+                        this.message = err.error;
+                        Swal.fire('Oops...', this.message, 'error');
                     }
                   );
                 } else {

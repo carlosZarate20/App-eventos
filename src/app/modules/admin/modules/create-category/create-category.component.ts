@@ -42,13 +42,10 @@ export class CreateCategoryComponent implements OnInit {
         this.createCategory.getCategory(value, pageNext, numberRows).subscribe(
             res => {
                 this.model.listGategoryAux = res;
-                console.log(this.model.listGategoryAux );
                 this.model.listCategory = this.model.listGategoryAux.data;
                 this.pageSize = this.model.listGategoryAux.pageSize;
                 this.totalPages = this.model.listGategoryAux.totalPages;
                 this.loading = false;
-                console.log( this.totalPages);
-                console.log( this.pageSize);
             }
         );
     }
@@ -101,15 +98,17 @@ export class CreateCategoryComponent implements OnInit {
     }
     findCategory() {
         const wordSearch = this.model.searchCategory;
+        this.loading2 = true;
         setTimeout(() => {
-            this.loading2 = true;
             if (wordSearch != '' ) {
               if (wordSearch == this.model.searchCategory) {
                 if (this.model.searchCategory) {
                   this.createCategory.getCategory(wordSearch).subscribe(
                     (res: any) => {
                         this.loading2 = false;
-                        this.model.listCategory = res;
+                        this.model.listCategory = res.data;
+                        this.pageSize = res.pageSize;
+                        this.totalPages = res.totalPages;
                     },
                     err => {
                     }
@@ -159,9 +158,12 @@ export class CreateCategoryComponent implements OnInit {
                             Swal.fire('Oops...', this.message, 'error');
                         }
                     );
+                } else {
+                    this.loading = false;
                 }
             });
         } else {
+            this.loading = false;
             this.validateEdit = true;
         }
     }
@@ -193,8 +195,8 @@ export class CreateCategoryComponent implements OnInit {
             confirmButtonText: 'Si',
             cancelButtonText: 'No'
         }).then((result) => {
-            this.loading = true;
             if (result.value) {
+                this.loading = true;
                 this.createCategory.deleteCategory(categoriesDelete).subscribe(
                     res => {
                         this.loading = false;
@@ -207,8 +209,12 @@ export class CreateCategoryComponent implements OnInit {
                     },
                     err => {
                         this.loading = false;
+                        this.message = err.error;
+                        Swal.fire('Oops...', this.message, 'error');
                     }
                 );
+            } else {
+                this.loading = false;
             }
         });
     }
