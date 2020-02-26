@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeEventService } from '../../services/homeEvent.service';
+import { NgxLoadingModule } from 'ngx-loading';
 const routes: Routes = [
   { path: '', component: EventsHomeComponent },
 ];
@@ -17,7 +18,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxLoadingModule
   ],
   providers: [HomeEventService],
   exports: [EventsHomeComponent]

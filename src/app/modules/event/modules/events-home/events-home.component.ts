@@ -13,6 +13,7 @@ export class EventsHomeComponent implements OnInit {
   items: Array<any> = [];
   public model: any = {};
   public validateList = false;
+  public loading = false;
   image: any;
   constructor(public eventService: HomeEventService, public router: Router) {
     this.model.listEvent = [];
@@ -51,6 +52,7 @@ export class EventsHomeComponent implements OnInit {
   }
 
   getListEvent() {
+    this.loading = true;
     this.eventService.getEvent().subscribe(
       res => {
           this.model.listEvent = res;
@@ -59,6 +61,7 @@ export class EventsHomeComponent implements OnInit {
           for (let i = 0; i < this.model.listEvent.length; i++) {
             this.model.listEvent[i].image = `${environment.apiUrl}${this.model.listEvent[i].image}`;
           }
+          this.loading = false;
       }
     );
   }

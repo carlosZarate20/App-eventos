@@ -128,9 +128,14 @@
                                         <div class=" col-submit">
                                             <button type="button" name="submit" (click)="viewUbication()"  
                                             style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" 
-                                            awNextStep [disabled]="model.name == '' || model.eventCategoryId == '' || model.startDate == '' || model.endDate == '' || model.urlVideo == '' || model.description == '' || model.aditionalInformation == '' || this.selectedFiles == null || this.selectedFiles2 == null">Siguiente
+                                            awNextStep >Siguiente
                                                 <i class="fa fa-angle-right"></i>  
                                             </button>
+                                            <!-- <button type="button" name="submit" (click)="viewUbication()"  
+                                            style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" 
+                                            awNextStep [disabled]="model.name == '' || model.eventCategoryId == '' || model.startDate == '' || model.endDate == '' || model.urlVideo == '' || model.description == '' || model.aditionalInformation == '' || this.selectedFiles == null || this.selectedFiles2 == null">Siguiente
+                                                <i class="fa fa-angle-right"></i>  
+                                            </button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -245,7 +250,7 @@
                                                     <label>
                                                         <span>Cantidad Disponible *</span>
                                                     </label>
-                                                    <input [(ngModel)]="model.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
+                                                    <input [(ngModel)]="model.quantityAvailable" class="form-control text-center has-tooltip quantity-max" maxlength="5" (keypress)="keyPress($event)" placeholder="0" title="Número total de entradas para este tipo de entrada." data-toggle="tooltip" data-placement="left" name="ticketTypes[0][quantityMax]" type="text" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -256,7 +261,7 @@
                                                     <label>
                                                         <span>Precio *</span>
                                                     </label>
-                                                    <input [(ngModel)]="model.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="text" value="0.00">
+                                                    <input [(ngModel)]="model.price" class="form-control text-right input-price" maxlength="7" placeholder="0.00" name="ticketTypes[0][price]" type="number" value="0.00">
                                                 </div>                                  
                                             </div>
                                             <div class="col-xs-4 col-sm-4 col-sm-push-4 text-right">
@@ -458,7 +463,8 @@
                                             <div class="col-sm-6 col-xs-6"></div>
                                             <div class="col-sm-3 col-xs-3">
                                                 <div class="col-submit">
-                                                    <button type="button" name="submit" (click)="viewBillingInformation()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" value="" awNextStep [disabled] = "model.currencyType == ''">Siguiente
+                                                    <button type="button" name="submit" (click)="viewBillingInformation()"  style="padding-top:15px;padding-bottom:15px;" class="btn btn-primary btn-block btn-lg" 
+                                                    value="" awNextStep [disabled] = "model.currencyType == '' || model.quantityAvailable == '' || model.nameTicket == '' || model.price == ''">Siguiente
                                                         <i class="fa fa-angle-right"></i>  
                                                     </button>
                                                 </div>
