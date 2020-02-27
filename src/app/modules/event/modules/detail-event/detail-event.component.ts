@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DetailsEventService } from '../../services/detailsEvent.service';
 import { EventModel } from '../../Model/event';
 import { LoginService } from '../../services/login.service';
-import { seatModel } from '../../Model/seat';
+import { seatModel, TicketSeatAuxModel } from '../../Model/seat';
 import Swal from 'sweetalert2';
 declare var $: any;
 @Component({
@@ -20,6 +20,7 @@ export class DetailEventComponent implements OnInit {
     public model: any = {};
     public name: any;
     public quantity: any = {};
+    public quantity2: any = {};
     public ticketPrice: any = 0;
     public valueTicketPrice: any = 0;
     public valueTicketPriceTotal: any = 0;
@@ -31,9 +32,12 @@ export class DetailEventComponent implements OnInit {
         this.model.listEvent = [];
         this.model.listTicketSeat = [];
         const seat: seatModel[] = [];
+        const seatAux: TicketSeatAuxModel[] = [];
         this.model.seatTiket = seat;
+        this.model.listseatAux = seatAux;
         this.model.typeSeat = '';
         this.quantity = [];
+        this.quantity2 = [];
     }
     ngOnInit() {
         this.model.quantity = '';
@@ -56,30 +60,17 @@ export class DetailEventComponent implements OnInit {
                 (res: any) => {
                     this.loading = false;
                     this.model.listTicketSeat = res;
-                    // this.model.seatId = this.model.listTicketSeat.id;
-
-                    // for (let i = 0; i < this.model.listTicketSeat.length; i++) {
-                    //     if (this.model.listTicketSeatRow.length == 0){
-                    //         if (this.model.listTicketSeat[i].type == 2) {
-                    //             const seatRow = new seatModelRow();
-                    //             seatRow.id = this.model.listTicketSeat[i].id;
-                    //             seatRow.name = this.model.listTicketSeat[i].name;
-                    //             seatRow.quantity = this.model.listTicketSeat[i].quantity;
-                    //             seatRow.type = this.model.listTicketSeat[i].type;
-                    //             this.model.listTicketSeatRow.push(seatRow);
-                    //         }
-                    //     }
-                    //     if (this.model.listTicketSeatTable.length == 0) {
-                    //         if (this.model.listTicketSeat[i].type == 1) {
-                    //             const seatTable = new seatModelTable();
-                    //             seatTable.id = this.model.listTicketSeat[i].id;
-                    //             seatTable.name = this.model.listTicketSeat[i].name;
-                    //             seatTable.quantity = this.model.listTicketSeat[i].quantity;
-                    //             seatTable.type = this.model.listTicketSeat[i].type;
-                    //             this.model.listTicketSeatTable.push(seatTable);
-                    //         }
-                    //     }
-                    // }
+                    this.model.listseatAux.length = 0;
+                    // tslint:disable-next-line:prefer-for-of
+                    for (let i = 0; i < this.model.listTicketSeat.length; i++) {
+                        const seatListAux = new TicketSeatAuxModel();
+                        seatListAux.id = this.model.listTicketSeat[i].id;
+                        seatListAux.name = this.model.listTicketSeat[i].name;
+                        seatListAux.quantity = this.model.listTicketSeat[i].quantity;
+                        seatListAux.type = this.model.listTicketSeat[i].type;
+                        seatListAux.index = '';
+                        this.model.listseatAux.push(seatListAux);
+                    }
                     console.log(res);
                 },
                 (err: any) => {
@@ -88,6 +79,7 @@ export class DetailEventComponent implements OnInit {
         }
     }
     getDetailsEvents(id: string) {
+        this.loading = true;
         this.detailEventService.getDetailsEvent(id).subscribe(
             (res: any) => {
                 this.eventModel.name = res.name;
@@ -100,7 +92,7 @@ export class DetailEventComponent implements OnInit {
                 this.eventModel.eventCategoryName = res.eventCategoryName;
                 this.eventModel.fileImageLocalization = 'http://edumoreno27-001-site6.etempurl.com' + res.imageLocalization;
                 this.model.listEvent = res.ticketList;
-                console.log(res);
+                this.loading = false;
             },
             err => {
 
@@ -120,6 +112,7 @@ export class DetailEventComponent implements OnInit {
                             console.log('Antes ', this.model.seatTiket);
                             const listAux = this.model.seatTiket.filter( x => x.seatId == seatId);
                             console.log('Durante ', listAux);
+                            // tslint:disable-next-line:prefer-for-of
                             for (let i = 0; i < listAux.length; i++) {
                                 listAux[i].quantity = this.quantity;
                                 valueIdList = true;
@@ -167,7 +160,7 @@ export class DetailEventComponent implements OnInit {
         this.valueTicketPriceTotal = 0;
         let valueTicketQuantity = 0;
         for (let i = 0; i < this.model.seatTiket.length; i++) {
-            valueTicketQuantity = valueTicketQuantity + parseInt(this.model.seatTiket[i].quantity);
+            valueTicketQuantity = valueTicketQuantity + parseInt(this.model.seatTiket[i].quantity, 10);
         }
         this.valueTicketPriceTotal = this.ticketPrice * valueTicketQuantity;
     }
@@ -210,6 +203,14 @@ export class DetailEventComponent implements OnInit {
             this.loading = false;
             this.message = 'Ingresa la cantidad de entradas a comprar';
             Swal.fire('Oops...', this.message, 'error');
+        }
+    }
+
+    keyPress(event: any) {
+        const pattern = /[0-9\+\-\ ]/;
+        const inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+            event.preventDefault();
         }
     }
 }

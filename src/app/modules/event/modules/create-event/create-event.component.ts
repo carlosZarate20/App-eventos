@@ -29,18 +29,11 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public imagePath: any;
     public message: string;
     public model: any = {};
-
-    public boolDetails: Boolean;
-    public boolUbication: Boolean;
-    public boolTickets: Boolean;
-    public boolBillingInformation: Boolean;
-    public boolSendEvent: Boolean;
-    public wizardSteps: Array<Object>;
     public step: any;
-    public contador: number = 0;
-    public validFieldsAux: Boolean = false;
-    public validUrlLink: Boolean;
-    public validUrlLinkMessage: Boolean;
+    public contador = 0;
+    public validFieldsAux = false;
+    public validUrlLink = false;
+    public validUrlLinkMessage = false;
     public validFile;
     public validTable;
     public validListSeat;
@@ -49,11 +42,13 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     public messageError: any = '';
     public loading = false;
     public minimumDate = new Date();
+    public validateTicketList = false;
+
     constructor(public createService: CreateEventService,
                 private router: Router, private loginService: LoginService) {
         this.model.listCity = [];
         this.model.listCategory = [];
-        this.model.listCategoryAux = []; 
+        this.model.listCategoryAux = [];
         this.model.listBank = [];
     }
     ngOnInit() {
@@ -82,11 +77,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         this.getBank();
         this.url = '';
         this.url2 = '';
-        this.boolDetails = true;
-        this.boolUbication = false;
-        this.boolTickets = false;
-        this.boolBillingInformation = false;
-        this.boolSendEvent = false;
         this.validUrlLinkMessage = false;
         this.validListSeat = false;
         this.validListTable = false;
@@ -151,6 +141,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
+            // tslint:disable-next-line:no-shadowed-variable
             reader.onload = (event: any) => {
                 this.url = event.target.result;
             };
@@ -162,10 +153,10 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
 
+            // tslint:disable-next-line:no-shadowed-variable
             reader.onload = (event: any) => {
                 this.url2 = event.target.result;
-            }
-
+            };
             reader.readAsDataURL(event.target.files[0]);
         }
     }
@@ -255,7 +246,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                 type: 'success',
                 timer: 2000,
                 onBeforeOpen: () => {
-                    Swal.showLoading()
+                    Swal.showLoading();
                     timerInterval = setInterval(() => {
                     Swal.getContent().querySelector('strong').textContent = Swal.getTimerLeft().toString();
                     }, 100);
@@ -297,41 +288,6 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         );
     }
 
-    viewCreateEvents() {
-        this.boolDetails = true;
-        this.boolUbication = false;
-        this.boolTickets = false;
-        this.boolBillingInformation = false;
-        this.boolSendEvent = false;
-    }
-    viewUbication() {
-        this.boolDetails = false;
-        this.boolUbication = true;
-        this.boolTickets = false;
-        this.boolBillingInformation = false;
-        this.boolSendEvent = false;
-    }
-    viewTicket() {
-        this.boolDetails = false;
-        this.boolUbication = false;
-        this.boolTickets = true;
-        this.boolBillingInformation = false;
-        this.boolSendEvent = false;
-    }
-    viewBillingInformation() {
-        this.boolDetails = false;
-        this.boolUbication = false;
-        this.boolTickets = false;
-        this.boolBillingInformation = true;
-        this.boolSendEvent = false;
-    }
-    validateCreateEvent() {
-        this.boolDetails = false;
-        this.boolUbication = false;
-        this.boolTickets = false;
-        this.boolBillingInformation = false;
-        this.boolSendEvent = true;
-    }
 
     validateURLCorrect(data: string) {
         // tslint:disable-next-line:max-line-length
@@ -345,9 +301,9 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
         }
     }
 
-    validateURLVideo(){
+    validateURLVideo() {
         this.validUrlLink = false;
-        if (this.model.urlVideo != '' && this.model.urlVideo.length > 0) {
+        if (this.model.urlVideo !== '' && this.model.urlVideo.length > 0) {
             this.validateURLCorrect(this.model.urlVideo);
             this.validUrlLink = this.validFieldsAux;
             if (this.validFieldsAux) {
@@ -363,7 +319,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     keyPress(event: any) {
         const pattern = /[0-9\+\-\ ]/;
         const inputChar = String.fromCharCode(event.charCode);
-        if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        if (event.keyCode !== 8 && !pattern.test(inputChar)) {
             event.preventDefault();
         }
     }
@@ -439,6 +395,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             const key = UUID.UUID();
             const tikectType = new ticketTypeModel();
             const tikectTypeList = new ticketTypeModelList();
+            // tslint:disable-next-line:prefer-for-of
             for (let i = 0; i < this.model.listTiketAux.length; i++) {
                 valueTmp = this.model.listTiketAux[i].codeTmp;
                 if (this.model.ticket == valueTmp) {
@@ -473,6 +430,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         this.model.numberRow++;
                         this.model.contadorAux++;
                         this.checkTypeTicketList();
+                        this.validateTicketList = true;
                         break;
                     }
                 }
@@ -488,6 +446,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
             const key = UUID.UUID();
             const tableType = new ticketTypeModel();
             const tikectTypeList = new ticketTypeModelList();
+            // tslint:disable-next-line:prefer-for-of
             for (let i = 0; i < this.model.listTiketAux.length; i++) {
                 valueTmp = this.model.listTiketAux[i].codeTmp;
                 if (this.model.ticket == valueTmp) {
@@ -506,7 +465,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         this.model.listTiketAux[i].quantityAvailable = this.model.listTiketAux[i].quantityAvailable  - tableType.quantity;
                         this.model.listTableTicket.push(tableType);
 
-                        tikectTypeList.codeTicket= this.model.listTiketAux[i].nameTicket;
+                        tikectTypeList.codeTicket = this.model.listTiketAux[i].nameTicket;
                         tikectTypeList.type = this.model.typeTicket;
                         tikectTypeList.quantity = this.model.quantityTableAvailable;
                         tikectTypeList.codeTmp = key;
@@ -521,6 +480,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
                         this.model.numberTable++;
                         this.model.contadorAuxTable++;
                         this.checkTypeTicketList();
+                        this.validateTicketList = true;
                         break;
                     }
                 }
@@ -550,6 +510,7 @@ export class CreateEventComponent implements OnInit, AfterViewInit {
     checkTypeTicketList() {
         this.model.valueQuantity = 0;
         console.log(this.model.ticket);
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.model.listTiketAux.length; i++) {
             if (this.model.ticket == this.model.listTiketAux[i].codeTmp) {
                 this.model.valueQuantity = this.model.listTiketAux[i].quantityAvailable;

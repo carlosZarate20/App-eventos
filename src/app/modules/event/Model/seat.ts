@@ -4,3 +4,11 @@ export class seatModel {
     userId: any;
 }
 
+export class TicketSeatAuxModel {
+    id: any;
+    name: any;
+    quantity: any;
+    type: any;
+    index: any;
+}
+

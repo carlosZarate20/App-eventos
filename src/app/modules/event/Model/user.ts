@@ -21,6 +21,7 @@ export class ticketModel {
     price : string;
     currencyType: string;
 }
+// tslint:disable-next-line:class-name
 export class ticketTypeModel {
     codeTmp: string;
     number: Int16Array;

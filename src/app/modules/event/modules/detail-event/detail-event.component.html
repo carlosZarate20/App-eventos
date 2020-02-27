@@ -101,7 +101,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let items of model.listTicketSeat; let i = index">
+                                    <tr *ngFor="let items of model.listseatAux; let i = index">
                                         <td style="word-wrap: break-word;">{{items.name}}</td>
                                         <td style="word-wrap: break-word;">{{items.quantity}}</td>
                                         <td style="word-wrap: break-word;">
@@ -119,7 +119,7 @@
                                                 <option  [value]="10" > 10 </option>
                                             </select> -->
 
-                                            <input type="text" [(ngModel)]="i" (keyup)="saveLListTicket(items.id, i)" class="form-control">
+                                            <input type="number" [(ngModel)]="items.index" (keypress)="keyPress($event)" (keyup)="saveLListTicket(items.id, items.index)" (change)="saveLListTicket(items.id, items.index)" class="form-control">
                                         </td>
                                         
                                     </tr>
