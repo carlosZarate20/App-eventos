@@ -68,7 +68,7 @@ export class DetailEventComponent implements OnInit {
                         seatListAux.name = this.model.listTicketSeat[i].name;
                         seatListAux.quantity = this.model.listTicketSeat[i].quantity;
                         seatListAux.type = this.model.listTicketSeat[i].type;
-                        seatListAux.index = '';
+                        seatListAux.index = 0;
                         this.model.listseatAux.push(seatListAux);
                     }
                     console.log(res);
